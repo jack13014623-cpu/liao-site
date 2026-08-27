@@ -298,21 +298,21 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 .site.open .det{display:block}
 .site.open{grid-column:1/-1;transform:none}
 .site.open .cover{aspect-ratio:21/6}
-.site .tl2{position:relative;padding-left:22px}
-.site .tl2::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--fg)}
-.site .ev{position:relative;padding:8px 0 22px}
-.site .ev::before{content:"";position:absolute;left:-22px;top:14px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--fg)}
-.site .ev .d{font-family:var(--mono);font-size:.85rem;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
-.site .ev .d small{font-size:.74rem;color:var(--muted)}
-.site .ev .t{font-weight:500;margin:4px 0}
-.site .ev .c{border-left:2px solid var(--fg);padding:6px 12px;margin:8px 0;font-size:.9rem;white-space:pre-line;max-width:46em}
-.site .ev .c b{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;display:block;color:var(--muted);margin-bottom:2px}
-.site .ev .nt{font-size:.85rem;color:var(--muted);white-space:pre-line;max-width:46em;margin:6px 0}
-.site .ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-top:10px}
-.site .ph button{aspect-ratio:4/3;overflow:hidden;background:var(--card-2);border-radius:3px}
-.site .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
-.site .ph button:hover img{transform:scale(1.06)}
-.site .ph .m{display:grid;place-items:center;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.site .tl2,#gm .tl2{position:relative;padding-left:22px}
+.site .tl2::before,#gm .tl2::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--fg)}
+.site .ev,#gm .ev{position:relative;padding:8px 0 22px}
+.site .ev::before,#gm .ev::before{content:"";position:absolute;left:-22px;top:14px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--fg)}
+.site .ev .d,#gm .ev .d{font-family:var(--mono);font-size:.85rem;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.site .ev .d small,#gm .ev .d small{font-size:.74rem;color:var(--muted)}
+.site .ev .t,#gm .ev .t{font-weight:500;margin:4px 0}
+.site .ev .c,#gm .ev .c{border-left:2px solid var(--fg);padding:6px 12px;margin:8px 0;font-size:.9rem;white-space:pre-line;max-width:46em}
+.site .ev .c b,#gm .ev .c b{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;display:block;color:var(--muted);margin-bottom:2px}
+.site .ev .nt,#gm .ev .nt{font-size:.85rem;color:var(--muted);white-space:pre-line;max-width:46em;margin:6px 0}
+.site .ph,#gm .ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-top:10px}
+.site .ph button,#gm .ph button{aspect-ratio:4/3;overflow:hidden;background:var(--card-2);border-radius:3px}
+.site .ph img,#gm .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+.site .ph button:hover img,#gm .ph button:hover img{transform:scale(1.06)}
+.site .ph .m,#gm .ph .m{display:grid;place-items:center;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
 @media (max-width:900px){.sites{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.sites{grid-template-columns:1fr}}
 
@@ -399,6 +399,84 @@ footer .fine{grid-column:1/-1;font-family:var(--mono);font-size:.7rem;color:var(
   .curtain{display:none}
   .ticker .tk{animation:none}
   *{transition-duration:.01ms!important}
+}
+/* ── 政績地圖 ── */
+.gmc{display:grid;grid-template-columns:1.15fr 1fr;background:var(--inv-bg);color:var(--inv-fg);border-radius:4px;overflow:hidden;min-height:420px;cursor:pointer;position:relative}
+.gmc .pv{position:relative;min-height:320px;overflow:hidden;background:
+  linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px) 0 0/40px 40px}
+.gmc .pv svg{position:absolute;inset:6%;width:88%;height:88%}
+.gmc .pv .dot{transform-origin:center;animation:gmTw 3s ease-in-out infinite}
+.gmc .pv .dot:nth-child(3n){animation-delay:-1s}.gmc .pv .dot:nth-child(3n+1){animation-delay:-2s}
+@keyframes gmTw{0%,100%{opacity:.45}50%{opacity:1}}
+.gmc .pv .scan{position:absolute;left:0;right:0;top:-20%;height:20%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.12));border-bottom:1px solid rgba(255,255,255,.35);animation:gmScan 5s linear infinite;pointer-events:none}
+@keyframes gmScan{to{top:100%}}
+.gmc .pv::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 80px rgba(0,0,0,.55)}
+.gmc .tx{padding:40px 40px 36px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.gmc .tx .eyebrow{color:inherit;opacity:.7}
+.gmc .tx h2{font-family:var(--serif);font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.25;font-weight:600;margin:0;text-wrap:balance}
+.gmc .tx p{opacity:.8;max-width:34em;margin:0;font-size:.95rem;line-height:1.7}
+.gmc .tx .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}
+.gmc .tx .btn{border-color:var(--inv-fg);color:var(--inv-fg)}
+.gmc .tx .btn.fill{background:var(--inv-fg);color:var(--inv-bg)}
+.gmc .tx .mini{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;opacity:.65}
+.gmc .tx .lis{display:flex;flex-wrap:wrap;gap:6px}
+.gmc .tx .lis button{font-family:var(--mono);font-size:.72rem;padding:4px 9px;border:1px solid rgba(255,255,255,.35);border-radius:2px;color:inherit;opacity:.85}
+.gmc .tx .lis button:hover{background:var(--inv-fg);color:var(--inv-bg)}
+@media (max-width:820px){.gmc{grid-template-columns:1fr}.gmc .pv{min-height:260px}.gmc .tx{padding:26px 22px 28px}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gmc{background:#0b0a0a;color:#f5f2ee;border:1px solid var(--line)}}
+:root[data-theme="dark"] .gmc{background:#0b0a0a;color:#f5f2ee;border:1px solid var(--line)}
+
+#gm{position:fixed;inset:0;z-index:90;background:#0b0a0a;display:none;overflow:hidden;
+  --fg:#f5f2ee;--bg:#0b0a0a;--card:#161414;--card-2:#211e1d;--muted:#a9a29c;--line:#2a2624;--inv-bg:#f5f2ee;--inv-fg:#0b0a0a;color:var(--fg)}
+#gm.on{display:block}
+#gm canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#gm .top{position:absolute;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;pointer-events:none;z-index:3}
+#gm .crumbs{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;pointer-events:auto;background:rgba(11,10,10,.6);padding:6px 10px;border:1px solid var(--line);border-radius:3px;backdrop-filter:blur(6px);max-width:calc(100% - 70px)}
+#gm .crumbs button{color:var(--fg);opacity:.7;text-decoration:underline;text-underline-offset:3px}
+#gm .crumbs button:hover{opacity:1}
+#gm .crumbs i{opacity:.4;font-style:normal}
+#gm .crumbs .cur{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#gm .x{pointer-events:auto;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;font-size:1.4rem;line-height:1;color:var(--fg);background:rgba(11,10,10,.6);backdrop-filter:blur(6px)}
+#gm .x:hover{background:var(--inv-bg);color:var(--inv-fg)}
+#gm .side{position:absolute;top:0;right:0;bottom:0;width:440px;max-width:100%;background:rgba(11,10,10,.86);border-left:1px solid var(--line);backdrop-filter:blur(10px);overflow-y:auto;padding:64px 26px 40px;z-index:2;transform:translateX(30px);opacity:0;transition:transform .8s var(--ease),opacity .8s}
+#gm.ready .side{transform:none;opacity:1}
+#gm .side .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+#gm .side h2{font-family:var(--serif);font-size:1.45rem;line-height:1.3;margin:6px 0 10px;font-weight:600;text-wrap:balance}
+#gm .side p{font-size:.9rem;line-height:1.75;color:var(--muted);margin:6px 0}
+#gm .side p b{color:var(--fg);font-weight:500}
+#gm .side .src{font-size:.72rem;font-family:var(--mono);margin-top:22px;opacity:.7}
+#gm .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0}
+#gm .nums div{background:var(--bg);padding:12px 10px}
+#gm .nums b{display:block;font-family:var(--mono);font-size:1.4rem;font-weight:500;font-variant-numeric:tabular-nums}
+#gm .nums small{font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+#gm .tags{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
+#gm .tags span{font-family:var(--mono);font-size:.7rem;padding:3px 8px;border:1px solid var(--line);border-radius:2px;color:var(--muted)}
+#gm .ls{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--line)}
+#gm .ls li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .2s}
+#gm .ls li:hover{background:rgba(245,242,238,.06)}
+#gm .ls li b{font-weight:500;font-size:.92rem}
+#gm .ls li small{color:var(--muted);font-size:.74rem}
+#gm .ls li em{font-style:normal;font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+#gm .det{margin-top:8px}
+#gm .btn.sm{font-size:.8rem;padding:8px 14px}
+#gm .bot{position:absolute;left:18px;bottom:16px;right:460px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-family:var(--mono);font-size:.72rem;color:var(--muted);z-index:3;pointer-events:none}
+#gm .bot>*{pointer-events:auto}
+#gm .lg{display:inline-flex;align-items:center;gap:6px}
+#gm .lg i{width:9px;height:9px;border-radius:50%;background:var(--fg);display:inline-block}
+#gm .lg i.m{box-shadow:0 0 0 3px rgba(245,242,238,.25)}
+#gm .lg i.o{background:none;border:1px solid var(--fg)}
+#gm .play,#gm .zoom button{border:1px solid var(--line);color:var(--fg);padding:6px 10px;border-radius:2px;background:rgba(11,10,10,.6);font-family:var(--mono);font-size:.74rem}
+#gm .play:hover,#gm .zoom button:hover{background:var(--inv-bg);color:var(--inv-fg)}
+#gm .zoom{display:inline-flex;gap:4px}
+#gm .zoom button{width:32px;padding:6px 0}
+#gm .yr{position:absolute;left:24px;top:70px;font-family:var(--mono);font-size:clamp(2.4rem,7vw,5rem);font-weight:300;letter-spacing:.04em;opacity:.28;pointer-events:none;z-index:1;font-variant-numeric:tabular-nums}
+#gm .tip{position:absolute;display:none;transform:translate(14px,-120%);background:var(--inv-bg);color:var(--inv-fg);font-family:var(--mono);font-size:.74rem;padding:5px 9px;border-radius:2px;pointer-events:none;z-index:4;white-space:nowrap;max-width:60vw;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:820px){
+  #gm .side{top:auto;left:0;right:0;width:100%;height:52%;border-left:0;border-top:1px solid var(--line);padding:18px 18px 30px;transform:translateY(30px)}
+  #gm .bot{right:18px;bottom:calc(52% + 10px)}
+  #gm .yr{top:auto;bottom:calc(52% + 50px);left:18px;font-size:2.2rem}
+  #gm .nums b{font-size:1.15rem}
 }
 </style>
 </head>
@@ -832,7 +910,7 @@ const pages = {
 
   /* ------------------------------------------------ 地方建設 */
   async local(){
-    const D = await load('local'); const S=D.stats;
+    const D = await load('local'); const S=D.stats; let M=null; try{ M=await load('map'); }catch(e){ M=null; }
     const q = qs();
     const state = { dist:q.dist||'', li:q.li||'', cat:q.cat||'', year:'', multi:false, text:q.q||'', n:36 };
     const cats = Object.entries(S.by_cat);
@@ -865,6 +943,18 @@ const pages = {
     const html = `${hero('地方建設・台中西屯、南屯','一條路、一條管線地做',
       `${S.first.slice(0,4)}年${+S.first.slice(5,7)}月起，服務處會勘紀錄<strong>${num(S.events)}場</strong>、<strong>${S.li_total}個里</strong>、現場照片<strong>${num(S.photos)}張</strong>。每一場都有日期與地點，${S.with_concl}場留有現場結論；同一地點反覆追蹤的案子做成時間軸。`,'屯')}
     ${stats([[S.events,'會勘場次<br>'+S.first+' 至 '+S.last,'場'],[S.sites,'建設案件（同址合併）','件'],[S.multi,'多次追蹤的案件<br>做成時間軸','件'],[S.photos,'現場照片','張']])}
+    <section class="sec slim"><div class="wrap">
+      <div class="gmc rv" id="gmCard" role="button" tabindex="0" aria-label="打開政績地圖">
+        <div class="pv" id="gmPv"></div>
+        <div class="tx">
+          <div class="eyebrow">政績地圖・${S.li_total} 個里</div>
+          <h2>把每一場會勘，放回它發生的那條路上</h2>
+          <p>西屯、南屯 ${S.li_total} 個里的里界，加上 ${num(S.sites)} 件建設的位置。點開全螢幕地圖：先看全區，再點一個里，再點一個地點，就能看到那條路從陳情到完工的時間軸與現場照片。</p>
+          <div class="row"><button class="btn fill" data-open-map="">打開地圖 →</button><span class="mini">滑鼠滾輪縮放・拖曳移動・Esc 返回</span></div>
+          <div class="lis">${S.by_li.slice(0,6).map(([li,n])=>`<button data-li="${esc(li)}">${esc(li)} ${n}</button>`).join('')}</div>
+        </div>
+      </div>
+    </div></section>
     <section class="sec slim"><div class="wrap">
       <div class="steps rv">
         <div class="step"><div class="k">陳情</div><h3>接到問題</h3><p>里長、里民、服務處案件——${S.thanks.length}位里長曾具名請託。</p></div>
@@ -918,6 +1008,7 @@ const pages = {
         const t=e.target.closest('.top'); if(!t) return; const art=t.parentElement; const s=byId[art.dataset.id]; const o=art.classList.toggle('open'); t.setAttribute('aria-expanded',o);
         const det=art.querySelector('.det'); if(o && !det.innerHTML){ det.innerHTML=detail(s); } if(o) art.scrollIntoView({behavior:'smooth',block:'start'});
       });
+      if(M){ try{ initMap(M,D,{detail,byId,S}); }catch(e){ console.error('map',e); } }
       draw();
     }};
   },
@@ -1022,6 +1113,135 @@ document.addEventListener('click', e=>{
 });
 window.addEventListener('popstate', ()=>{ const k=routeKey(); if(k!==current) go(k); });
 
+
+/* ── 政績地圖（Canvas 2D，零外部函式庫）── */
+function initMap(M, D, {detail, byId, S}){
+  const RM = reduce;
+  const LI = M.li; const lat0 = LI[0].c[1]; const KX = 111320*Math.cos(lat0*Math.PI/180), KY = 110540;
+  const W = ([lon,lat]) => [(lon-LI[0].c[0])*KX, -(lat-LI[0].c[1])*KY];
+  LI.forEach(l=>{ l.w = l.ring.map(W); l.wc = W(l.c); const xs=l.w.map(p=>p[0]), ys=l.w.map(p=>p[1]); l.bb=[Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys)]; l.sites=[]; });
+  const liByName = {}; LI.forEach(l=>liByName[l.name]=l);
+  const pts = []; let placed=0, approx=0;
+  D.sites.forEach(s=>{ const m=M.sites[s.id]; if(!m) return; const [x,y]=W([m[0],m[1]]); const li=liByName[s.li]||LI.find(l=>pip([x,y],l.w)); const p={s,x,y,m:m[2],ap:m[2]==='li',li,t:Date.parse(s.first)}; pts.push(p); if(li) li.sites.push(p); placed++; if(p.ap) approx++; });
+  function pip([x,y],ring){ let inside=false; for(let i=0,j=ring.length-1;i<ring.length;j=i++){ const [xi,yi]=ring[i],[xj,yj]=ring[j]; if((yi>y)!==(yj>y) && x < (xj-xi)*(y-yi)/(yj-yi)+xi) inside=!inside; } return inside; }
+  const all = LI.reduce((b,l)=>[Math.min(b[0],l.bb[0]),Math.min(b[1],l.bb[1]),Math.max(b[2],l.bb[2]),Math.max(b[3],l.bb[3])],[1e9,1e9,-1e9,-1e9]);
+  const T0 = Math.min(...pts.map(p=>p.t)), T1 = Math.max(...pts.map(p=>p.t));
+
+  /* 預覽 SVG（頁內卡片） */
+  const pv = document.getElementById('gmPv');
+  if(pv){
+    const pad=120, vb=`${all[0]-pad} ${all[1]-pad} ${all[2]-all[0]+pad*2} ${all[3]-all[1]+pad*2}`;
+    pv.innerHTML = `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      ${LI.map(l=>`<path d="M${l.w.map(p=>p[0].toFixed(0)+' '+p[1].toFixed(0)).join('L')}Z" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke"/>`).join('')}
+      ${pts.map(p=>`<circle class="dot" cx="${p.x.toFixed(0)}" cy="${p.y.toFixed(0)}" r="${p.s.n>1?34:22}" fill="currentColor" opacity="${p.s.n>1?.95:.6}"/>`).join('')}
+    </svg><span class="scan"></span>`;
+  }
+  const meth = M.methods||{}; const precise = (meth.door||0)+(meth.near||0)+(meth.interp||0)+(meth.poi||0), byRoad=(meth.cross||0)+(meth.street||0)+(meth.road||0);
+
+  /* overlay DOM */
+  let gm = document.getElementById('gm');
+  if(gm) gm.remove();
+  {
+    gm = document.createElement('div'); gm.id='gm'; gm.setAttribute('role','dialog'); gm.setAttribute('aria-label','政績地圖');
+    gm.innerHTML = `<canvas></canvas><div class="yr" id="gmYr"></div>
+      <div class="top"><div class="crumbs" id="gmCrumbs"></div><button class="x" id="gmClose" aria-label="關閉地圖">×</button></div>
+      <aside class="side" id="gmSide"></aside>
+      <div class="bot"><span class="lg"><i></i>會勘地點</span><span class="lg"><i class="m"></i>多次追蹤</span><span class="lg"><i class="o"></i>里內約略位置</span><button class="play" id="gmPlay">▶ 播放時間軸</button><span class="zoom"><button id="gmZi" aria-label="放大">＋</button><button id="gmZo" aria-label="縮小">－</button></span></div>
+      <div class="tip" id="gmTip"></div>`;
+    document.body.appendChild(gm);
+  }
+  const cv = gm.querySelector('canvas'), ctx = cv.getContext('2d'), side=document.getElementById('gmSide'), crumbs=document.getElementById('gmCrumbs'), tip=document.getElementById('gmTip'), yr=document.getElementById('gmYr'), playBtn=document.getElementById('gmPlay');
+  let Wd=0, Ht=0, dpr=1; const cam={x:0,y:0,z:1}; let anim=null, drawP=1, openedAt=0, raf=0, hover=null, hoverLi=null, sel=null, focus=null, lvl=0, play=null, dragging=null, moved=false;
+  const sideW = () => innerWidth>820 ? Math.min(440, innerWidth) : 0;
+  const sideH = () => innerWidth>820 ? 0 : Ht*0.52;
+  function resize(){ dpr=Math.min(2,devicePixelRatio||1); Wd=gm.clientWidth; Ht=gm.clientHeight; cv.width=Wd*dpr; cv.height=Ht*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); if(lvl===0) fit(all,false); else if(focus) fit(focus.bb,false); req(); }
+  const sx = x => (x-cam.x)*cam.z + (Wd-sideW())/2, sy = y => (y-cam.y)*cam.z + (Ht-sideH())/2;
+  const wx = X => (X-(Wd-sideW())/2)/cam.z + cam.x, wy = Y => (Y-(Ht-sideH())/2)/cam.z + cam.y;
+  function fit(bb,tween=true){ const pad=innerWidth>820?70:30; const aw=Wd-sideW()-pad*2, ah=Ht-sideH()-pad*2; const z=Math.min(aw/(bb[2]-bb[0]), ah/(bb[3]-bb[1])); const to={x:(bb[0]+bb[2])/2,y:(bb[1]+bb[3])/2,z}; if(!tween||RM){ Object.assign(cam,to); req(); return; } const from={...cam}, t0=performance.now(), dur=900; anim=now=>{ const p=Math.min(1,(now-t0)/dur), e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2; cam.x=from.x+(to.x-from.x)*e; cam.y=from.y+(to.y-from.y)*e; cam.z=from.z*Math.pow(to.z/from.z,e); if(p>=1) anim=null; }; req(); }
+  function req(){ if(!raf) raf=requestAnimationFrame(frame); }
+  function frame(now){ raf=0; if(anim) anim(now); if(!RM && drawP<1) drawP=Math.min(1,(now-openedAt)/1400); if(play){ play.cur=Math.min(T1, play.cur + (now-play.last)*play.speed); play.last=now; yr.textContent=new Date(play.cur).toISOString().slice(0,7).replace('-','.'); if(play.cur>=T1){ play=null; playBtn.textContent='▶ 播放時間軸'; } } draw(now); if(anim||drawP<1||play||(!RM && gm.classList.contains('on'))) req(); }
+  const C='#f5f2ee';
+  function draw(now){
+    ctx.clearRect(0,0,Wd,Ht); ctx.fillStyle='#0b0a0a'; ctx.fillRect(0,0,Wd,Ht);
+    /* 格線 */
+    const step = cam.z*500 > 40 ? 500 : 2000; ctx.strokeStyle='rgba(245,242,238,.06)'; ctx.lineWidth=1; ctx.beginPath();
+    for(let x=Math.floor(wx(0)/step)*step; x<wx(Wd); x+=step){ const X=Math.round(sx(x))+.5; ctx.moveTo(X,0); ctx.lineTo(X,Ht); }
+    for(let y=Math.floor(wy(0)/step)*step; y<wy(Ht); y+=step){ const Y=Math.round(sy(y))+.5; ctx.moveTo(0,Y); ctx.lineTo(Wd,Y); }
+    ctx.stroke();
+    if(!RM){ const Y=((now/40)%(Ht+200))-100; const g=ctx.createLinearGradient(0,Y-60,0,Y); g.addColorStop(0,'rgba(245,242,238,0)'); g.addColorStop(1,'rgba(245,242,238,.09)'); ctx.fillStyle=g; ctx.fillRect(0,Y-60,Wd,60); ctx.fillStyle='rgba(245,242,238,.25)'; ctx.fillRect(0,Y,Wd,1); }
+    /* 里界 */
+    LI.forEach(l=>{ const isF=focus===l, isH=hoverLi===l && lvl===0; const n=Math.max(2,Math.floor(l.w.length*drawP)); ctx.beginPath(); for(let i=0;i<n;i++){ const p=l.w[i]; i?ctx.lineTo(sx(p[0]),sy(p[1])):ctx.moveTo(sx(p[0]),sy(p[1])); } if(drawP>=1) ctx.closePath();
+      if(isF||isH){ ctx.fillStyle=isF?'rgba(245,242,238,.07)':'rgba(245,242,238,.05)'; ctx.fill(); }
+      ctx.strokeStyle= lvl===0 ? (isH?'rgba(245,242,238,.95)':'rgba(245,242,238,.42)') : (isF?'rgba(245,242,238,.95)':'rgba(245,242,238,.14)'); ctx.lineWidth=isF||isH?1.5:1; ctx.stroke(); });
+    /* 里名 */
+    if(cam.z>0.045 && drawP>=1){ ctx.font=`${cam.z>0.12?12:10}px ${getComputedStyle(document.documentElement).getPropertyValue('--mono')}`; ctx.textAlign='center'; ctx.textBaseline='middle';
+      LI.forEach(l=>{ if(lvl>0 && l!==focus && cam.z<0.2) return; ctx.fillStyle= l===focus||l===hoverLi ? 'rgba(245,242,238,.95)' : 'rgba(245,242,238,.45)'; ctx.fillText(l.name, sx(l.wc[0]), sy(l.wc[1])+(l.sites.length?10:0)); }); }
+    /* 地點 */
+    const pulse = RM?0:(Math.sin(now/420)+1)/2;
+    pts.forEach(p=>{ if(play && p.t>play.cur) return; const X=sx(p.x), Y=sy(p.y); if(X<-20||Y<-20||X>Wd+20||Y>Ht+20) return; const dim = lvl>0 && focus && p.li!==focus; const r = Math.min(7, 2.2 + Math.min(4,p.s.n)*0.7 + cam.z*8); ctx.globalAlpha = dim?.18:1;
+      if(p.s.n>1 && !dim){ ctx.beginPath(); ctx.arc(X,Y,r+3+pulse*4,0,7); ctx.strokeStyle=`rgba(245,242,238,${.35-pulse*.25})`; ctx.lineWidth=1; ctx.stroke(); }
+      ctx.beginPath(); ctx.arc(X,Y,r,0,7); if(p.ap){ ctx.strokeStyle=C; ctx.lineWidth=1.2; ctx.stroke(); } else { ctx.fillStyle=C; ctx.fill(); }
+      if(p===sel||p===hover){ ctx.beginPath(); ctx.arc(X,Y,r+7,0,7); ctx.strokeStyle=C; ctx.lineWidth=1; ctx.stroke(); ctx.beginPath(); [[X-r-14,Y,X-r-7,Y],[X+r+7,Y,X+r+14,Y],[X,Y-r-14,X,Y-r-7],[X,Y+r+7,X,Y+r+14]].forEach(([a,b,c,d])=>{ctx.moveTo(a,b);ctx.lineTo(c,d);}); ctx.stroke(); }
+      ctx.globalAlpha=1; });
+  }
+  /* 面板 */
+  const cats = arr => { const c={}; arr.forEach(p=>c[p.s.cat]=(c[p.s.cat]||0)+1); return Object.entries(c).sort((a,b)=>b[1]-a[1]); };
+  const liRow = l => `<li data-li="${esc(l.name)}"><span><b>${esc(l.name)}</b><br><small>${esc(l.dist)}${D.lizhang[l.dist]&&D.lizhang[l.dist][l.name]?'・里長 '+esc(D.lizhang[l.dist][l.name]):''}</small></span><em>${l.sites.length} 件</em></li>`;
+  const siteRow = p => `<li data-site="${p.s.id}"><span><b>${esc(p.s.title)}</b><br><small>${esc(p.s.cat)}${p.s.location?'・'+esc(p.s.location):''}</small></span><em>${p.s.n>1?`${p.s.n} 次`:p.s.last}</em></li>`;
+  function panel(){
+    if(lvl===0){ side.innerHTML=`<div class="k">政績地圖・西屯、南屯</div><h2>${LI.length} 個里，${num(placed)} 件建設放回地圖上</h2>
+      <div class="nums"><div><b>${num(placed)}</b><small>件建設</small></div><div><b>${num(pts.reduce((a,p)=>a+p.s.n,0))}</b><small>場會勘</small></div><div><b>${num(pts.filter(p=>p.s.n>1).length)}</b><small>件多次追蹤</small></div></div>
+      <p>點一個里看該里全部案件，再點地點看時間軸與現場照片。定位方式：門牌精確定位 ${num(precise)} 件、路口／路段 ${num(byRoad)} 件、僅知道里別（畫在里內約略位置，空心點）${num(approx)} 件；${num(D.sites.length-placed)} 件在西屯、南屯之外，不在圖上。</p>
+      <div class="k" style="margin-top:18px">依案件數</div><ul class="ls">${[...LI].sort((a,b)=>b.sites.length-a.sites.length).map(liRow).join('')}</ul>
+      <p class="src">里界、門牌與道路：© OpenStreetMap 貢獻者（ODbL）。會勘資料：服務處行程紀錄。</p>`; }
+    else if(lvl===1){ const l=focus, ev=l.sites.reduce((a,p)=>a+p.s.n,0), ph=l.sites.reduce((a,p)=>a+p.s.photos,0);
+      side.innerHTML=`<div class="k">${esc(l.dist)}</div><h2>${esc(l.name)}</h2>${D.lizhang[l.dist]&&D.lizhang[l.dist][l.name]?`<p>里長：${esc(D.lizhang[l.dist][l.name])}</p>`:''}
+      <div class="nums"><div><b>${l.sites.length}</b><small>件建設</small></div><div><b>${ev}</b><small>場會勘</small></div><div><b>${num(ph)}</b><small>張照片</small></div></div>
+      <div class="tags">${cats(l.sites).map(([c,n])=>`<span>${esc(c)} ${n}</span>`).join('')}</div>
+      <ul class="ls">${[...l.sites].sort((a,b)=>b.s.n-a.s.n||b.s.last.localeCompare(a.s.last)).map(siteRow).join('')}</ul>
+      ${l.sites.length?'':'<p>這個里目前沒有可定位的會勘紀錄。</p>'}`; }
+    else { const s=sel.s; side.innerHTML=`<div class="k">${esc(s.dist)}${esc(s.li)}・${esc(s.cat)}</div><h2>${esc(s.title)}</h2>
+      ${s.location?`<p>📍 ${esc(s.location)}${sel.ap?'（圖上為里內約略位置）':''}</p>`:''}
+      ${s.thanks.length?`<p>感謝 ${s.thanks.map(n=>`<b>${esc(n)}</b>`).join('、')} 里長協助反映與陳情</p>`:(s.lizhang?`<p>${esc(s.li)}里長：${esc(s.lizhang)}</p>`:'')}
+      <div class="nums"><div><b>${s.n}</b><small>次到場</small></div><div><b>${s.photos}</b><small>張照片</small></div><div><b>${s.first.slice(0,4)}</b><small>${s.n>1?'起追蹤':'年'}</small></div></div>
+      <div class="det on">${detail(s)}</div><p><a class="btn line sm" href="#/local?q=${encodeURIComponent(s.title.slice(0,12))}" data-nav id="gmToList">在列表中查看</a></p>`; }
+    crumbs.innerHTML = `<button data-lvl="0">西屯・南屯</button>${lvl>=1?`<i>›</i>${lvl===1?`<span class="cur">${esc(focus.name)}</span>`:`<button data-lvl="1">${esc(focus.name)}</button>`}`:''}${lvl===2?`<i>›</i><span class="cur">${esc(sel.s.title.slice(0,14))}${sel.s.title.length>14?'…':''}</span>`:''}`;
+    side.scrollTop=0;
+  }
+  function goLi(l){ lvl=1; focus=l; sel=null; fit(l.sites.length?[Math.min(l.bb[0],...l.sites.map(p=>p.x-150)),Math.min(l.bb[1],...l.sites.map(p=>p.y-150)),Math.max(l.bb[2],...l.sites.map(p=>p.x+150)),Math.max(l.bb[3],...l.sites.map(p=>p.y+150))]:l.bb); panel(); }
+  function goSite(p){ lvl=2; sel=p; focus=p.li||focus; const r=220; fit([p.x-r,p.y-r,p.x+r,p.y+r]); panel(); }
+  function goRoot(){ lvl=0; focus=null; sel=null; fit(all); panel(); }
+  function back(){ if(lvl===2) goLi(focus); else if(lvl===1) goRoot(); else close(); }
+  function open(liName){ gm.classList.add('on'); document.body.style.overflow='hidden'; openedAt=performance.now(); drawP=RM?1:0; resize(); const l=liName&&liByName[liName]; if(l){ lvl=1; focus=l; Object.assign(cam,{x:(l.bb[0]+l.bb[2])/2,y:(l.bb[1]+l.bb[3])/2,z:0.05}); goLi(l); } else { lvl=0; Object.assign(cam,{x:(all[0]+all[2])/2,y:(all[1]+all[3])/2,z:0.02}); goRoot(); } requestAnimationFrame(()=>gm.classList.add('ready')); req(); }
+  function close(){ gm.classList.remove('on','ready'); document.body.style.overflow=''; play=null; playBtn.textContent='▶ 播放時間軸'; yr.textContent=''; }
+  /* 互動 */
+  const hit = (X,Y) => { let best=null,bd=12; pts.forEach(p=>{ if(play && p.t>play.cur) return; if(lvl>0 && focus && p.li!==focus) return; const d=Math.hypot(sx(p.x)-X,sy(p.y)-Y); if(d<bd){bd=d;best=p;} }); return best; };
+  const hitLi = (X,Y) => { const w=[wx(X),wy(Y)]; return LI.find(l=>w[0]>=l.bb[0]&&w[0]<=l.bb[2]&&w[1]>=l.bb[1]&&w[1]<=l.bb[3]&&pip(w,l.w))||null; };
+  cv.addEventListener('pointermove',e=>{ if(dragging){ const dx=e.clientX-dragging.X, dy=e.clientY-dragging.Y; if(Math.abs(dx)+Math.abs(dy)>4) moved=true; cam.x=dragging.cx-dx/cam.z; cam.y=dragging.cy-dy/cam.z; req(); return; }
+    const h=hit(e.clientX,e.clientY); hover=h; hoverLi=h?null:hitLi(e.clientX,e.clientY); cv.style.cursor=h||hoverLi?'pointer':'grab';
+    if(h){ tip.style.display='block'; tip.style.left=e.clientX+'px'; tip.style.top=e.clientY+'px'; tip.textContent=`${h.s.li||''} ${h.s.title}${h.s.n>1?`・${h.s.n}次`:''}`; } else if(hoverLi && lvl===0){ tip.style.display='block'; tip.style.left=e.clientX+'px'; tip.style.top=e.clientY+'px'; tip.textContent=`${hoverLi.name}・${hoverLi.sites.length} 件`; } else tip.style.display='none'; req(); });
+  cv.addEventListener('pointerdown',e=>{ dragging={X:e.clientX,Y:e.clientY,cx:cam.x,cy:cam.y}; moved=false; cv.setPointerCapture(e.pointerId); cv.style.cursor='grabbing'; });
+  cv.addEventListener('pointerup',e=>{ const wasDrag=moved; dragging=null; cv.style.cursor='grab'; if(wasDrag) return; const h=hit(e.clientX,e.clientY); if(h){ goSite(h); return; } const l=hitLi(e.clientX,e.clientY); if(l && l!==focus){ goLi(l); } else if(l && lvl===2){ goLi(l); } });
+  cv.addEventListener('pointerleave',()=>{ hover=null; hoverLi=null; tip.style.display='none'; req(); });
+  cv.addEventListener('wheel',e=>{ e.preventDefault(); const f=Math.exp(-e.deltaY*0.0015); const X=e.clientX,Y=e.clientY, bx=wx(X), by=wy(Y); cam.z=Math.max(0.01,Math.min(3,cam.z*f)); cam.x=bx-(X-(Wd-sideW())/2)/cam.z; cam.y=by-(Y-(Ht-sideH())/2)/cam.z; anim=null; req(); },{passive:false});
+  document.getElementById('gmZi').addEventListener('click',()=>{ cam.z=Math.min(3,cam.z*1.5); req(); });
+  document.getElementById('gmZo').addEventListener('click',()=>{ cam.z=Math.max(0.01,cam.z/1.5); req(); });
+  document.getElementById('gmClose').addEventListener('click',close);
+  crumbs.addEventListener('click',e=>{ const b=e.target.closest('[data-lvl]'); if(!b) return; b.dataset.lvl==='0'?goRoot():goLi(focus); });
+  side.addEventListener('click',e=>{ const pb=e.target.closest('[data-p]'); if(pb){ const all2=[...pb.parentElement.querySelectorAll('[data-p]')]; openLb(all2.map(b=>b.dataset.p), all2.indexOf(pb), pb.dataset.cap); return; }
+    const ab=e.target.closest('[data-all]'); if(ab && sel){ const ev=sel.s.events.find(x=>String(x.id)===ab.dataset.all); if(ev){ openLb(ev.photos,8,`${ev.date}・${ev.core}`); } return; }
+    const li=e.target.closest('[data-li]'); if(li){ goLi(liByName[li.dataset.li]); return; }
+    const st=e.target.closest('[data-site]'); if(st){ const p=pts.find(p=>p.s.id===st.dataset.site); p&&goSite(p); return; }
+    if(e.target.closest('#gmToList')) close(); });
+  playBtn.addEventListener('click',()=>{ if(play){ play=null; playBtn.textContent='▶ 播放時間軸'; yr.textContent=''; req(); return; } if(lvl!==0) goRoot(); play={cur:T0,last:performance.now(),speed:(T1-T0)/9000}; playBtn.textContent='■ 停止'; req(); });
+  if(initMap._h){ removeEventListener('keydown',initMap._h[0],true); removeEventListener('resize',initMap._h[1]); }
+  initMap._h=[e=>{ if(!gm.classList.contains('on')||lb.classList.contains('on')) return; if(e.key==='Escape') back(); }, ()=>{ if(gm.classList.contains('on')) resize(); }];
+  addEventListener('keydown',initMap._h[0],true); addEventListener('resize',initMap._h[1]);
+  const card=document.getElementById('gmCard'); card&&card.addEventListener('click',e=>{ const b=e.target.closest('[data-li]'); open(b?b.dataset.li:''); });
+  document.querySelectorAll('[data-open-map]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); open(b.dataset.openMap||''); }));
+  return { open };
+}
+
 /* reveal + count-up */
 let io;
 function observe(){
@@ -1041,7 +1261,7 @@ const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), 
 let lbList=[], lbI=0, lbCapTxt='';
 function showLb(){ lbImg.src=lbList[lbI]; lbCap.textContent=`${lbCapTxt}　${lbI+1} / ${lbList.length}`; }
 function openLb(list,i,cap){ lbList=list; lbI=Math.min(i,list.length-1); lbCapTxt=cap||''; lb.classList.add('on'); showLb(); document.body.style.overflow='hidden'; }
-function closeLb(){ lb.classList.remove('on'); lbImg.src=''; document.body.style.overflow=''; }
+function closeLb(){ lb.classList.remove('on'); lbImg.src=''; const g=document.getElementById('gm'); document.body.style.overflow=(g&&g.classList.contains('on'))?'hidden':''; }
 document.getElementById('lbClose').addEventListener('click',closeLb);
 document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();lbI=(lbI-1+lbList.length)%lbList.length;showLb();});
 document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();lbI=(lbI+1)%lbList.length;showLb();});
