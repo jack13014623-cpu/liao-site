@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>廖偉翔官方網站</title>
+<meta name="description" content="立法委員廖偉翔官方網站——重點質詢、法案推動、地方建設、攻擊澄清、最新消息。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --ink:#171414;        /* 墨黑，沿用參考站 oklch(14.7% .004 49) */
+  --paper:#ffffff;
+  --ash:#f4f2f0;        /* 卡片底 */
+  --ash-2:#e9e6e2;
+  --graphite:#5c5753;   /* 次要文字 */
+  --line:#e4e1dd;
+  --fg:var(--ink);
+  --bg:var(--paper);
+  --card:var(--ash);
+  --card-2:var(--ash-2);
+  --muted:var(--graphite);
+  --inv-bg:var(--ink);
+  --inv-fg:var(--paper);
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.77,0,.18,1);
+  --nav-h:64px;
+  --maxw:1180px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --fg:#f5f2ee; --bg:#141212; --card:#1f1c1b; --card-2:#2a2624; --muted:#a9a29c; --line:#2c2826;
+    --inv-bg:#f5f2ee; --inv-fg:#141212;
+  }
+}
+:root[data-theme="dark"]{
+  --fg:#f5f2ee; --bg:#141212; --card:#1f1c1b; --card-2:#2a2624; --muted:#a9a29c; --line:#2c2826;
+  --inv-bg:#f5f2ee; --inv-fg:#141212;
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--fg);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul{list-style:none}
+h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:balance;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:50;display:flex;align-items:center;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+.nav.solid{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%}
+.brand{display:flex;align-items:baseline;gap:10px;font-family:var(--serif);font-weight:900;font-size:1.25rem;white-space:nowrap}
+.brand small{font-family:var(--mono);font-weight:400;font-size:.7rem;letter-spacing:.14em;color:var(--muted)}
+.menu{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.menu::-webkit-scrollbar{display:none}
+.menu a{position:relative;padding:8px 12px;font-size:.92rem;font-weight:500;white-space:nowrap;color:var(--muted);transition:color .25s}
+.menu a::after{content:"";position:absolute;left:12px;right:12px;bottom:2px;height:2px;background:var(--fg);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover,.menu a.active{color:var(--fg)}
+.menu a.active::after{transform:scaleX(1);transform-origin:left}
+.theme{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex:none}
+.theme svg{width:16px;height:16px}
+@media (max-width:760px){
+  .nav .wrap{flex-wrap:wrap;padding-top:8px}
+  .nav{height:auto;padding-bottom:6px}
+  .brand{font-size:1.1rem}
+  .menu{width:100%;order:3;margin:0 -18px;padding:0 14px}
+  .menu a{padding:6px 9px;font-size:.86rem}
+  .theme{width:30px;height:30px}
+}
+
+/* ---------- curtain transition ---------- */
+.curtain{position:fixed;inset:0;z-index:100;background:var(--ink);color:#fff;display:grid;place-items:center;transform:scaleX(0);transform-origin:left;pointer-events:none}
+.curtain.in{animation:cIn .55s var(--ease) forwards}
+.curtain.out{animation:cOut .55s var(--ease) forwards}
+@keyframes cIn{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+@keyframes cOut{from{transform:scaleX(1);transform-origin:right}to{transform:scaleX(0);transform-origin:right}}
+.curtain span{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,7vw,5rem);opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s}
+.curtain.in span{opacity:1;transform:none;transition-delay:.25s}
+
+/* ---------- page + reveal ---------- */
+#app{padding-top:var(--nav-h)}
+@media (max-width:760px){#app{padding-top:100px}}
+.page{min-height:100vh}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv[data-d="1"]{transition-delay:.1s}.rv[data-d="2"]{transition-delay:.2s}.rv[data-d="3"]{transition-delay:.3s}.rv[data-d="4"]{transition-delay:.4s}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(56px,10vh,120px) 0 clamp(36px,6vh,72px);position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.6rem,8vw,6.4rem);line-height:1.05;margin:14px 0 22px}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero h1 .w i{display:inline-block;font-style:normal;transform:translateY(110%);animation:up .8s var(--ease) forwards}
+.hero .lede{max-width:34em;font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--muted)}
+.hero .lede strong{color:var(--fg);font-weight:700}
+@keyframes up{to{transform:none}}
+.hero .ghost{position:absolute;right:-2vw;bottom:-6vw;font-family:var(--serif);font-weight:900;font-size:clamp(9rem,26vw,22rem);line-height:1;color:var(--fg);opacity:.045;pointer-events:none;user-select:none;letter-spacing:-.05em}
+.hero-home{min-height:calc(100vh - var(--nav-h));display:flex;flex-direction:column;justify-content:center}
+.hero-home h1{font-size:clamp(4rem,15vw,12rem);letter-spacing:-.03em}
+.hero-home .sub{font-family:var(--serif);font-weight:700;font-size:clamp(1.2rem,2.6vw,1.9rem);margin-bottom:10px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;border:1px solid var(--fg);font-weight:500;transition:background .25s,color .25s,transform .25s}
+.btn.fill{background:var(--inv-bg);color:var(--inv-fg)}
+.btn:hover{transform:translateY(-2px)}
+.btn.fill:hover{background:var(--fg);color:var(--bg)}
+.btn.line:hover{background:var(--fg);color:var(--bg)}
+.btn .ar{transition:transform .25s}.btn:hover .ar{transform:translateX(4px)}
+
+/* ---------- stats strip ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:1px solid var(--fg);border-bottom:1px solid var(--fg)}
+.stats>div{padding:28px 22px 24px;border-right:1px solid var(--line)}
+.stats>div:last-child{border-right:0}
+.stats .n{font-family:var(--serif);font-weight:900;font-size:clamp(2.6rem,5vw,4rem);line-height:1;font-variant-numeric:tabular-nums}
+.stats .n small{font-size:.4em;font-weight:700;margin-left:4px}
+.stats .l{margin-top:8px;font-size:.9rem;color:var(--muted);line-height:1.5}
+.stats.dark{background:var(--inv-bg);color:var(--inv-fg);border-color:var(--inv-bg)}
+.stats.dark>div{border-color:color-mix(in srgb,var(--inv-fg) 18%,transparent)}
+.stats.dark .l{color:color-mix(in srgb,var(--inv-fg) 65%,transparent)}
+@media (max-width:640px){.stats>div{border-right:0;border-bottom:1px solid var(--line)}.stats>div:last-child{border-bottom:0}}
+
+/* ---------- sections ---------- */
+.sec{padding:clamp(56px,9vh,110px) 0}
+.sec.tight{padding-top:0}
+.sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:34px;flex-wrap:wrap}
+.sec-h h2{font-size:clamp(1.8rem,4vw,3rem)}
+.sec-h p{max-width:30em;color:var(--muted);font-size:.95rem}
+.inv{background:var(--inv-bg);color:var(--inv-fg)}
+.inv .eyebrow{color:color-mix(in srgb,var(--inv-fg) 60%,transparent)}
+.inv .sec-h p{color:color-mix(in srgb,var(--inv-fg) 70%,transparent)}
+
+/* doors (home) */
+.doors{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--fg)}
+.door{position:relative;padding:34px 22px 28px;border-right:1px solid var(--fg);min-height:300px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;isolation:isolate}
+.door:last-child{border-right:0}
+.door::before{content:"";position:absolute;inset:0;background:var(--inv-bg);transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1}
+.door:hover::before{transform:none}
+.door:hover{color:var(--inv-fg)}
+.door h3{font-size:clamp(1.5rem,2.4vw,2rem);writing-mode:vertical-rl;letter-spacing:.12em;height:9.5em}
+.door .k{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;color:var(--muted);transition:color .3s}
+.door:hover .k{color:inherit}
+.door p{font-size:.88rem;line-height:1.6;margin-top:14px;opacity:.85}
+.door .ar{position:absolute;right:20px;bottom:24px;font-size:1.4rem;transform:translateX(-10px);opacity:0;transition:transform .4s var(--ease),opacity .4s}
+.door:hover .ar{transform:none;opacity:1}
+@media (max-width:900px){.doors{grid-template-columns:1fr 1fr 1fr}.door:nth-child(3){border-right:0}.door:nth-child(n+4){border-top:1px solid var(--fg)}.door:nth-child(4){border-right:1px solid var(--fg)}}
+@media (max-width:560px){.doors{grid-template-columns:1fr}.door{border-right:0!important;border-top:1px solid var(--fg);min-height:0}.door:first-child{border-top:0}.door h3{writing-mode:horizontal-tb;height:auto;letter-spacing:.04em}}
+
+/* ticker */
+.ticker{border-top:1px solid var(--fg);border-bottom:1px solid var(--fg);overflow:hidden;white-space:nowrap;padding:12px 0}
+.ticker .tk{display:inline-block;animation:tk 60s linear infinite}
+.ticker:hover .tk{animation-play-state:paused}
+.ticker .it{display:inline-block;margin-right:48px;font-size:.92rem}
+.ticker .it b{font-family:var(--mono);font-weight:500;margin-right:10px;color:var(--muted)}
+@keyframes tk{to{transform:translateX(-50%)}}
+
+/* pills */
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pill{border:1px solid var(--fg);border-radius:999px;padding:8px 16px;font-size:.9rem;font-weight:500;transition:background .25s,color .25s}
+.pill:hover{background:var(--inv-bg);color:var(--inv-fg)}
+.pill i{font-style:normal;font-family:var(--mono);font-size:.78rem;margin-left:8px;opacity:.7}
+
+/* timeline (interp) */
+.tl{position:relative;padding-left:0}
+.tl::before{content:"";position:absolute;left:calc(50% - .5px);top:0;bottom:0;width:1px;background:var(--line)}
+.tli{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;padding:26px 0;position:relative}
+.tli::after{content:"";position:absolute;left:calc(50% - 6px);top:36px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--fg)}
+.tli .date{grid-column:1;text-align:right}
+.tli .body{grid-column:2}
+.tli:nth-child(even) .date{grid-column:2;text-align:left;grid-row:1}
+.tli:nth-child(even) .body{grid-column:1;grid-row:1;text-align:right}
+.tli .date .d{font-family:var(--mono);font-size:1.5rem;font-weight:500;letter-spacing:.02em}
+.tli .date .who{font-size:.88rem;color:var(--muted);margin-top:4px}
+.tli h3{font-size:1.25rem;margin-bottom:8px}
+.tli p{font-size:.93rem;color:var(--muted)}
+.tli .reply{margin-top:10px;padding-left:12px;border-left:2px solid var(--fg);font-size:.88rem}
+.tli:nth-child(even) .reply{border-left:0;border-right:2px solid var(--fg);padding-left:0;padding-right:12px}
+.tli .gz{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:4px}
+@media (max-width:760px){
+  .tl::before{left:6px}
+  .tli{grid-template-columns:1fr;padding-left:28px;gap:6px}
+  .tli::after{left:1px}
+  .tli .date,.tli:nth-child(even) .date{grid-column:1;grid-row:auto;text-align:left}
+  .tli .body,.tli:nth-child(even) .body{grid-column:1;grid-row:auto;text-align:left}
+  .tli:nth-child(even) .reply{border-right:0;border-left:2px solid var(--fg);padding-right:0;padding-left:12px}
+}
+
+/* big quote block */
+.big{padding:clamp(48px,8vh,96px) 0}
+.big .n{font-family:var(--serif);font-weight:900;font-size:clamp(5rem,18vw,14rem);line-height:.9;letter-spacing:-.04em}
+.big .t{font-size:clamp(1.1rem,2vw,1.4rem);max-width:30em;margin-top:18px}
+.big .t b{font-weight:700}
+.big .s{margin-top:14px;font-size:.85rem;opacity:.7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+
+/* bill rows */
+.rows{border-top:1px solid var(--fg)}
+.row{display:grid;grid-template-columns:120px 90px 1fr 150px;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start;transition:background .3s;position:relative}
+.row:hover{background:var(--card)}
+.row .d{font-family:var(--mono);font-size:.85rem}
+.row .art{font-family:var(--serif);font-weight:900;font-size:1.3rem;line-height:1.1}
+.row h3{font-size:1.05rem;font-family:var(--sans);font-weight:700;margin-bottom:4px}
+.row p{font-size:.9rem;color:var(--muted)}
+.row .st{font-size:.8rem;text-align:right}
+.row .st b{display:inline-block;border:1px solid var(--fg);border-radius:999px;padding:2px 10px;font-weight:500;font-size:.75rem;margin-bottom:6px}
+.row .st b.lead{background:var(--inv-bg);color:var(--inv-fg)}
+.row .st span{display:block;color:var(--muted)}
+@media (max-width:760px){.row{grid-template-columns:1fr;gap:6px}.row .st{text-align:left}}
+
+/* three lanes */
+.lanes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.lane{background:var(--bg);padding:30px 26px}
+.lane .k{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;color:var(--muted)}
+.lane h3{font-size:1.5rem;margin:10px 0 12px}
+.lane p{font-size:.92rem;color:var(--muted)}
+.lane ul{margin-top:14px;font-size:.88rem}
+.lane li{padding:6px 0;border-top:1px solid var(--line)}
+.lane.hi{background:var(--inv-bg);color:var(--inv-fg)}
+.lane.hi .k,.lane.hi p{color:color-mix(in srgb,var(--inv-fg) 65%,transparent)}
+.lane.hi li{border-color:color-mix(in srgb,var(--inv-fg) 18%,transparent)}
+@media (max-width:860px){.lanes{grid-template-columns:1fr}}
+
+/* local cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);padding:26px 24px 24px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;transition:transform .35s var(--ease),background .35s,color .35s;border-radius:4px;min-height:260px}
+.card:hover{transform:translateY(-6px);background:var(--inv-bg);color:var(--inv-fg)}
+.card .d{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;opacity:.7}
+.card h3{font-size:1.35rem;font-family:var(--serif)}
+.card p{font-size:.9rem;opacity:.8;flex:1}
+.card .tag{align-self:flex-start;font-size:.72rem;border:1px solid currentColor;border-radius:999px;padding:2px 10px;opacity:.8}
+.card .src{font-size:.75rem;opacity:.6}
+.card.wide{grid-column:span 2}
+@media (max-width:900px){.cards{grid-template-columns:1fr 1fr}.card.wide{grid-column:span 2}}
+@media (max-width:560px){.cards{grid-template-columns:1fr}.card.wide{grid-column:span 1}}
+
+/* process strip */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--fg)}
+.step{padding:26px 22px;border-right:1px solid var(--fg)}
+.step:last-child{border-right:0}
+.step .k{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;color:var(--muted)}
+.step h3{font-size:1.3rem;margin:8px 0 6px}
+.step p{font-size:.88rem;color:var(--muted)}
+@media (max-width:760px){.steps{grid-template-columns:1fr 1fr}.step:nth-child(2){border-right:0}.step:nth-child(n+3){border-top:1px solid var(--fg)}}
+@media (max-width:420px){.steps{grid-template-columns:1fr}.step{border-right:0!important;border-top:1px solid var(--fg)}.step:first-child{border-top:0}}
+
+/* clarify: attack vs fact */
+.vs{display:grid;grid-template-columns:1fr 1fr;margin-bottom:22px;border:1px solid var(--fg)}
+.vs>div{padding:34px 30px}
+.vs .atk{background:var(--inv-bg);color:var(--inv-fg)}
+.vs .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;opacity:.65}
+.vs h3{font-size:1.35rem;margin:10px 0 12px}
+.vs blockquote{font-family:var(--serif);font-weight:700;font-size:1.15rem;line-height:1.5;margin:8px 0}
+.vs blockquote cite{display:block;font-family:var(--mono);font-style:normal;font-weight:400;font-size:.75rem;opacity:.65;margin-top:6px}
+.vs p{font-size:.92rem}
+.vs .fact p{color:var(--muted)}
+.vs .fact ul{margin-top:12px}
+.vs .fact li{padding:8px 0;border-top:1px solid var(--line);font-size:.9rem;display:flex;gap:10px}
+.vs .fact li::before{content:"—";flex:none;font-family:var(--mono)}
+.vs .d{font-family:var(--mono);font-size:.78rem;opacity:.65;margin-top:14px}
+@media (max-width:760px){.vs{grid-template-columns:1fr}}
+
+/* news list */
+.news{border-top:1px solid var(--fg)}
+.ni{display:grid;grid-template-columns:130px 1fr 140px;gap:24px;padding:22px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:padding-left .3s var(--ease)}
+.ni:hover{padding-left:10px}
+.ni .d{font-family:var(--mono);font-size:.88rem}
+.ni h3{font-family:var(--sans);font-weight:700;font-size:1.08rem;line-height:1.5}
+.ni p{font-size:.88rem;color:var(--muted);margin-top:4px}
+.ni .o{font-size:.8rem;color:var(--muted);text-align:right}
+.ni a.h{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.mh{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;color:var(--muted);padding:32px 0 12px}
+@media (max-width:760px){.ni{grid-template-columns:1fr;gap:4px}.ni .o{text-align:left}}
+
+/* footer */
+footer{border-top:1px solid var(--fg);padding:48px 0 40px;margin-top:40px}
+footer .wrap{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}
+footer .name{font-family:var(--serif);font-weight:900;font-size:2rem}
+footer .meta{font-size:.85rem;color:var(--muted);margin-top:6px;max-width:40em}
+footer .soc{display:flex;gap:8px;flex-wrap:wrap}
+footer .soc a{border:1px solid var(--fg);border-radius:999px;padding:6px 14px;font-size:.82rem;transition:background .25s,color .25s}
+footer .soc a:hover{background:var(--inv-bg);color:var(--inv-fg)}
+footer .fine{grid-column:1/-1;font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:640px){footer .wrap{grid-template-columns:1fr}}
+
+.next{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:40px 0;border-top:1px solid var(--fg)}
+.next .lab{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;color:var(--muted)}
+.next a{font-family:var(--serif);font-weight:900;font-size:clamp(1.6rem,4vw,2.6rem);display:inline-flex;align-items:center;gap:14px}
+.next a .ar{transition:transform .35s var(--ease)}.next a:hover .ar{transform:translateX(10px)}
+
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .hero h1 .w i{transform:none;animation:none}
+  .curtain{display:none}
+  .ticker .tk{animation:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#/" data-nav>廖偉翔 <small>LIAO WEI-HSIANG</small></a>
+    <nav class="menu" id="menu">
+      <a href="#/interp" data-nav>重點質詢</a>
+      <a href="#/bills" data-nav>法案推動</a>
+      <a href="#/local" data-nav>地方建設</a>
+      <a href="#/clarify" data-nav>攻擊澄清</a>
+      <a href="#/news" data-nav>最新消息</a>
+    </nav>
+    <button class="theme" id="theme" aria-label="切換深淺色">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="curtain" id="curtain"><span id="curtainText"></span></div>
+<main id="app"></main>
+
+<script>
+/* ====================================================================
+   站方設定：辦公室補上社群連結即會顯示於頁尾；空字串則隱藏。
+   ==================================================================== */
+const SITE = {
+  name: '廖偉翔',
+  title: '第十一屆立法委員',
+  district: '台中市第四選區（西屯、南屯）',
+  committee: '社會福利及衛生環境委員會',
+  updated: '2026-08-27',
+  social: { Facebook: '', Instagram: '', Threads: '', YouTube: '', LINE: '' }
+};
+
+/* ====================================================================
+   內容資料（皆有出處：GZ＝立法院公報編號；議案編號可於 ppg.ly.gov.tw 回查）
+   ==================================================================== */
+const DATA = {
+  interp: [
+    {date:'2024-03-04',who:'衛環會・薛瑞元部長',title:'食安會報執行長，343天沒開會',
+     body:'薛部長身兼行政院食安會報執行長，卻連續343天未依規定每3個月定期開會；要求把蘇丹紅、西布特羅等工業用添加物混入食品體系列為食安會報檢討事項。',
+     reply:'薛：承認未定期開會（時程由院長決定）。許輔：上次開會為2023年10月，正簽報重排。',gz:'GZ-1130601_00008-4'},
+    {date:'2024-03-27',who:'環境部・薛富盛部長',title:'炒粿條中毒案：57種高風險化學物質流向',
+     body:'信義A13炒粿條中毒案9例、1死2命危。要求環境部就食安五環源頭管控確實追蹤57種高風險化學物質流向，必要時主動提供數據給檢調。',
+     reply:'薛：57種須環境部核可＋運作計畫書＋每月化學雲登記。',gz:'GZ-1132102_00001-7'},
+    {date:'2024-04-01',who:'衛環會・薛瑞元部長',title:'放寬農藥殘留卻稱「加強查驗」，愚人節大禮',
+     body:'追問米酵菌酸檢驗與唐菖蒲伯克氏菌培養進度；痛批食藥署為日本交流協會申請而放寬克凡派、滅達樂（CODEX零檢出）殘留標準，卻同時宣稱「加強查驗」，邏輯矛盾。',
+     reply:'薛：臺灣未使用該等農藥故本無殘留標準，依法可申請後開專家會議。',gz:'GZ-1132301_00004-8'},
+    {date:'2025-04-23',who:'衛環會・邱泰源部長',title:'美方點名非關稅障礙，部長當眾宣示守住防線',
+     body:'USTR點名我方原產地標示、萊劑最高殘留、禁生技食品原料為非關稅障礙。連番要求部長當眾宣示「守住食安防線」，質疑美豬美牛、日本全牛齡開放是標準一再退讓，以日相「絕不讓步食安」相激。',
+     reply:'邱：豬牛原產地標示國產進口一體適用、依科學與國際標準。（廖批：「感覺沒有很肯定」）',gz:'GZ-1144101_00004-9'},
+    {date:'2025-05-08',who:'衛環會・姜至剛署長',title:'只標產地，能不能叫溯源追蹤？',
+     body:'釘問食安法§25溯源追蹤授權與原產地標示之別——每批來源不同，必須有編號追蹤，不是標個國名就叫溯源。',
+     reply:'姜：溯源追蹤係§25授權，已對豬肉建立來源編號溯源。',gz:'GZ-1144701_00004-16'},
+    {date:'2025-10-13',who:'衛環會・石崇良部長',title:'不到100人，對應76萬批進口食品',
+     body:'邊境稽查人力不足百人卻對應76萬批進口食品；補助地方45人若22縣市均分，每縣市僅增2人，遠遠不足，應風險導向而非均分。再揭「精進地方關鍵食安管理計畫」10億元竟無稽查人力報表與績效指標。',
+     reply:'石：邊境導入AI逾期偵測模組、地方已按人口分4組。許輔：10億含上百項KPI，會後提供。',gz:'GZ-1148201_00004-21'},
+    {date:'2026-04-29',who:'環境部・彭啓明部長',title:'一級致癌物苯駢芘，歐盟2004年就納管',
+     body:'要求把WHO一級致癌物苯駢芘（BaP，即中聯毒油致癌物）納入環評與空污排放標準，指歐盟2004年已納管、我國至今未訂。',
+     reply:'黃偉鳴司長：環境中BaP已監測，排放標準待評估各國技術與方法。',gz:'GZ-1153501_00010-17'}
+  ],
+  bills: [
+    {date:'2026-08-04',art:'§7 §47',role:'lead',title:'檢驗週期法定化＋檢驗端強制通報免責',
+     desc:'高風險業者每季至少1次、高風險品項每月1次的法定檢驗底線；檢驗機構通報免責，直攻中聯油脂案「自主檢驗斷點」。24案中唯一領銜直攻檢驗制度的提案。',status:'排入院會'},
+    {date:'2026-06-30',art:'§28',role:'co',title:'食品標示宣傳廣告規範修正',desc:'與王育敏、蘇清泉等19人共同提案。',status:'交付審查'},
+    {date:'2026-01-27',art:'§22 §28 §31-1',role:'co',title:'嬰幼兒食品警語＋邊境標準比照我國',desc:'嬰幼兒食品保護三件套；來源國標準較寬鬆者即適用我國標準。',status:'交付審查'},
+    {date:'2025-06-17',art:'部分條文',role:'co',title:'萊劑豬肉標示不實：不得檢出、24小時下架',desc:'含乙型受體素肉品標示不實者，不得檢出並限期24小時下架。',status:'交付審查'},
+    {date:'2024-11-22',art:'§22',role:'co',title:'含乙型受體素肉品應標示健康風險警語',desc:'消費者知情權路線，與§24/25主提案一脈相承。',status:'交付審查'},
+    {date:'2024-02-27',art:'§24 §25',role:'lead',title:'食品添加物、散裝食品新增瘦肉精標示義務',desc:'與張嘉郡等18人提案；2026-07-08衛環會列審查第一案，詢答完畢、擇期繼續審查。',status:'詢答完畢'},
+    {date:'2024-02-27',art:'§22',role:'co',title:'食品標示事項修正',desc:'蘇清泉等23人共提；7/8併案詢答完畢。',status:'詢答完畢'},
+    {date:'2024-02-27',art:'§4',role:'co',title:'食安主管機關職權條款修正',desc:'蘇清泉等20人共提；7/8併案詢答完畢。',status:'詢答完畢'}
+  ],
+  otherBills: [
+    {law:'中華民國刑法 §185-3',note:'酒駕條文多案併審，2026-07-30審查完畢'},
+    {law:'公路法・道路交通管理處罰條例',note:'2026-07-21至28審查'},
+    {law:'性別平等工作法',note:'廖偉翔版修正草案，2026-06評估'}
+  ],
+  local: [
+    {date:'2026-08-13',tag:'陳情有成',title:'忠勇路自來水管汰換完工',body:'接獲陳情一年，促成忠勇路老舊自來水管全線汰換，解決長年漏水與水壓不穩。',src:'Life生活網',wide:true},
+    {date:'2026-08-05',tag:'公園',title:'樂田公園防曬升級、陽光公廁年底完工',body:'與市議員黃馨慧聯手爭取，遊戲場加裝遮陽、公廁改建今年底完工。',src:'Yahoo新聞'},
+    {date:'2026-08-05',tag:'交通',title:'水湳轉運中心啟用，接駁與人行安全配套',body:'全台最大、7轉7接的水湳轉運中心啟用；同步爭取周邊里聯外接駁與人行安全配套。',src:'台中市府'},
+    {date:'2026-07-10',tag:'道路',title:'西屯福順路打通工程開工',body:'暢通台中榮總周邊交通，守護黃金救援時間。',src:'台中市建設局'},
+    {date:'2026-08-04',tag:'產業',title:'要求經濟部公開對美汽車關稅衝擊評估',body:'串連台中汽車零組件與工具機供應鏈，爭取中部產業預算與轉型資源。',src:'立法院提案'},
+    {date:'2026-06-28',tag:'產業',title:'推動無人機產業條例協商',body:'為台中無人機聚落爭取法制空間，在院內協商中六度促請召委排審。',src:'院會協商',wide:true}
+  ],
+  clarify: [
+    {date:'2026-08-26',
+     atkTitle:'「假鬼假怪」「縱火犯冒充消防員」',
+     quote:'廖偉翔訪視庇護工場後，民進黨立委王義川譏「假鬼假怪」，律師黃帝穎喻「縱火犯冒充消防員」，民進黨發言人吳崢主打「藍白砍預算才害庇護工場」。',
+     cite:'民視・自由時報 2026-08-26',
+     factTitle:'制度性照顧靠的是「優先採購」，不是喊話',
+     facts:['公部門對庇護工場的優先採購制度，4成訂單流標或未成交，年損約10億元——這是執行問題，不是預算問題。','國務機要費是總統個人特別費；真正照顧弱勢的是衛福部、勞動部年度優先採購預算。','反問：弱勢預算年年編，錢到哪裡去了？拿弱勢當政治操作的不是在野。']},
+    {date:'2026-08-04',
+     atkTitle:'「絕口未提刪除預算」',
+     quote:'媒體以「隨經委會考察無人機、絕口未提刪除預算」暗指迴避對美關稅衝擊議題。',
+     cite:'自由時報 2026-08-04',
+     factTitle:'同一天，提案要求經濟部公開關稅衝擊評估',
+     facts:['2026-08-04 提案要求經濟部公開對美汽車關稅衝擊評估報告，並爭取中部產業預算。','台中汽車零組件與工具機供應鏈是本選區產業命脈，關稅議題從未迴避。']},
+    {date:'2026-06-26',
+     atkTitle:'「立法院鬧空城、跑行程作秀」',
+     quote:'將「總預算卡關近300天」與地方考察行程並置，塑造「該審不審、跑行程」形象。',
+     cite:'2026-06-26／06-29 輿論',
+     factTitle:'質詢與法案都有公報可查',
+     facts:['第11屆迄今食安法相關公報質詢7場次，逐字可回查（GZ編號見重點質詢頁）。','食安法修法參與10案：2案領銜、7案共提、1案連署。','地方考察是選區服務，忠勇路水管、福順路打通都是從陳情跑出來的成果。']}
+  ],
+  news: [
+    {date:'2026-08-27',title:'廖偉翔：賴政府未落實弱勢團體優先採購',outlet:'Yahoo新聞',note:'庇護工場優先採購議題持續延燒。'},
+    {date:'2026-08-26',title:'中市府接庇護工場訂單，廖偉翔批賴政府拿弱勢政治操作',outlet:'自由時報'},
+    {date:'2026-08-25',title:'卓榮泰稱沒預算勘災只能電話連絡，廖偉翔：可以包機無法勘災？',outlet:'匯流新聞網'},
+    {date:'2026-08-21',title:'廖偉翔揭公部門優先採購4成流標或未成交',outlet:'自由時報'},
+    {date:'2026-08-20',title:'食安法修法欲增指揮中心，廖偉翔：漏洞未補、疊床架屋',outlet:'匯流新聞網'},
+    {date:'2026-08-20',title:'政院不副署未來帳戶，廖偉翔轟：為獨裁意志犧牲幼兒權益',outlet:'CTWANT'},
+    {date:'2026-08-19',title:'不副署兒童帳戶卻普發1萬，廖偉翔：只為選票一擲千金',outlet:'聯合新聞網'},
+    {date:'2026-08-13',title:'接獲陳情一年有成，廖偉翔促成忠勇路自來水管汰換完工',outlet:'Life生活網'},
+    {date:'2026-08-05',title:'黃馨慧、廖偉翔聯手爭取，樂田公園防曬升級、陽光公廁年底完工',outlet:'Yahoo新聞'},
+    {date:'2026-08-04',title:'廖偉翔領銜食安法§7/§47修正案排入院會',outlet:'立法院議事'},
+    {date:'2026-07-10',title:'西屯福順路打通工程開工',outlet:'台中市府'},
+    {date:'2026-07-08',title:'衛環會「三長道歉下台」臨時提案7:5表決通過',outlet:'立法院衛環會'},
+    {date:'2026-06-28',title:'向江啟臣六度鞠躬，推動無人機產業條例協商',outlet:'院會協商'}
+  ]
+};
+
+/* ====================================================================
+   小工具
+   ==================================================================== */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const words = t => t.split('').map((ch,i)=>`<span class="w"><i style="animation-delay:${(i*0.035).toFixed(3)}s">${esc(ch)}</i></span>`).join('');
+const hero = (eyebrow, title, lede, ghost) => `
+  <section class="hero"><div class="wrap">
+    <div class="eyebrow rv">${esc(eyebrow)}</div>
+    <h1>${words(title)}</h1>
+    <p class="lede rv" data-d="2">${lede}</p>
+  </div>${ghost?`<div class="ghost">${esc(ghost)}</div>`:''}</section>`;
+const stats = (items, dark) => `<section class="sec tight"><div class="wrap"><div class="stats ${dark?'dark':''} rv">${
+  items.map(([n,l,unit])=>`<div><div class="n"><span data-count="${n}">${n}</span>${unit?`<small>${esc(unit)}</small>`:''}</div><div class="l">${l}</div></div>`).join('')
+}</div></div></section>`;
+const nextLink = (href, label) => `<section class="wrap next rv"><div><div class="lab">下一頁</div><a href="${href}" data-nav>${esc(label)} <span class="ar">→</span></a></div></section>`;
+const PAGES_ORDER = ['interp','bills','local','clarify','news'];
+const TITLES = {home:'廖偉翔',interp:'重點質詢',bills:'法案推動',local:'地方建設',clarify:'攻擊澄清',news:'最新消息'};
+
+/* ====================================================================
+   頁面
+   ==================================================================== */
+const pages = {
+  home(){
+    const tk = DATA.news.slice(0,8).map(n=>`<span class="it"><b>${n.date}</b>${esc(n.title)}</span>`).join('');
+    return `
+    <section class="hero hero-home"><div class="wrap">
+      <div class="eyebrow rv">${esc(SITE.title)}・${esc(SITE.district)}</div>
+      <h1>${words(SITE.name)}</h1>
+      <div class="sub rv" data-d="1">把部長釘在數字上，把選區的路一條一條做出來。</div>
+      <p class="lede rv" data-d="2">${esc(SITE.committee)}。食安、社福、台中建設——<strong>攻政策不攻個人，每一句話都有公報可查。</strong></p>
+      <div class="cta rv" data-d="3">
+        <a class="btn fill" href="#/interp" data-nav>看重點質詢 <span class="ar">→</span></a>
+        <a class="btn line" href="#/local" data-nav>西屯、南屯做了什麼</a>
+      </div>
+    </div><div class="ghost">廖</div></section>
+    <div class="ticker rv"><div class="tk">${tk}${tk}</div></div>
+    ${stats([[10,'食安法修法參與案數<br>2案領銜・7案共提・1案連署','案'],[7,'食安主題公報質詢場次<br>逐字可回查','場'],[76,'進口食品批次 vs 不到100名邊境稽查人力','萬批'],[24,'第11屆食安法提案累計<br>唯一領銜檢驗制度案者','案']])}
+    <section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>五個頁面，五條戰線</h2><p>每一頁都是一個完整故事：從問題、數字到結果。</p></div>
+      <div class="doors rv" data-d="1">
+        ${[['interp','01','重點質詢','食安會報343天沒開會、76萬批對百人稽查——把問題問到底。'],
+           ['bills','02','法案推動','食安法24案裡，唯一直攻檢驗斷點的§7/§47領銜案。'],
+           ['local','03','地方建設','忠勇路水管、福順路打通、樂田公園——從陳情跑出來的。'],
+           ['clarify','04','攻擊澄清','面對「假鬼假怪」，用優先採購4成未成交的數字回應。'],
+           ['news','05','最新消息','8月至今13則動態，依日期排列。']]
+          .map(([k,n,t,d])=>`<a class="door" href="#/${k}" data-nav><div><div class="k">${n}</div><h3>${t}</h3></div><p>${d}</p><span class="ar">→</span></a>`).join('')}
+      </div>
+    </div></section>`;
+  },
+
+  interp(){
+    return hero('重點質詢・社會福利及衛生環境委員會','把部長釘在數字上',
+      '第11屆迄今食安主題公報質詢<strong>7場次</strong>，三條主線：中央食安治理鬆散、標示知情權與貿易防線、稽查量能風險導向。每一筆都附公報編號。','質') +
+    `<section class="sec tight"><div class="wrap"><div class="pills rv">
+      <span class="pill">中央食安治理鬆散<i>343天・10億無KPI</i></span>
+      <span class="pill">標示知情權與貿易防線<i>美豬・萊劑・原產地</i></span>
+      <span class="pill">稽查量能風險導向<i>76萬批 vs 100人</i></span>
+    </div></div></section>
+    <section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>質詢軌跡</h2><p>公報逐字接地，GZ 編號可於立法院公報系統回查。</p></div>
+      <div class="tl">${DATA.interp.map(it=>`
+        <div class="tli rv">
+          <div class="date"><div class="d">${it.date}</div><div class="who">${esc(it.who)}</div></div>
+          <div class="body"><h3>${esc(it.title)}</h3><p>${esc(it.body)}</p><div class="reply">${esc(it.reply)}</div><span class="gz">${it.gz}</span></div>
+        </div>`).join('')}</div>
+    </div></section>
+    <section class="inv big"><div class="wrap split">
+      <div class="rv"><div class="n">7:5</div></div>
+      <div class="rv" data-d="1"><div class="eyebrow">2026-07-08・衛環會第18次會議</div>
+        <div class="t">中聯油脂毒油事件後，發動<b>「行政院長、衛福部長、食藥署長道歉下台」</b>臨時提案並要求點名表決，7比5通過。</div>
+        <div class="s">贊成7：王育敏、陳菁徽、廖偉翔、邱慧洳、邱鎮軍、蘇清泉、涂權吉。</div></div>
+    </div></section>` + nextLink('#/bills','法案推動');
+  },
+
+  bills(){
+    const roleTxt = r => r==='lead' ? '<b class="lead">領銜主提</b>' : '<b>共同提案</b>';
+    return hero('法案推動・食品安全衛生管理法','24案裡，唯一直攻檢驗斷點的一案',
+      '第11屆食安法委員及黨團提案累計24案，廖偉翔參與<strong>10案</strong>。中聯油脂案暴露的「檢驗週期偏長、全靠行政公告」漏洞，由他領銜的§7/§47案直接入法。','法') +
+    stats([[10,'參與案數','案'],[2,'領銜主提','案'],[7,'共同提案','案'],[0,'第11屆完成逐條審查的食安法修正案——全部卡在委員會前','案']], true) +
+    `<section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>三條主軸</h2><p>從消費者知情權，到邊境標準，再到檢驗制度。</p></div>
+      <div class="lanes rv" data-d="1">
+        <div class="lane"><div class="k">標示透明線・7案</div><h3>消費者有權知道</h3><p>瘦肉精標示、原料原產地、嬰幼兒食品警語。</p>
+          <ul><li>§24/25 瘦肉精標示義務（主提）</li><li>§22 警語圖樣、§15 不得檢出</li><li>§22 原料原產地（連署）</li><li>§22/28 嬰幼兒食品警語</li></ul></div>
+        <div class="lane"><div class="k">邊境與標準線・1案</div><h3>不因談判退讓</h3><p>來源國標準較寬鬆者，即適用我國標準。</p>
+          <ul><li>§31-1 邊境標準比照我國</li><li>呼應2025-04質詢：「關稅談判不得犧牲食安」</li></ul></div>
+        <div class="lane hi"><div class="k">檢驗制度線・中聯案後</div><h3>把漏洞寫進法律</h3><p>季／月法定檢驗底線＋檢驗端強制通報免責。</p>
+          <ul><li>§7 高風險業者每季、高風險品項每月</li><li>§47 檢驗機構通報免責</li><li>2026-08-04 排入院會</li></ul></div>
+      </div>
+    </div></section>
+    <section class="sec tight"><div class="wrap">
+      <div class="sec-h rv"><h2>提案全圖</h2><p>依議案日期排列；進度為2026-07-30研究報告所載最新狀態。</p></div>
+      <div class="rows rv" data-d="1">${DATA.bills.map(b=>`
+        <div class="row"><div class="d">${b.date}</div><div class="art">${esc(b.art)}</div>
+          <div><h3>${esc(b.title)}</h3><p>${esc(b.desc)}</p></div>
+          <div class="st">${roleTxt(b.role)}<span>${esc(b.status)}</span></div></div>`).join('')}</div>
+    </div></section>
+    <section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>三軌並進</h2><p>行政院版、國民黨團版、委員提案——委員版的路線已被黨團旗艦版收編。</p></div>
+      <div class="steps rv" data-d="1">
+        <div class="step"><div class="k">2026-07-23</div><h3>行政院版</h3><p>衛福部擬具、政務委員陳時中審查，第4013次院會通過，動17條；夾帶網路業者管制專章。</p></div>
+        <div class="step"><div class="k">2026-07-24</div><h3>國民黨團版</h3><p>院總第20號、委員提案第11022804號，動10條，直對中聯案制度缺口；§22原產地、§30邊境逐批查驗同方向。</p></div>
+        <div class="step"><div class="k">2026-07-08</div><h3>委員提案17案</h3><p>衛環會第18次會議併案審查，僅詢答、未逐條，決議另擇期繼續審查。</p></div>
+        <div class="step"><div class="k">2026-08-04</div><h3>廖偉翔 §7/§47</h3><p>第二波新案潮中唯一直攻檢驗制度者；§7成為下階段併案審查的必然主戰場。</p></div>
+      </div>
+    </div></section>
+    <section class="sec tight"><div class="wrap">
+      <div class="sec-h rv"><h2>其他法案</h2></div>
+      <div class="pills rv" data-d="1">${DATA.otherBills.map(o=>`<span class="pill">${esc(o.law)}<i>${esc(o.note)}</i></span>`).join('')}</div>
+    </div></section>` + nextLink('#/local','地方建設');
+  },
+
+  local(){
+    return hero('地方建設・台中西屯、南屯','一條路、一條管線地做',
+      '從里長陳情到工程完工，中間是<strong>一年的追蹤</strong>。這一頁只放已開工、已完工、已提案的項目。','屯') +
+    `<section class="sec tight"><div class="wrap">
+      <div class="steps rv">
+        <div class="step"><div class="k">陳情</div><h3>接到問題</h3><p>里長、里民、服務處案件。</p></div>
+        <div class="step"><div class="k">協調</div><h3>拉部門到現場</h3><p>市府建設局、自來水公司、議員聯手。</p></div>
+        <div class="step"><div class="k">追蹤</div><h3>盯進度</h3><p>忠勇路水管：陳情到完工一年。</p></div>
+        <div class="step"><div class="k">完工</div><h3>回報里民</h3><p>成果公開，日期可查。</p></div>
+      </div>
+    </div></section>
+    <section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>成果與進行中</h2><p>依日期新到舊。</p></div>
+      <div class="cards">${DATA.local.map((c,i)=>`
+        <div class="card ${c.wide?'wide':''} rv" data-d="${(i%3)+1}"><div class="d">${c.date}</div><span class="tag">${esc(c.tag)}</span><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p><div class="src">出處：${esc(c.src)}</div></div>`).join('')}</div>
+    </div></section>
+    <section class="inv big"><div class="wrap split">
+      <div class="rv"><div class="n">1<small style="font-size:.3em">年</small></div></div>
+      <div class="rv" data-d="1"><div class="eyebrow">忠勇路自來水管汰換</div>
+        <div class="t">接獲陳情到全線汰換完工，<b>整整一年的追蹤</b>。地方建設沒有捷徑，只有一次一次到場。</div>
+        <div class="s">2026-08-13 完工</div></div>
+    </div></section>` + nextLink('#/clarify','攻擊澄清');
+  },
+
+  clarify(){
+    return hero('攻擊澄清','面對攻擊，用數字回應',
+      '左邊是他們說的，右邊是查得到的事實。<strong>攻政策不攻個人</strong>，回應也只談制度與數字。','澄') +
+    `<section class="sec tight"><div class="wrap">${DATA.clarify.map(c=>`
+      <div class="vs rv">
+        <div class="atk"><div class="k">他們說</div><h3>${esc(c.atkTitle)}</h3><blockquote>${esc(c.quote)}<cite>${esc(c.cite)}</cite></blockquote></div>
+        <div class="fact"><div class="k">事實是</div><h3>${esc(c.factTitle)}</h3><ul>${c.facts.map(f=>`<li>${esc(f)}</li>`).join('')}</ul><div class="d">${c.date}</div></div>
+      </div>`).join('')}
+    </div></section>
+    <section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>回應原則</h2></div>
+      <div class="steps rv" data-d="1">
+        <div class="step"><div class="k">原則一</div><h3>只談制度</h3><p>國務機要費、優先採購、檢驗週期——每一題都回到制度本身。</p></div>
+        <div class="step"><div class="k">原則二</div><h3>數字有出處</h3><p>4成未成交、年損10億、76萬批——都能回查。</p></div>
+        <div class="step"><div class="k">原則三</div><h3>不誅心</h3><p>不揣測動機，不做人身攻擊。</p></div>
+        <div class="step"><div class="k">原則四</div><h3>公開更正</h3><p>若本站資料有誤，查證後於最新消息公告更正。</p></div>
+      </div>
+    </div></section>` + nextLink('#/news','最新消息');
+  },
+
+  news(){
+    const byMonth = {};
+    DATA.news.forEach(n=>{ const m=n.date.slice(0,7); (byMonth[m]=byMonth[m]||[]).push(n); });
+    const months = Object.keys(byMonth).sort().reverse();
+    return hero('最新消息','每一天，都在做事',
+      `資料更新至 <strong>${SITE.updated}</strong>。依日期新到舊，標題為媒體或立法院原始標題。`,'新') +
+    `<section class="sec tight"><div class="wrap"><div class="news rv">${months.map(m=>`
+      <div class="mh">${m.replace('-','・')}</div>${byMonth[m].map(n=>`
+      <div class="ni"><div class="d">${n.date}</div><div><h3>${n.url?`<a class="h" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>`:esc(n.title)}</h3>${n.note?`<p>${esc(n.note)}</p>`:''}</div><div class="o">${esc(n.outlet)}</div></div>`).join('')}`).join('')}
+    </div></div></section>` + nextLink('#/interp','重點質詢');
+  }
+};
+
+const footer = () => {
+  const soc = Object.entries(SITE.social).filter(([,u])=>u).map(([k,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener">${k}</a>`).join('');
+  return `<footer><div class="wrap">
+    <div><div class="name">${esc(SITE.name)}</div><div class="meta">${esc(SITE.title)}・${esc(SITE.district)}・${esc(SITE.committee)}</div></div>
+    <div class="soc">${soc}</div>
+    <div class="fine">資料截至 ${SITE.updated}・質詢內容以立法院公報為準，議案進度以立法院議事系統為準。</div>
+  </div></footer>`;
+};
+
+/* ====================================================================
+   路由與轉場
+   ==================================================================== */
+const app = document.getElementById('app');
+const curtain = document.getElementById('curtain');
+const curtainText = document.getElementById('curtainText');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let current = null, busy = false;
+
+function routeKey(){ const h=location.hash.replace(/^#\/?/,'').split('?')[0]; return pages[h]?h:'home'; }
+
+function render(key){
+  app.innerHTML = pages[key]() + footer();
+  document.title = key==='home' ? '廖偉翔官方網站' : `${TITLES[key]}｜廖偉翔官方網站`;
+  document.querySelectorAll('#menu a').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===`#/${key}`));
+  window.scrollTo({top:0,behavior:'instant'});
+  observe();
+  current = key;
+}
+
+function go(key){
+  if(busy) return;
+  if(reduce || current===null){ render(key); return; }
+  busy = true;
+  curtainText.textContent = TITLES[key];
+  curtain.classList.remove('out'); curtain.classList.add('in');
+  setTimeout(()=>{ render(key); curtain.classList.remove('in'); curtain.classList.add('out'); }, 600);
+  setTimeout(()=>{ busy=false; }, 1150);
+}
+
+window.addEventListener('hashchange', ()=>{ const k=routeKey(); if(k!==current) go(k); });
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[data-nav]'); if(!a) return;
+  const href = a.getAttribute('href'); if(!href.startsWith('#/')) return;
+  e.preventDefault();
+  const k = href.replace('#/','')||'home';
+  if(k===current){ window.scrollTo({top:0,behavior:'smooth'}); return; }
+  history.pushState(null,'',href); go(pages[k]?k:'home');
+});
+window.addEventListener('popstate', ()=>{ const k=routeKey(); if(k!==current) go(k); });
+
+/* reveal + count-up */
+let io;
+function observe(){
+  io && io.disconnect();
+  io = new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); en.target.querySelectorAll('[data-count]').forEach(count); io.unobserve(en.target);} }); }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+}
+function count(el){
+  if(el.dataset.done || reduce) return; el.dataset.done=1;
+  const to = +el.dataset.count, t0 = performance.now(), dur = 900;
+  const tick = now => { const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=Math.round(to*e); if(p<1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+}
+
+/* nav solid on scroll */
+const nav = document.getElementById('nav');
+addEventListener('scroll', ()=>nav.classList.toggle('solid', scrollY>20), {passive:true});
+
+/* theme toggle */
+const root = document.documentElement;
+try{ const t=localStorage.getItem('theme'); if(t) root.dataset.theme=t; }catch(e){}
+document.getElementById('theme').addEventListener('click', ()=>{
+  const dark = root.dataset.theme==='dark' || (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+  root.dataset.theme = dark ? 'light' : 'dark';
+  try{ localStorage.setItem('theme', root.dataset.theme); }catch(e){}
+});
+
+render(routeKey());
+nav.classList.toggle('solid', scrollY>20);
+</script>
+</body>
+</html>
