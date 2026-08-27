@@ -212,6 +212,11 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 .x ol.ls li{position:relative;padding:7px 0 7px 30px;border-top:1px solid var(--line);font-size:.92rem;counter-increment:n}
 .x ol.ls li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:9px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
 .x .rep{border-left:2px solid var(--fg);padding-left:14px;font-size:.92rem;color:var(--muted)}
+.x ol.fu li{display:grid;grid-template-columns:96px 1fr auto;gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:.9rem;align-items:baseline}
+.x ol.fu li b{font-family:var(--mono);font-weight:500;font-size:.78rem;color:var(--muted)}
+.x ol.fu li a{font-size:.78rem;border:1px solid var(--line);border-radius:999px;padding:2px 10px;white-space:nowrap;color:var(--muted)}
+.x ol.fu li a:hover{border-color:var(--fg);color:var(--fg)}
+@media (max-width:760px){.x ol.fu li{grid-template-columns:1fr;gap:4px}}
 .x .qt{font-family:var(--serif);font-weight:700;font-size:1.05rem;line-height:1.6}
 .x .qt p{padding:6px 0}
 .x .qt p::before{content:"「"}.x .qt p::after{content:"」"}
@@ -559,11 +564,12 @@ const pages = {
           <div><div class="lab">指正缺失</div><ol class="ls">${c.faults.map(x=>`<li>${esc(x)}</li>`).join('')||'<li>—</li>'}</ol></div>
           ${c.reply?`<div><div class="lab">官員回應</div><div class="rep">${esc(c.reply)}</div></div>`:''}
           ${c.quotes.length?`<div><div class="lab">原話</div><div class="qt">${c.quotes.map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`:''}
+          ${c.followups&&c.followups.length?`<div class="full"><div class="lab">後續進度</div><ol class="fu">${c.followups.map(f=>`<li><b>${esc(f.date)}</b><span>${esc(f.text)}</span><a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.outlet||'來源')} ↗</a></li>`).join('')}</ol></div>`:''}
           <div class="full ft"><span class="gz">${esc(c.gz)}</span><a href="${esc(c.pdf)}" target="_blank" rel="noopener">公報 PDF・第 ${esc(c.pages)} 頁 ↗</a><span>議程：${esc(c.agenda)}</span></div>
         </div></div></div>
       </article>`;
     const html = `${hero('重點質詢・立法院公報逐字稿','把部長釘在數字上',
-      `第11屆迄今公報質詢<strong>${num(S.sessions)}場</strong>、逐字稿<strong>${num(Math.round(S.chars/10000))}萬字</strong>，全部拆成「摘要／要求／指正缺失」。每一張卡都附公報編號與頁碼，點開可回查原文。`,'質')}
+      `第11屆迄今公報質詢<strong>${num(S.sessions)}場</strong>、逐字稿<strong>${num(Math.round(S.chars/10000))}萬字</strong>，全部拆成「摘要／要求／指正缺失」${S.followups?`，其中<strong>${S.followups}場</strong>附有查得到出處的後續進度`:''}。每一張卡都附公報編號與頁碼，點開可回查原文。`,'質')}
     ${stats([[S.sessions,'公報質詢場次<br>'+S.first+' 至 '+S.last,'場'],[S.demands,'對部會提出的具體要求','條'],[S.faults,'指正的缺失與失職','條'],[coms.length,'跨委員會質詢<br>'+coms.map(([k])=>k.replace('委員會','')).join('、'),'個']])}
     <section class="sec slim"><div class="wrap">
       <div class="pills rv" id="tp"><button class="pill sm ${!state.topic?'on':''}" data-t="">全部議題</button>${topics.map(([t,n])=>`<button class="pill sm ${state.topic===t?'on':''}" data-t="${esc(t)}">${esc(t)}<i>${n}</i></button>`).join('')}</div>
