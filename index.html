@@ -349,6 +349,20 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 .vs .fact li{padding:8px 0;border-top:1px solid var(--line);font-size:.9rem;display:flex;gap:10px}
 .vs .fact li::before{content:"—";flex:none;font-family:var(--mono)}
 .vs .d{font-family:var(--mono);font-size:.78rem;opacity:.65;margin-top:14px}
+.vs .src{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;opacity:.55;margin-bottom:8px}
+.vs .fact li a{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.clue{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.clue .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;opacity:.65;margin-right:6px}
+.clue a{font-size:.78rem;line-height:1.3;padding:5px 11px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:inherit;transition:background .2s,color .2s}
+.clue a::before{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;opacity:.6;margin-right:6px}
+.clue a.in::before{content:"站內"}
+.clue a.ex::before{content:"新聞"}
+.clue a.in{border-color:var(--fg)}
+.clue a:hover{background:var(--inv-bg);color:var(--inv-fg);border-color:var(--inv-bg)}
+.vs .atk .clue{border-top-color:color-mix(in srgb,var(--inv-fg) 25%,transparent)}
+.vs .atk .clue a{border-color:color-mix(in srgb,var(--inv-fg) 40%,transparent)}
+.vs .atk .clue a:hover{background:var(--inv-fg);color:var(--inv-bg);border-color:var(--inv-fg)}
+@media (max-width:760px){.clue a{font-size:.74rem}}
 @media (max-width:760px){.vs{grid-template-columns:1fr}}
 
 /* news list */
@@ -462,7 +476,148 @@ const DATA = {
      quote:'將「總預算卡關近300天」與地方考察行程並置，塑造「該審不審、跑行程」形象。',
      cite:'2026-06-26／06-29 輿論',
      factTitle:'質詢與法案都有公報可查',
-     facts:['第11屆迄今公報質詢逐字可回查，每一場都附公報編號與頁碼（見重點質詢頁）。','食安法修法參與10案：2案領銜、7案共提、1案連署。','地方考察是選區服務，忠勇路水管、福順路打通都是從陳情跑出來的成果。']}
+     facts:['第11屆迄今公報質詢逐字可回查，每一場都附公報編號與頁碼（見[重點質詢頁](#/interp)）。','食安法修法參與10案：2案領銜、7案共提、1案連署。','地方考察是選區服務，[忠勇路水管](#/local?q=忠勇路)、[福順路打通](#/local?q=福順路)都是從陳情跑出來的成果。']},
+
+    /* ---------- 2025 罷免案公報（罷免理由書 × 答辯書） ---------- */
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（四）',
+     atkTitle:'「政見未實踐、上任一年沒建樹」',
+     quote:'罷免理由書第四點指廖偉翔「政見未實踐」；罷團連署現場亦稱其上任一年沒有建樹。',
+     cite:'罷免理由書（四）・領銜人吳欣儒 2025-07',
+     atkLinks:[{l:'中央社：罷免理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'},{l:'中央社：領銜人說明會批收割政績',h:'https://tw.news.yahoo.com/%E4%B8%AD%E5%9B%9B%E9%81%B8%E5%8D%80%E7%BD%B7%E5%85%8D%E8%AA%AA%E6%98%8E%E6%9C%83-%E9%A0%98%E9%8A%9C%E4%BA%BA%E5%90%B3%E6%AC%A3%E5%84%92%E6%89%B9%E5%BB%96%E5%81%89%E7%BF%94%E6%94%B6%E5%89%B2%E6%94%BF%E7%B8%BE-%E5%8F%9B%E5%9C%8B%E5%8F%9B%E9%BB%A8-051405320.html'}],
+     factTitle:'一年半的成績單：每一條都有法案號或工程案可查',
+     facts:['[財劃法修正](#/bills?role=co&law=財政收支劃分法)三讀後，台中每年增加約262億統籌分配款（中央社 2024-12-23）。','三讀[詐欺犯罪危害防制條例](#/bills?role=co&law=詐欺犯罪危害防制條例)加重詐欺刑責、[刑法§286](#/bills?role=lead&q=第二百八十六條)加重虐童刑責；[公益揭弊者保護法](#/bills?role=co&law=公益揭弊者保護法)三讀（本人另領銜[揭弊者保護法草案](#/bills?role=lead&law=揭弊者保護法)）。','領銜[紀念日及節日實施條例](#/bills?role=lead&law=紀念日及節日實施條例)，2025-05-09 三讀還國人5天假；領銜[軍人待遇條例§5、§6](#/bills?role=lead&law=軍人待遇條例)三讀加薪；共提[警察人員人事條例](#/bills?role=co&law=警察人員人事條例)。','共提[就業服務法§46](#/bills?role=co&q=就業服務法第四十六條)三讀：80歲以上及70-79歲癌症二期以上免巴氏量表（中央社 2024-12-31）。','交通建設99.33億：漢翔路至東大路、福林路延伸至中科路98.12億（ETtoday 2024-04-13）；人行空間7,534萬、自來水汰換4億3,915萬、校園2,903萬（答辯書列表，逐案見[地方建設頁](#/local)）。','提案490餘件（主提50餘、連署400餘），選民服務1,800餘件——答辯書數字，提案清單見[法案推動頁](#/bills)。'],
+     clues:[{l:'法案推動｜全部提案',h:'#/bills'},{l:'地方建設｜自來水管線',h:'#/local?cat=自來水管線'},{l:'地方建設｜人行安全',h:'#/local?cat=人行安全'},{l:'中央社｜財劃法台中年增262億',h:'https://www.cna.com.tw/news/aipl/202412230172.aspx'},{l:'內政部｜詐欺防制條例三讀',h:'https://www.moi.gov.tw/News_Content.aspx?n=2&s=317857'},{l:'法務部｜揭弊者保護法三讀',h:'https://www.moj.gov.tw/2204/2795/2796/227301/post'},{l:'工商時報｜還5天假三讀',h:'https://www.ctee.com.tw/news/20250509701095-430104'},{l:'中央社｜免巴氏量表三讀',h:'https://www.cna.com.tw/news/aipl/202412310099.aspx'},{l:'ETtoday｜98億打通漢翔路福林路',h:'https://www.ettoday.net/news/20240413/2718890.htm'},{l:'聯合報｜福林路延伸將動工',h:'https://udn.com/news/story/7325/9526957'},{l:'公視｜警消年改三讀',h:'https://news.pts.org.tw/article/732480'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（一）1',
+     atkTitle:'「國會擴權、立委可約談老百姓」',
+     quote:'罷免理由書指立法院職權行使法修正是「國會擴權」，沒收委員會審查、藐視國會罪，並稱其圖卡宣稱「立委可約談老百姓」；後經憲法法庭判決違憲。',
+     cite:'罷免理由書（一）1',
+     atkLinks:[{l:'中央社：罷免理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'}],
+     factTitle:'一場專題報告、三場公聽會、一場協商，審查程序都有紀錄',
+     facts:['2024-03-21 司法及法制委員會專題報告，4/3、4/10、4/11 三場公聽會，5/8 黨團協商——不是「沒有審查」。','2024-04-15 民進黨團在委員會一天內提出40次以上散會動議阻擋審查（中央社：40度提散會）。','通過版本納入多項民進黨版條文；蔡英文任內柯建銘等民進黨立委也曾提出國會改革案。','本人共提[立法院職權行使法部分條文修正草案](#/bills?role=co&law=立法院職權行使法)，提案內容公開可查。'],
+     clues:[{l:'法案推動｜立法院職權行使法',h:'#/bills?role=co&law=立法院職權行使法'},{l:'中央社｜民進黨40度提散會',h:'https://www.cna.com.tw/news/aipl/202404150173.aspx'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（一）2',
+     atkTitle:'「閹割罷免權」',
+     quote:'指選罷法修正提高罷免門檻、連署須附身分證影本，是「閹割人民罷免權」。',
+     cite:'罷免理由書（一）2',
+     atkLinks:[{l:'ETtoday：選罷法連署加嚴三讀',h:'https://www.ettoday.net/news/20241220/2877409.htm'},{l:'報導者：三法修正案通過經過',h:'https://www.twreporter.org/a/kmt-tpp-lawmakers-pass-three-amendments-include-constitutional-court-procedure-act'}],
+     factTitle:'修法只做一件事：連署要核實身分',
+     facts:['修正內容：罷免提議與連署附身分證正反面影本，偽造、假冒連署處5年以下有期徒刑（報導者 2024-12-20）。','2025-04-16 中選會公布41件罷免案涉偽造或死亡連署（中央社）；答辯書載本選區有5,725份不合格連署書。','本人連署[公職人員選舉罷免法§75、§90修正案](#/bills?role=sign&law=公職人員選舉罷免法)，2024-12-17 審查完畢。'],
+     clues:[{l:'法案推動｜公職人員選舉罷免法',h:'#/bills?role=sign&law=公職人員選舉罷免法'},{l:'中央社｜41件罷免案涉偽造或死亡連署',h:'https://www.cna.com.tw/news/aipl/202504160239.aspx'},{l:'大紀元｜本選區連署書代收爭議',h:'https://www.epochtimes.com/b5/25/4/4/n14474651.htm'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（一）3',
+     atkTitle:'「癱瘓憲法法庭」',
+     quote:'指憲法訴訟法修正提高評議與違憲宣告門檻、封殺大法官提名，讓憲法法庭停擺。',
+     cite:'罷免理由書（一）3',
+     atkLinks:[{l:'公視：三大法案爭議整理',h:'https://news.pts.org.tw/article/729676'},{l:'報導者：憲訴法修正內容',h:'https://www.twreporter.org/a/kmt-tpp-lawmakers-pass-three-amendments-include-constitutional-court-procedure-act'}],
+     factTitle:'15人是憲法寫的，門檻是法定總額算的',
+     facts:['憲法增修條文第5條明定大法官15人；修法將「現有總額」改為法定總額計算，評議須10人以上出席、違憲宣告須9人以上同意（報導者 2024-12-20）。','三讀程序：主席詢問無異議後通過，程序合法。','大法官提名人選未通過，民進黨團當時也否決了部分提名人。','本人連署[憲法訴訟法§95修正案](#/bills?role=sign&law=憲法訴訟法)，2024-10-23 審查完畢。'],
+     clues:[{l:'法案推動｜憲法訴訟法',h:'#/bills?role=sign&law=憲法訴訟法'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（一）4',
+     atkTitle:'「惡修財劃法、刪凍預算癱瘓國家」',
+     quote:'指財劃法修正掏空中央，114年總預算刪減約2,075億、凍結逾2,600億、約750項，占總預算16%、可支配預算35%，並以「決而未議」違反釋字342。',
+     cite:'罷免理由書（一）4',
+     atkLinks:[{l:'中央社：114年總預算刪2075億創新高',h:'https://www.cna.com.tw/news/aipl/202501210214.aspx'},{l:'報導者：財劃法中央增釋3千億給地方',h:'https://www.twreporter.org/a/kmt-tpp-lawmakers-pass-three-amendments-include-constitutional-court-procedure-act'}],
+     factTitle:'財劃法是選前政見；審後預算仍是史上最高',
+     facts:['財劃法27年未修，修法後地方可支配財源由約20%提高到約30%（德美約50%、日本35%、韓國25%）；台中每年增加約262億（中央社 2024-12-23）。','賴清德任台南市長、蘇貞昌、柯建銘都曾主張修財劃法；本人共提[財劃法§8、§37修正案](#/bills?role=co&law=財政收支劃分法)。','114年總預算3.2兆，審後2.92兆仍是史上最高；答辯書列出國防+400億、內政+400億、交通+389億、衛福+306億、教育+300億、國科會+132億。','罷團把「財劃法」與「刪預算」混為一談；地方補助款減少是行政院統刪一般性補助款25%、約636億（公視）。'],
+     clues:[{l:'法案推動｜財政收支劃分法（共提）',h:'#/bills?role=co&law=財政收支劃分法'},{l:'法案推動｜財劃法§16-1三讀（連署）',h:'#/bills?role=sign&law=財政收支劃分法'},{l:'中央社｜台中年增262億',h:'https://www.cna.com.tw/news/aipl/202412230172.aspx'},{l:'公視｜政院統刪636億補助款',h:'https://news.pts.org.tw/article/753626'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（二）1',
+     atkTitle:'「中火是政治提款機、放水核四」',
+     quote:'指廖偉翔拿中火當政治提款機，卻對核四、文山焚化爐放水。',
+     cite:'罷免理由書（二）1',
+     atkLinks:[{l:'中央社：罷免理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'}],
+     factTitle:'中火減煤是決議、是刪預算，不是口號',
+     facts:['經濟委員會決議中火減煤100萬噸、刪除台電購煤預算60億（答辯書）；2025-06-03 立法院通過「2028年完成無煤中火」主決議，本人為提案人之一（中央社）。','核三除役後28天中火燃煤量增加1.47倍，本人調閱資料公開（ETtoday 2025-06-17）。','主張「增一氣拆一煤」、要求燃氣接收站做政策環評，質詢逐字可查。'],
+     clues:[{l:'重點質詢｜中火',h:'#/interp?topic=中火'},{l:'重點質詢｜增一氣拆一煤',h:'#/interp?topic=增一氣拆一煤'},{l:'重點質詢｜接收站政策環評',h:'#/interp?topic=接收站'},{l:'中央社｜2028無煤中火決議',h:'https://www.cna.com.tw/news/aipl/202506030262.aspx'},{l:'ETtoday｜燃煤量暴增1.47倍',h:'https://www.ettoday.net/news/20250617/2979887.htm'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（二）2（1）',
+     atkTitle:'「捷運藍線是收割」',
+     quote:'指捷運藍線2019年就送審，廖偉翔尚未上任就發圖卡「成功爭取」。',
+     cite:'罷免理由書（二）2（1）',
+     atkLinks:[{l:'自由時報：林靜儀批割稻尾',h:'https://news.ltn.com.tw/news/politics/breakingnews/4566889'},{l:'自由時報：陳柏惟批千年奇才',h:'https://news.ltn.com.tw/news/politics/breakingnews/4569583'}],
+     factTitle:'2019送審、2024選後才核定，卡了誰自己算',
+     facts:['罷免理由書自己寫「2019年送審」——五年沒核定，選後才火速通過；本人臉書當時即公開感謝行政院。','2024-09-30 交通委員會質詢要求藍線年底前完成審查（逐字可查）。','藍線已發包，2025-06-26 動工（答辯書）。'],
+     clues:[{l:'重點質詢｜捷運藍線',h:'#/interp?q=藍線'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（二）2',
+     atkTitle:'「路燈會勘沒出席卻蓋章」',
+     quote:'指2024年4月西屯路、玉成路路燈會勘，廖偉翔未出席卻在紀錄上蓋章。',
+     cite:'罷免理由書（二）2',
+     atkLinks:[{l:'中央社：罷免理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'}],
+     factTitle:'會勘有簽到紀錄，路燈已完工',
+     facts:['2024-04-19 玉成路裝設路燈會勘（協和里），現場結論燈桿外移、提高亮度，12張現場照片在[地方建設頁](#/local?q=玉成路裝設路燈)。','會勘簽到紀錄可證明多名同仁出席；路燈已順利完工（答辯書）。'],
+     clues:[{l:'地方建設｜玉成路裝設路燈會勘',h:'#/local?q=玉成路裝設路燈'},{l:'地方建設｜路燈照明',h:'#/local?cat=路燈照明'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（二）2',
+     atkTitle:'「福中、福和里自來水汰管是張廖萬堅爭取的」',
+     quote:'指2024年7月福中、福和里自來水管汰換是前立委張廖萬堅2023年爭取，廖偉翔卻稱成功爭取。',
+     cite:'罷免理由書（二）2',
+     atkLinks:[{l:'中央社：罷免理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'}],
+     factTitle:'1,392萬未完工，擴大成1億600萬',
+     facts:['張廖萬堅爭取的1,392萬元工程並未完工；本人擴大爭取到1億600萬，施作範圍擴及世貿公園周遭（答辯書）。','2024-10-30 福和里天寶街、福安十街周邊自來水管更換施工前會勘；2025-02-24 世貿公園周邊汰換管線工程會勘，都有紀錄。','同一套做法在南屯：忠勇路自來水管汰換約1,300萬、1,000公尺，2026年完工驗收（民生電子報）。'],
+     clues:[{l:'地方建設｜福和里天寶街自來水',h:'#/local?q=天寶街'},{l:'地方建設｜世貿公園周邊汰換管線',h:'#/local?q=世貿公園周邊汰換管線'},{l:'地方建設｜自來水管線全部',h:'#/local?cat=自來水管線'},{l:'民生電子報｜忠勇路汰管完工',h:'https://lifenews.com.tw/559255'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（二）2',
+     atkTitle:'「百億新藥基金先宣傳後凍結」',
+     quote:'指2024年9月宣傳百億癌症新藥基金、癌篩，2025年1月卻凍結相關預算。',
+     cite:'罷免理由書（二）2',
+     atkLinks:[{l:'中央社：百億癌症新藥基金拚115年達標',h:'https://www.cna.com.tw/news/ahel/202407010220.aspx'}],
+     factTitle:'凍結案不是本人提的，說明後已解凍',
+     facts:['本人是厚生會癌症新藥委員會共同召集人，一路推動基金編列；凍結提案並非本人所提，衛福部說明後即解凍（答辯書）。','2024-07-01 質詢要求大腸癌篩檢下修到40歲、癌症新藥專款；2025-11-13 追問百億癌症基金執行，逐字可查。'],
+     clues:[{l:'重點質詢｜癌症新藥基金',h:'#/interp?q=新藥'},{l:'法案推動｜癌症防治法',h:'#/bills?role=lead&law=癌症防治法'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（二）2',
+     atkTitle:'「足球場、黎明國小、人行通道都是收割」',
+     quote:'指西屯足球場二期（黃馨慧）、黎明國小工程（張廖萬堅2023）、玉成路朝馬路人行通道（陳淑華2022）皆非廖偉翔推動。',
+     cite:'罷免理由書（二）2',
+     atkLinks:[{l:'中央社：罷免理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'}],
+     factTitle:'每一案都有會勘照片、提案紀錄、公文',
+     facts:['黎明國小：2024-03-14、2024-04-16 兩次會勘整修地坪與排水溝；答辯書列黎明國小第三集合區排水溝847萬。','玉成路、朝馬路人行便橋：2023-07-25 邀建設局長會勘增設人行便橋，2024-06-14 完工會勘（27張照片）；答辯書列1,200萬。','罷團自己寫這些建設「非由單一立委推動完成」——那就不是誰收割誰，是地方團隊一起做。'],
+     clues:[{l:'地方建設｜黎明國小',h:'#/local?q=黎明國小'},{l:'地方建設｜玉成路人行便橋',h:'#/local?q=玉成路間增設'},{l:'地方建設｜朝馬足球場出入口',h:'#/local?q=朝馬足球場'},{l:'地方建設｜學校設施',h:'#/local?cat=學校設施'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（二）2',
+     atkTitle:'「南屯運動中心人行道是張耀中2018年做的」',
+     quote:'指2025年1月南屯運動中心旁人行道為前議員張耀中2018年爭取，廖偉翔「旅人收割」。',
+     cite:'罷免理由書（二）2',
+     atkLinks:[{l:'匯流新聞：劉士州舉實際建設回擊罷團',h:'https://cnews.com.tw/237250114a04/'}],
+     factTitle:'文昌街暨萬和路一段改善工程1,345萬，有會勘有完工',
+     facts:['文昌街暨萬和路一段道路及人行道改善工程共1,345萬，與劉士州議員共同爭取，國土署補助672.5萬（答辯書）。','2024-07-03 本人主持會勘（26張照片），2024-11-13 完工拍照，紀錄在[地方建設頁](#/local?q=文昌街暨萬和路)。'],
+     clues:[{l:'地方建設｜文昌街暨萬和路一段',h:'#/local?q=文昌街暨萬和路'},{l:'地方建設｜人行安全',h:'#/local?cat=人行安全'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（三）',
+     atkTitle:'「飛行美樂地未完工就強迫試玩拍片」',
+     quote:'指2024年11月13日在尚未完工的飛行美樂地遊戲場強行試玩拍片。',
+     cite:'罷免理由書（三）',
+     atkLinks:[{l:'NOWnews：綠轟玩遊具最壞示範',h:'https://www.nownews.com/news/6581401'}],
+     factTitle:'廠商、工地主任、技師邀請體驗，全程陪同',
+     facts:['拍攝當日是開放前最後修繕階段，廠商、工地主任、技師邀請親自體驗，測試是否會刮傷小朋友；測試時廠商全程在場（NOWnews 2024-11）。','林智堅、陳其邁、潘孟安也都曾在開放前測試遊具（答辯書）。'],
+     clues:[{l:'NOWnews｜廖偉翔回應全文',h:'https://www.nownews.com/news/6581401'}]},
+
+    {group:'recall',date:'2025-07-26',src:'罷免理由書（三）',
+     atkTitle:'「服務處是違建仍稱合法」',
+     quote:'指2024年9月21日服務處遭檢舉違建，廖偉翔仍稱合法。',
+     cite:'罷免理由書（三）',
+     atkLinks:[{l:'中央社：服務處爆違建 市府列管排拆',h:'https://www.cna.com.tw/news/aloc/202409210194.aspx'},{l:'聯合影音：上午拆招牌著手搬遷',h:'https://video.udn.com/news/1294352'}],
+     factTitle:'承租物件，當天拆招牌、宣布搬遷',
+     facts:['服務處為承租，接獲違建認定當日即自行拆除招牌並宣布搬遷，隔天另覓新址（答辯書、聯合影音 2024-09-21）。'],
+     clues:[{l:'聯合影音｜拆招牌搬遷',h:'https://video.udn.com/news/1294352'}]},
+
+    /* ---------- 草稿：答辯書未逐點回應，待辦公室補事實後再公開（draft:true 不渲染） ---------- */
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（一）1',atkTitle:'「5/17用拳暴打同事」',quote:'指2024-05-17院會衝突中出拳打沈伯洋。',cite:'罷免理由書（一）1',atkLinks:[{l:'中央社：517衝突沈伯洋送醫',h:'https://www.cna.com.tw/news/aipl/202405170312.aspx'},{l:'READr：517衝突逐格記錄',h:'https://www.readr.tw/post/2983'}],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（一）1',atkTitle:'「立委可約談老百姓」圖卡',quote:'指2024年5月圖卡稱立委可約談老百姓、不從須自行打行政訴訟。',cite:'罷免理由書（一）1',atkLinks:[{l:'中央社：罷免理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'}],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（一）4',atkTitle:'「健保開放中國依親」',quote:'指修法讓中國依親者納健保。',cite:'罷免理由書（一）4',atkLinks:[],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（二）3',atkTitle:'「葉姓助理酒駕性侵前科」',quote:'指2024-10-22服務處葉姓助理有酒駕、性侵前科。',cite:'罷免理由書（二）3',atkLinks:[],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（二）3',atkTitle:'「樂樂棒打老師只留言護航盧秀燕」',quote:'指2024-12-03樂樂棒打老師案只留言護航市長。',cite:'罷免理由書（二）3',atkLinks:[{l:'風傳媒：樂樂棒打老師事件始末',h:'https://www.storm.mg/lifestyle/5286962'}],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（二）3',atkTitle:'「生日卡個資、慰問禮過高、與詐騙集團合辦電影」',quote:'三項「爭議小事」概括指控，無獨立報導。',cite:'罷免理由書（二）3',atkLinks:[],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（三）',atkTitle:'「黃馨慧對泰安國小學生助選」',quote:'指2023-12-18黃馨慧向泰安國小學生宣傳。',cite:'罷免理由書（三）',atkLinks:[],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（三）',atkTitle:'「毒豬肉質詢搞不懂統計抽樣」',quote:'指2024-02-23質詢陳建仁時不懂統計抽樣。',cite:'罷免理由書（三）',atkLinks:[{l:'自由時報：陳建仁罕見動怒',h:'https://news.ltn.com.tw/news/politics/breakingnews/4587397'},{l:'TVBS：食安是科學你講的是政治',h:'https://news.tvbs.com.tw/politics/2404365'}],factTitle:'（待補）',facts:[],clues:[]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（三）',atkTitle:'「指藥局囤藥被藥學會譴責」',quote:'指2024-03-07質詢稱藥局囤藥，遭藥師公會抗議。',cite:'罷免理由書（三）',atkLinks:[{l:'中央社：廖偉翔回應反映藥局怕缺藥',h:'https://www.cna.com.tw/news/aipl/202403080240.aspx'},{l:'Newtalk：民進黨籲道歉',h:'https://newtalk.tw/news/view/2024-03-08/911522'}],factTitle:'（待補）',facts:[],clues:[{l:'重點質詢｜缺藥',h:'#/interp?q=缺藥'}]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（三）',atkTitle:'「核四質詢呵呵笑、暗指部長渣男」',quote:'指2024-10-01質詢核四時笑場並暗指經濟部長渣男。',cite:'罷免理由書（三）',atkLinks:[],factTitle:'（待補）',facts:[],clues:[{l:'重點質詢｜核能',h:'#/interp?topic=核能'}]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（三）',atkTitle:'「身心障礙法規勞動部、衛福部權責搞錯」',quote:'指2025-01-03質詢搞錯身權法主管機關。',cite:'罷免理由書（三）',atkLinks:[],factTitle:'（待補）',facts:[],clues:[{l:'重點質詢｜身心障礙',h:'#/interp?topic=身心障礙'}]},
+    {group:'recall',draft:true,date:'2025-07-26',src:'罷免理由書（一）3',atkTitle:'「1/11遊行、兒童性侵追訴期釋憲聲請人」',quote:'指其為兒童性侵追訴期案釋憲聲請人卻參與1/11遊行。',cite:'罷免理由書（一）3',atkLinks:[],factTitle:'（待補）',facts:[],clues:[]}
   ],
   news: [
     {date:'2026-08-27',title:'廖偉翔：賴政府未落實弱勢團體優先採購',outlet:'Yahoo新聞',note:'庇護工場優先採購議題持續延燒。'},
@@ -485,6 +640,7 @@ const DATA = {
    小工具
    ==================================================================== */
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const md = s => esc(s).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m,t,h) => h.startsWith('#/') ? `<a href="${h}" data-nav>${t}</a>` : `<a href="${h}" target="_blank" rel="noopener">${t}</a>`);
 const num = n => Number(n).toLocaleString('zh-Hant-TW');
 const words = t => t.split('').map((ch,i)=>`<span class="w"><i style="animation-delay:${(i*0.035).toFixed(3)}s">${esc(ch)}</i></span>`).join('');
 const hero = (eyebrow, title, lede, ghost) => `
@@ -530,7 +686,7 @@ const pages = {
         ${[['interp','01','重點質詢',`${num(H.interp)}場公報質詢，每一場拆成摘要、要求、指正缺失。`],
            ['bills','02','法案推動',`${num(H.bills)}案議案參與，含${H.lead}案領銜提案與審查進度。`],
            ['local','03','地方建設',`${num(H.local)}場會勘、${H.li}個里，照片與現場結論全公開。`],
-           ['clarify','04','攻擊澄清','面對「假鬼假怪」，用優先採購4成未成交的數字回應。'],
+           ['clarify','04','攻擊澄清','從「假鬼假怪」到罷免公報，每一條指控對一條查得到的事實。'],
            ['news','05','最新消息',`${DATA.news.length}則動態，依日期排列。`]]
           .map(([k,n,t,d])=>`<a class="door" href="#/${k}" data-nav><div><div class="k">${n}</div><h3>${t}</h3></div><p>${esc(d)}</p><span class="ar">→</span></a>`).join('')}
       </div>
@@ -767,13 +923,24 @@ const pages = {
   },
 
   clarify(){
-    return hero('攻擊澄清','面對攻擊，用數字回應',
-      '左邊是他們說的，右邊是查得到的事實。<strong>攻政策不攻個人</strong>，回應也只談制度與數字。','澄') +
-    `<section class="sec tight"><div class="wrap">${DATA.clarify.map(c=>`
-      <div class="vs rv">
-        <div class="atk"><div class="k">他們說</div><h3>${esc(c.atkTitle)}</h3><blockquote>${esc(c.quote)}<cite>${esc(c.cite)}</cite></blockquote></div>
-        <div class="fact"><div class="k">事實是</div><h3>${esc(c.factTitle)}</h3><ul>${c.facts.map(f=>`<li>${esc(f)}</li>`).join('')}</ul><div class="d">${c.date}</div></div>
-      </div>`).join('')}
+    const link = (l) => { const inn = l.h.startsWith('#/'); return `<a href="${esc(l.h)}"${inn?' data-nav class="in"':' target="_blank" rel="noopener" class="ex"'}>${esc(l.l)}</a>`; };
+    const clue = (arr,label) => arr&&arr.length ? `<div class="clue"><span class="k">${label}</span>${arr.map(link).join('')}</div>` : '';
+    const card = c => `
+        <div class="vs rv">
+          <div class="atk">${c.src?`<div class="src">${esc(c.src)}</div>`:''}<div class="k">他們說</div><h3>${esc(c.atkTitle)}</h3><blockquote>${esc(c.quote)}<cite>${esc(c.cite)}</cite></blockquote>${clue(c.atkLinks,'出處')}</div>
+          <div class="fact"><div class="k">事實是</div><h3>${esc(c.factTitle)}</h3><ul>${c.facts.map(f=>`<li><span>${md(f)}</span></li>`).join('')}</ul>${clue(c.clues,'線索')}<div class="d">${c.date}</div></div>
+        </div>`;
+    const live = DATA.clarify.filter(c=>!c.draft);
+    const recent = live.filter(c=>c.group!=='recall');
+    const recall = live.filter(c=>c.group==='recall');
+    const cecLinks = [{l:'中選會｜罷免案公告（含理由書、答辯書）',h:'https://web.cec.gov.tw/central/article/60304'},{l:'中選會｜公告 PDF',h:'https://web.cec.gov.tw/api/file/ed2caa4b-3667-4e91-878f-2b209975cae3.pdf'},{l:'中央社｜理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'},{l:'中央社｜7/26 開票結果',h:'https://www.cna.com.tw/news/aipl/202507260141.aspx'}];
+    return hero('攻擊澄清','面對攻擊，用數字回應','左邊是他們說的，右邊是查得到的事實。<strong>攻政策不攻個人</strong>，回應也只談制度與數字。線索列可直接點進新聞、法案與地方建設紀錄。','澄') +
+    `<section class="sec tight"><div class="wrap">${recent.map(card).join('')}</div></section>
+    <section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>2025 罷免案公報<br>他們的理由 × 我們的答辯</h2><p>2025-07-26 投票，不同意 106,534 票、同意 83,812 票，罷免不通過。以下逐點對照中選會公告的罷免理由書與答辯書；「他們說」附原始出處，「事實是」附法案號、會勘紀錄與新聞。</p></div>
+      <div class="clue rv" data-d="1"><span class="k">公報原文</span>${cecLinks.map(link).join('')}</div>
+      <div style="height:26px"></div>
+      ${recall.map(card).join('')}
     </div></section>
     <section class="sec"><div class="wrap">
       <div class="sec-h rv"><h2>回應原則</h2></div>
