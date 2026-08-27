@@ -11,11 +11,11 @@
 <style>
 /* ---------- tokens ---------- */
 :root{
-  --ink:#171414;        /* 墨黑，沿用參考站 oklch(14.7% .004 49) */
+  --ink:#171414;
   --paper:#ffffff;
-  --ash:#f4f2f0;        /* 卡片底 */
+  --ash:#f4f2f0;
   --ash-2:#e9e6e2;
-  --graphite:#5c5753;   /* 次要文字 */
+  --graphite:#5c5753;
   --line:#e4e1dd;
   --fg:var(--ink);
   --bg:var(--paper);
@@ -48,7 +48,8 @@ html{scroll-behavior:smooth}
 body{font-family:var(--sans);color:var(--fg);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-ul{list-style:none}
+input,select{font:inherit;color:inherit}
+ul,ol{list-style:none}
 h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:balance;letter-spacing:-.01em}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -90,10 +91,12 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 /* ---------- page + reveal ---------- */
 #app{padding-top:var(--nav-h)}
 @media (max-width:760px){#app{padding-top:100px}}
-.page{min-height:100vh}
 .rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .rv[data-d="1"]{transition-delay:.1s}.rv[data-d="2"]{transition-delay:.2s}.rv[data-d="3"]{transition-delay:.3s}.rv[data-d="4"]{transition-delay:.4s}
+.loading{padding:80px 0;text-align:center;color:var(--muted);font-family:var(--mono);font-size:.85rem;letter-spacing:.12em}
+.loading i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--fg);margin-right:12px;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
 
 /* ---------- hero ---------- */
 .hero{padding:clamp(56px,10vh,120px) 0 clamp(36px,6vh,72px);position:relative;overflow:hidden}
@@ -114,6 +117,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 .btn.fill:hover{background:var(--fg);color:var(--bg)}
 .btn.line:hover{background:var(--fg);color:var(--bg)}
 .btn .ar{transition:transform .25s}.btn:hover .ar{transform:translateX(4px)}
+.btn.sm{padding:8px 16px;font-size:.85rem}
 
 /* ---------- stats strip ---------- */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:1px solid var(--fg);border-bottom:1px solid var(--fg)}
@@ -130,6 +134,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 /* ---------- sections ---------- */
 .sec{padding:clamp(56px,9vh,110px) 0}
 .sec.tight{padding-top:0}
+.sec.slim{padding:clamp(28px,4vh,48px) 0}
 .sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:34px;flex-wrap:wrap}
 .sec-h h2{font-size:clamp(1.8rem,4vw,3rem)}
 .sec-h p{max-width:30em;color:var(--muted);font-size:.95rem}
@@ -163,57 +168,78 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 
 /* pills */
 .pills{display:flex;flex-wrap:wrap;gap:10px}
-.pill{border:1px solid var(--fg);border-radius:999px;padding:8px 16px;font-size:.9rem;font-weight:500;transition:background .25s,color .25s}
-.pill:hover{background:var(--inv-bg);color:var(--inv-fg)}
+.pill{border:1px solid var(--fg);border-radius:999px;padding:8px 16px;font-size:.9rem;font-weight:500;transition:background .25s,color .25s;line-height:1.4}
+.pill:hover,.pill.on{background:var(--inv-bg);color:var(--inv-fg)}
 .pill i{font-style:normal;font-family:var(--mono);font-size:.78rem;margin-left:8px;opacity:.7}
+.pill.sm{padding:5px 12px;font-size:.82rem}
 
-/* timeline (interp) */
-.tl{position:relative;padding-left:0}
-.tl::before{content:"";position:absolute;left:calc(50% - .5px);top:0;bottom:0;width:1px;background:var(--line)}
-.tli{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;padding:26px 0;position:relative}
-.tli::after{content:"";position:absolute;left:calc(50% - 6px);top:36px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--fg)}
-.tli .date{grid-column:1;text-align:right}
-.tli .body{grid-column:2}
-.tli:nth-child(even) .date{grid-column:2;text-align:left;grid-row:1}
-.tli:nth-child(even) .body{grid-column:1;grid-row:1;text-align:right}
-.tli .date .d{font-family:var(--mono);font-size:1.5rem;font-weight:500;letter-spacing:.02em}
-.tli .date .who{font-size:.88rem;color:var(--muted);margin-top:4px}
-.tli h3{font-size:1.25rem;margin-bottom:8px}
-.tli p{font-size:.93rem;color:var(--muted)}
-.tli .reply{margin-top:10px;padding-left:12px;border-left:2px solid var(--fg);font-size:.88rem}
-.tli:nth-child(even) .reply{border-left:0;border-right:2px solid var(--fg);padding-left:0;padding-right:12px}
-.tli .gz{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:4px}
+/* ---------- filter bar ---------- */
+.fbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px 0;border-top:1px solid var(--fg);border-bottom:1px solid var(--line);position:sticky;top:var(--nav-h);background:var(--bg);z-index:10}
+@media (max-width:760px){.fbar{top:100px}}
+.fbar select,.fbar input{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:.88rem;outline:0;color:var(--fg)}
+.fbar input[type=search]{min-width:200px;flex:1}
+.fbar select:focus,.fbar input:focus{border-color:var(--fg)}
+.fbar .cnt{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-left:auto;letter-spacing:.06em;white-space:nowrap}
+.fbar .clr{font-size:.8rem;text-decoration:underline;text-underline-offset:3px;color:var(--muted)}
+.fbar label.pill{cursor:pointer;display:inline-flex;align-items:center}
+.tabs{display:inline-flex;border:1px solid var(--fg);border-radius:999px;overflow:hidden}
+.tabs button{padding:7px 16px;font-size:.86rem;font-weight:500;transition:background .25s,color .25s}
+.tabs button.on{background:var(--inv-bg);color:var(--inv-fg)}
+.more{display:flex;justify-content:center;padding:30px 0}
+
+/* ---------- expandable cards ---------- */
+.xl{border-top:1px solid var(--fg)}
+.x{border-bottom:1px solid var(--line);transition:background .3s}
+.x:hover{background:var(--card)}
+.x.open{background:var(--card)}
+.x .hd{display:grid;grid-template-columns:120px 1fr 32px;gap:20px;padding:22px 0;align-items:start;cursor:pointer;width:100%;text-align:left}
+.x .hd .d{font-family:var(--mono);font-size:.85rem;line-height:1.5}
+.x .hd .d small{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.04em;white-space:normal}
+.x .hd h3{font-family:var(--sans);font-weight:700;font-size:1.08rem;line-height:1.5;margin-bottom:6px}
+.x .hd .m{display:flex;flex-wrap:wrap;gap:6px;font-size:.78rem;color:var(--muted)}
+.x .hd .m span{border:1px solid var(--line);border-radius:999px;padding:1px 9px;line-height:1.6}
+.x .hd .m span.hi{border-color:var(--fg);color:var(--fg)}
+.x .hd .pl{width:28px;height:28px;border:1px solid var(--fg);border-radius:50%;display:grid;place-items:center;font-size:1.1rem;line-height:1;transition:transform .35s var(--ease),background .25s,color .25s;justify-self:end;margin-top:4px}
+.x.open .hd .pl{transform:rotate(45deg);background:var(--inv-bg);color:var(--inv-fg)}
+.x .bd{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.x.open .bd{grid-template-rows:1fr}
+.x .bd>div{overflow:hidden}
+.x .bdi{padding:0 0 28px 140px;display:grid;grid-template-columns:1fr 1fr;gap:22px 40px}
+.x .bdi .full{grid-column:1/-1}
+.x .lab{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--muted);margin-bottom:8px;text-transform:uppercase}
+.x .sum{font-size:1rem;line-height:1.8;max-width:42em}
+.x ol.ls{counter-reset:n}
+.x ol.ls li{position:relative;padding:7px 0 7px 30px;border-top:1px solid var(--line);font-size:.92rem;counter-increment:n}
+.x ol.ls li::before{content:counter(n,decimal-leading-zero);position:absolute;left:0;top:9px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.x .rep{border-left:2px solid var(--fg);padding-left:14px;font-size:.92rem;color:var(--muted)}
+.x .qt{font-family:var(--serif);font-weight:700;font-size:1.05rem;line-height:1.6}
+.x .qt p{padding:6px 0}
+.x .qt p::before{content:"「"}.x .qt p::after{content:"」"}
+.x .ft{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.8rem;color:var(--muted)}
+.x .ft a{border:1px solid var(--fg);border-radius:999px;padding:4px 12px;color:var(--fg);transition:background .25s,color .25s}
+.x .ft a:hover{background:var(--inv-bg);color:var(--inv-fg)}
+.gz{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:4px}
 @media (max-width:760px){
-  .tl::before{left:6px}
-  .tli{grid-template-columns:1fr;padding-left:28px;gap:6px}
-  .tli::after{left:1px}
-  .tli .date,.tli:nth-child(even) .date{grid-column:1;grid-row:auto;text-align:left}
-  .tli .body,.tli:nth-child(even) .body{grid-column:1;grid-row:auto;text-align:left}
-  .tli:nth-child(even) .reply{border-right:0;border-left:2px solid var(--fg);padding-right:0;padding-left:12px}
+  .x .hd{grid-template-columns:1fr 32px;gap:8px 12px}
+  .x .hd .d{grid-column:1/-1}
+  .x .bdi{padding-left:0;grid-template-columns:1fr}
 }
 
-/* big quote block */
-.big{padding:clamp(48px,8vh,96px) 0}
-.big .n{font-family:var(--serif);font-weight:900;font-size:clamp(5rem,18vw,14rem);line-height:.9;letter-spacing:-.04em}
-.big .t{font-size:clamp(1.1rem,2vw,1.4rem);max-width:30em;margin-top:18px}
-.big .t b{font-weight:700}
-.big .s{margin-top:14px;font-size:.85rem;opacity:.7}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-@media (max-width:760px){.split{grid-template-columns:1fr}}
-
-/* bill rows */
-.rows{border-top:1px solid var(--fg)}
-.row{display:grid;grid-template-columns:120px 90px 1fr 150px;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);align-items:start;transition:background .3s;position:relative}
-.row:hover{background:var(--card)}
-.row .d{font-family:var(--mono);font-size:.85rem}
-.row .art{font-family:var(--serif);font-weight:900;font-size:1.3rem;line-height:1.1}
-.row h3{font-size:1.05rem;font-family:var(--sans);font-weight:700;margin-bottom:4px}
-.row p{font-size:.9rem;color:var(--muted)}
-.row .st{font-size:.8rem;text-align:right}
-.row .st b{display:inline-block;border:1px solid var(--fg);border-radius:999px;padding:2px 10px;font-weight:500;font-size:.75rem;margin-bottom:6px}
-.row .st b.lead{background:var(--inv-bg);color:var(--inv-fg)}
-.row .st span{display:block;color:var(--muted)}
-@media (max-width:760px){.row{grid-template-columns:1fr;gap:6px}.row .st{text-align:left}}
+/* ---------- bill rows ---------- */
+.role{display:inline-block;border:1px solid var(--fg);border-radius:999px;padding:1px 10px;font-weight:500;font-size:.74rem}
+.role.lead{background:var(--inv-bg);color:var(--inv-fg)}
+.flow{display:flex;flex-wrap:wrap;gap:0}
+.flow li{position:relative;padding:6px 26px 6px 0;font-size:.85rem}
+.flow li b{font-family:var(--mono);font-weight:500;font-size:.75rem;color:var(--muted);display:block}
+.flow li::after{content:"→";position:absolute;right:7px;top:8px;color:var(--muted);font-family:var(--mono)}
+.flow li:last-child::after{content:none}
+.flow li.last{font-weight:700}
+.note{font-size:.9rem;color:var(--muted);line-height:1.75;white-space:pre-line;max-width:46em}
+.lawgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.lawgrid button{background:var(--bg);padding:16px 18px;text-align:left;display:flex;justify-content:space-between;gap:10px;align-items:baseline;transition:background .25s,color .25s}
+.lawgrid button:hover,.lawgrid button.on{background:var(--inv-bg);color:var(--inv-fg)}
+.lawgrid button span{font-size:.9rem;font-weight:500;line-height:1.4}
+.lawgrid button i{font-style:normal;font-family:var(--mono);font-size:.78rem;opacity:.7;flex:none}
 
 /* three lanes */
 .lanes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
@@ -228,18 +254,71 @@ h1,h2,h3{font-family:var(--serif);font-weight:900;line-height:1.15;text-wrap:bal
 .lane.hi li{border-color:color-mix(in srgb,var(--inv-fg) 18%,transparent)}
 @media (max-width:860px){.lanes{grid-template-columns:1fr}}
 
-/* local cards */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:var(--card);padding:26px 24px 24px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden;transition:transform .35s var(--ease),background .35s,color .35s;border-radius:4px;min-height:260px}
-.card:hover{transform:translateY(-6px);background:var(--inv-bg);color:var(--inv-fg)}
-.card .d{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;opacity:.7}
-.card h3{font-size:1.35rem;font-family:var(--serif)}
-.card p{font-size:.9rem;opacity:.8;flex:1}
-.card .tag{align-self:flex-start;font-size:.72rem;border:1px solid currentColor;border-radius:999px;padding:2px 10px;opacity:.8}
-.card .src{font-size:.75rem;opacity:.6}
-.card.wide{grid-column:span 2}
-@media (max-width:900px){.cards{grid-template-columns:1fr 1fr}.card.wide{grid-column:span 2}}
-@media (max-width:560px){.cards{grid-template-columns:1fr}.card.wide{grid-column:span 1}}
+/* big quote block */
+.big{padding:clamp(48px,8vh,96px) 0}
+.big .n{font-family:var(--serif);font-weight:900;font-size:clamp(5rem,18vw,14rem);line-height:.9;letter-spacing:-.04em}
+.big .t{font-size:clamp(1.1rem,2vw,1.4rem);max-width:30em;margin-top:18px}
+.big .t b{font-weight:700}
+.big .s{margin-top:14px;font-size:.85rem;opacity:.7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+
+/* ---------- local: 里 grid + site cards ---------- */
+.ligrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ligrid button{background:var(--bg);padding:14px 14px;text-align:left;transition:background .25s,color .25s;display:flex;flex-direction:column;gap:2px}
+.ligrid button:hover,.ligrid button.on{background:var(--inv-bg);color:var(--inv-fg)}
+.ligrid b{font-family:var(--serif);font-size:1.05rem}
+.ligrid small{font-size:.74rem;opacity:.7}
+.ligrid i{font-style:normal;font-family:var(--mono);font-size:.74rem;opacity:.7}
+.ligrid button.hd{background:var(--card);cursor:default;justify-content:center}
+.ligrid button.hd:hover{background:var(--card);color:inherit}
+.ligrid button.hd b{font-size:.85rem;font-family:var(--mono);letter-spacing:.12em;font-weight:400}
+.sites{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.site{background:var(--card);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s var(--ease);position:relative}
+.site:hover{transform:translateY(-4px)}
+.site .top{padding:20px 20px 16px;display:flex;flex-direction:column;gap:8px;cursor:pointer;text-align:left;width:100%;flex:1}
+.site .tags{display:flex;flex-wrap:wrap;gap:6px;font-size:.72rem}
+.site .tags span{border:1px solid currentColor;border-radius:999px;padding:1px 9px;opacity:.75}
+.site .tags span.li{opacity:1;background:var(--inv-bg);color:var(--inv-fg);border-color:var(--inv-bg)}
+.site h3{font-family:var(--sans);font-weight:700;font-size:1.02rem;line-height:1.5}
+.site .meta{font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.03em;display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:auto}
+.site .meta b{font-weight:500;color:var(--fg)}
+.site .thx{font-size:.8rem;color:var(--muted)}
+.site .thx b{color:var(--fg);font-weight:500}
+.site .cover{aspect-ratio:16/10;background:var(--card-2);overflow:hidden;position:relative}
+.site .cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.site:hover .cover img{transform:scale(1.04)}
+.site .cover .pc{position:absolute;right:10px;bottom:10px;font-family:var(--mono);font-size:.7rem;background:rgba(0,0,0,.6);color:#fff;padding:2px 8px;border-radius:4px}
+.site .det{border-top:1px solid var(--line);padding:18px 20px 22px;display:none}
+.site.open .det{display:block}
+.site.open{grid-column:1/-1;transform:none}
+.site.open .cover{aspect-ratio:21/6}
+.site .tl2{position:relative;padding-left:22px}
+.site .tl2::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--fg)}
+.site .ev{position:relative;padding:8px 0 22px}
+.site .ev::before{content:"";position:absolute;left:-22px;top:14px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--fg)}
+.site .ev .d{font-family:var(--mono);font-size:.85rem;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.site .ev .d small{font-size:.74rem;color:var(--muted)}
+.site .ev .t{font-weight:500;margin:4px 0}
+.site .ev .c{border-left:2px solid var(--fg);padding:6px 12px;margin:8px 0;font-size:.9rem;white-space:pre-line;max-width:46em}
+.site .ev .c b{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;display:block;color:var(--muted);margin-bottom:2px}
+.site .ev .nt{font-size:.85rem;color:var(--muted);white-space:pre-line;max-width:46em;margin:6px 0}
+.site .ph{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-top:10px}
+.site .ph button{aspect-ratio:4/3;overflow:hidden;background:var(--card-2);border-radius:3px}
+.site .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+.site .ph button:hover img{transform:scale(1.06)}
+.site .ph .m{display:grid;place-items:center;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+@media (max-width:900px){.sites{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.sites{grid-template-columns:1fr}}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.92);display:none;place-items:center;padding:20px}
+.lb.on{display:grid}
+.lb img{max-width:100%;max-height:90vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb .cap{position:absolute;left:20px;bottom:16px;color:#fff;font-family:var(--mono);font-size:.78rem;opacity:.8;max-width:80vw}
+.lb .x2{position:absolute;right:20px;top:14px;color:#fff;font-size:2rem;line-height:1}
+.lb .pv,.lb .nx{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:2.2rem;padding:20px;opacity:.75}
+.lb .pv{left:6px}.lb .nx{right:6px}
 
 /* process strip */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--fg)}
@@ -287,7 +366,7 @@ footer .meta{font-size:.85rem;color:var(--muted);margin-top:6px;max-width:40em}
 footer .soc{display:flex;gap:8px;flex-wrap:wrap}
 footer .soc a{border:1px solid var(--fg);border-radius:999px;padding:6px 14px;font-size:.82rem;transition:background .25s,color .25s}
 footer .soc a:hover{background:var(--inv-bg);color:var(--inv-fg)}
-footer .fine{grid-column:1/-1;font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;border-top:1px solid var(--line);padding-top:16px}
+footer .fine{grid-column:1/-1;font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;border-top:1px solid var(--line);padding-top:16px;line-height:1.8}
 @media (max-width:640px){footer .wrap{grid-template-columns:1fr}}
 
 .next{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:40px 0;border-top:1px solid var(--fg)}
@@ -324,6 +403,7 @@ footer .fine{grid-column:1/-1;font-family:var(--mono);font-size:.7rem;color:var(
 
 <div class="curtain" id="curtain"><span id="curtainText"></span></div>
 <main id="app"></main>
+<div class="lb" id="lb" role="dialog" aria-label="照片"><button class="pv" id="lbPrev" aria-label="上一張">‹</button><img id="lbImg" alt=""><button class="nx" id="lbNext" aria-label="下一張">›</button><div class="cap" id="lbCap"></div><button class="x2" id="lbClose" aria-label="關閉">×</button></div>
 
 <script>
 /* ====================================================================
@@ -339,56 +419,26 @@ const SITE = {
 };
 
 /* ====================================================================
-   內容資料（皆有出處：GZ＝立法院公報編號；議案編號可於 ppg.ly.gov.tw 回查）
+   大量資料放在 data/*.js（質詢卡／法案／會勘），依頁面延遲載入。
+   data/home.js 只放首頁用的總數。
+   ==================================================================== */
+window.LIAO = window.LIAO || {};
+const loaders = {};
+function load(name){
+  if(LIAO[name]) return Promise.resolve(LIAO[name]);
+  if(loaders[name]) return loaders[name];
+  loaders[name] = new Promise((res, rej)=>{
+    const s=document.createElement('script'); s.src=`data/${name}.js?v=${SITE.updated}`; s.async=true;
+    s.onload=()=>LIAO[name]?res(LIAO[name]):rej(new Error('empty '+name)); s.onerror=()=>rej(new Error('load '+name));
+    document.head.appendChild(s);
+  });
+  return loaders[name];
+}
+
+/* ====================================================================
+   手寫內容（澄清、新聞）：皆有出處。
    ==================================================================== */
 const DATA = {
-  interp: [
-    {date:'2024-03-04',who:'衛環會・薛瑞元部長',title:'食安會報執行長，343天沒開會',
-     body:'薛部長身兼行政院食安會報執行長，卻連續343天未依規定每3個月定期開會；要求把蘇丹紅、西布特羅等工業用添加物混入食品體系列為食安會報檢討事項。',
-     reply:'薛：承認未定期開會（時程由院長決定）。許輔：上次開會為2023年10月，正簽報重排。',gz:'GZ-1130601_00008-4'},
-    {date:'2024-03-27',who:'環境部・薛富盛部長',title:'炒粿條中毒案：57種高風險化學物質流向',
-     body:'信義A13炒粿條中毒案9例、1死2命危。要求環境部就食安五環源頭管控確實追蹤57種高風險化學物質流向，必要時主動提供數據給檢調。',
-     reply:'薛：57種須環境部核可＋運作計畫書＋每月化學雲登記。',gz:'GZ-1132102_00001-7'},
-    {date:'2024-04-01',who:'衛環會・薛瑞元部長',title:'放寬農藥殘留卻稱「加強查驗」，愚人節大禮',
-     body:'追問米酵菌酸檢驗與唐菖蒲伯克氏菌培養進度；痛批食藥署為日本交流協會申請而放寬克凡派、滅達樂（CODEX零檢出）殘留標準，卻同時宣稱「加強查驗」，邏輯矛盾。',
-     reply:'薛：臺灣未使用該等農藥故本無殘留標準，依法可申請後開專家會議。',gz:'GZ-1132301_00004-8'},
-    {date:'2025-04-23',who:'衛環會・邱泰源部長',title:'美方點名非關稅障礙，部長當眾宣示守住防線',
-     body:'USTR點名我方原產地標示、萊劑最高殘留、禁生技食品原料為非關稅障礙。連番要求部長當眾宣示「守住食安防線」，質疑美豬美牛、日本全牛齡開放是標準一再退讓，以日相「絕不讓步食安」相激。',
-     reply:'邱：豬牛原產地標示國產進口一體適用、依科學與國際標準。（廖批：「感覺沒有很肯定」）',gz:'GZ-1144101_00004-9'},
-    {date:'2025-05-08',who:'衛環會・姜至剛署長',title:'只標產地，能不能叫溯源追蹤？',
-     body:'釘問食安法§25溯源追蹤授權與原產地標示之別——每批來源不同，必須有編號追蹤，不是標個國名就叫溯源。',
-     reply:'姜：溯源追蹤係§25授權，已對豬肉建立來源編號溯源。',gz:'GZ-1144701_00004-16'},
-    {date:'2025-10-13',who:'衛環會・石崇良部長',title:'不到100人，對應76萬批進口食品',
-     body:'邊境稽查人力不足百人卻對應76萬批進口食品；補助地方45人若22縣市均分，每縣市僅增2人，遠遠不足，應風險導向而非均分。再揭「精進地方關鍵食安管理計畫」10億元竟無稽查人力報表與績效指標。',
-     reply:'石：邊境導入AI逾期偵測模組、地方已按人口分4組。許輔：10億含上百項KPI，會後提供。',gz:'GZ-1148201_00004-21'},
-    {date:'2026-04-29',who:'環境部・彭啓明部長',title:'一級致癌物苯駢芘，歐盟2004年就納管',
-     body:'要求把WHO一級致癌物苯駢芘（BaP，即中聯毒油致癌物）納入環評與空污排放標準，指歐盟2004年已納管、我國至今未訂。',
-     reply:'黃偉鳴司長：環境中BaP已監測，排放標準待評估各國技術與方法。',gz:'GZ-1153501_00010-17'}
-  ],
-  bills: [
-    {date:'2026-08-04',art:'§7 §47',role:'lead',title:'檢驗週期法定化＋檢驗端強制通報免責',
-     desc:'高風險業者每季至少1次、高風險品項每月1次的法定檢驗底線；檢驗機構通報免責，直攻中聯油脂案「自主檢驗斷點」。24案中唯一領銜直攻檢驗制度的提案。',status:'排入院會'},
-    {date:'2026-06-30',art:'§28',role:'co',title:'食品標示宣傳廣告規範修正',desc:'與王育敏、蘇清泉等19人共同提案。',status:'交付審查'},
-    {date:'2026-01-27',art:'§22 §28 §31-1',role:'co',title:'嬰幼兒食品警語＋邊境標準比照我國',desc:'嬰幼兒食品保護三件套；來源國標準較寬鬆者即適用我國標準。',status:'交付審查'},
-    {date:'2025-06-17',art:'部分條文',role:'co',title:'萊劑豬肉標示不實：不得檢出、24小時下架',desc:'含乙型受體素肉品標示不實者，不得檢出並限期24小時下架。',status:'交付審查'},
-    {date:'2024-11-22',art:'§22',role:'co',title:'含乙型受體素肉品應標示健康風險警語',desc:'消費者知情權路線，與§24/25主提案一脈相承。',status:'交付審查'},
-    {date:'2024-02-27',art:'§24 §25',role:'lead',title:'食品添加物、散裝食品新增瘦肉精標示義務',desc:'與張嘉郡等18人提案；2026-07-08衛環會列審查第一案，詢答完畢、擇期繼續審查。',status:'詢答完畢'},
-    {date:'2024-02-27',art:'§22',role:'co',title:'食品標示事項修正',desc:'蘇清泉等23人共提；7/8併案詢答完畢。',status:'詢答完畢'},
-    {date:'2024-02-27',art:'§4',role:'co',title:'食安主管機關職權條款修正',desc:'蘇清泉等20人共提；7/8併案詢答完畢。',status:'詢答完畢'}
-  ],
-  otherBills: [
-    {law:'中華民國刑法 §185-3',note:'酒駕條文多案併審，2026-07-30審查完畢'},
-    {law:'公路法・道路交通管理處罰條例',note:'2026-07-21至28審查'},
-    {law:'性別平等工作法',note:'廖偉翔版修正草案，2026-06評估'}
-  ],
-  local: [
-    {date:'2026-08-13',tag:'陳情有成',title:'忠勇路自來水管汰換完工',body:'接獲陳情一年，促成忠勇路老舊自來水管全線汰換，解決長年漏水與水壓不穩。',src:'Life生活網',wide:true},
-    {date:'2026-08-05',tag:'公園',title:'樂田公園防曬升級、陽光公廁年底完工',body:'與市議員黃馨慧聯手爭取，遊戲場加裝遮陽、公廁改建今年底完工。',src:'Yahoo新聞'},
-    {date:'2026-08-05',tag:'交通',title:'水湳轉運中心啟用，接駁與人行安全配套',body:'全台最大、7轉7接的水湳轉運中心啟用；同步爭取周邊里聯外接駁與人行安全配套。',src:'台中市府'},
-    {date:'2026-07-10',tag:'道路',title:'西屯福順路打通工程開工',body:'暢通台中榮總周邊交通，守護黃金救援時間。',src:'台中市建設局'},
-    {date:'2026-08-04',tag:'產業',title:'要求經濟部公開對美汽車關稅衝擊評估',body:'串連台中汽車零組件與工具機供應鏈，爭取中部產業預算與轉型資源。',src:'立法院提案'},
-    {date:'2026-06-28',tag:'產業',title:'推動無人機產業條例協商',body:'為台中無人機聚落爭取法制空間，在院內協商中六度促請召委排審。',src:'院會協商',wide:true}
-  ],
   clarify: [
     {date:'2026-08-26',
      atkTitle:'「假鬼假怪」「縱火犯冒充消防員」',
@@ -407,7 +457,7 @@ const DATA = {
      quote:'將「總預算卡關近300天」與地方考察行程並置，塑造「該審不審、跑行程」形象。',
      cite:'2026-06-26／06-29 輿論',
      factTitle:'質詢與法案都有公報可查',
-     facts:['第11屆迄今食安法相關公報質詢7場次，逐字可回查（GZ編號見重點質詢頁）。','食安法修法參與10案：2案領銜、7案共提、1案連署。','地方考察是選區服務，忠勇路水管、福順路打通都是從陳情跑出來的成果。']}
+     facts:['第11屆迄今公報質詢逐字可回查，每一場都附公報編號與頁碼（見重點質詢頁）。','食安法修法參與10案：2案領銜、7案共提、1案連署。','地方考察是選區服務，忠勇路水管、福順路打通都是從陳情跑出來的成果。']}
   ],
   news: [
     {date:'2026-08-27',title:'廖偉翔：賴政府未落實弱勢團體優先採購',outlet:'Yahoo新聞',note:'庇護工場優先採購議題持續延燒。'},
@@ -429,7 +479,8 @@ const DATA = {
 /* ====================================================================
    小工具
    ==================================================================== */
-const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num = n => Number(n).toLocaleString('zh-Hant-TW');
 const words = t => t.split('').map((ch,i)=>`<span class="w"><i style="animation-delay:${(i*0.035).toFixed(3)}s">${esc(ch)}</i></span>`).join('');
 const hero = (eyebrow, title, lede, ghost) => `
   <section class="hero"><div class="wrap">
@@ -438,17 +489,22 @@ const hero = (eyebrow, title, lede, ghost) => `
     <p class="lede rv" data-d="2">${lede}</p>
   </div>${ghost?`<div class="ghost">${esc(ghost)}</div>`:''}</section>`;
 const stats = (items, dark) => `<section class="sec tight"><div class="wrap"><div class="stats ${dark?'dark':''} rv">${
-  items.map(([n,l,unit])=>`<div><div class="n"><span data-count="${n}">${n}</span>${unit?`<small>${esc(unit)}</small>`:''}</div><div class="l">${l}</div></div>`).join('')
+  items.map(([n,l,unit])=>`<div><div class="n"><span data-count="${n}">${num(n)}</span>${unit?`<small>${esc(unit)}</small>`:''}</div><div class="l">${l}</div></div>`).join('')
 }</div></div></section>`;
 const nextLink = (href, label) => `<section class="wrap next rv"><div><div class="lab">下一頁</div><a href="${href}" data-nav>${esc(label)} <span class="ar">→</span></a></div></section>`;
-const PAGES_ORDER = ['interp','bills','local','clarify','news'];
+const loading = () => `<div class="wrap loading"><i></i>載入資料中</div>`;
 const TITLES = {home:'廖偉翔',interp:'重點質詢',bills:'法案推動',local:'地方建設',clarify:'攻擊澄清',news:'最新消息'};
+const qs = () => { const q=location.hash.split('?')[1]||''; return Object.fromEntries(new URLSearchParams(q)); };
+const norm = s => String(s||'').toLowerCase();
+const opt = (arr, cur, all) => `<option value="">${all}</option>` + arr.map(([v,n])=>`<option value="${esc(v)}" ${v===cur?'selected':''}>${esc(v)}${n!=null?`（${num(n)}）`:''}</option>`).join('');
+const toggleX = (list) => list.addEventListener('click',e=>{ const h=e.target.closest('.hd'); if(!h) return; const x=h.parentElement; const o=x.classList.toggle('open'); h.setAttribute('aria-expanded',o); });
 
 /* ====================================================================
    頁面
    ==================================================================== */
 const pages = {
-  home(){
+  async home(){
+    const H = await load('home');
     const tk = DATA.news.slice(0,8).map(n=>`<span class="it"><b>${n.date}</b>${esc(n.title)}</span>`).join('');
     return `
     <section class="hero hero-home"><div class="wrap">
@@ -462,35 +518,66 @@ const pages = {
       </div>
     </div><div class="ghost">廖</div></section>
     <div class="ticker rv"><div class="tk">${tk}${tk}</div></div>
-    ${stats([[10,'食安法修法參與案數<br>2案領銜・7案共提・1案連署','案'],[7,'食安主題公報質詢場次<br>逐字可回查','場'],[76,'進口食品批次 vs 不到100名邊境稽查人力','萬批'],[24,'第11屆食安法提案累計<br>唯一領銜檢驗制度案者','案']])}
+    ${stats([[H.interp,'公報質詢場次<br>逐字稿全文接地，附公報頁碼','場'],[H.bills,'第11屆議案參與<br>領銜、共同提案、連署','案'],[H.local,'選區會勘紀錄<br>'+H.local_first+' 起，附現場照片','場'],[H.li,'有會勘紀錄的里<br>西屯、南屯','里']])}
     <section class="sec"><div class="wrap">
       <div class="sec-h rv"><h2>五個頁面，五條戰線</h2><p>每一頁都是一個完整故事：從問題、數字到結果。</p></div>
       <div class="doors rv" data-d="1">
-        ${[['interp','01','重點質詢','食安會報343天沒開會、76萬批對百人稽查——把問題問到底。'],
-           ['bills','02','法案推動','食安法24案裡，唯一直攻檢驗斷點的§7/§47領銜案。'],
-           ['local','03','地方建設','忠勇路水管、福順路打通、樂田公園——從陳情跑出來的。'],
+        ${[['interp','01','重點質詢',`${num(H.interp)}場公報質詢，每一場拆成摘要、要求、指正缺失。`],
+           ['bills','02','法案推動',`${num(H.bills)}案議案參與，含${H.lead}案領銜提案與審查進度。`],
+           ['local','03','地方建設',`${num(H.local)}場會勘、${H.li}個里，照片與現場結論全公開。`],
            ['clarify','04','攻擊澄清','面對「假鬼假怪」，用優先採購4成未成交的數字回應。'],
-           ['news','05','最新消息','8月至今13則動態，依日期排列。']]
-          .map(([k,n,t,d])=>`<a class="door" href="#/${k}" data-nav><div><div class="k">${n}</div><h3>${t}</h3></div><p>${d}</p><span class="ar">→</span></a>`).join('')}
+           ['news','05','最新消息',`${DATA.news.length}則動態，依日期排列。`]]
+          .map(([k,n,t,d])=>`<a class="door" href="#/${k}" data-nav><div><div class="k">${n}</div><h3>${t}</h3></div><p>${esc(d)}</p><span class="ar">→</span></a>`).join('')}
       </div>
     </div></section>`;
   },
 
-  interp(){
-    return hero('重點質詢・社會福利及衛生環境委員會','把部長釘在數字上',
-      '第11屆迄今食安主題公報質詢<strong>7場次</strong>，三條主線：中央食安治理鬆散、標示知情權與貿易防線、稽查量能風險導向。每一筆都附公報編號。','質') +
-    `<section class="sec tight"><div class="wrap"><div class="pills rv">
-      <span class="pill">中央食安治理鬆散<i>343天・10億無KPI</i></span>
-      <span class="pill">標示知情權與貿易防線<i>美豬・萊劑・原產地</i></span>
-      <span class="pill">稽查量能風險導向<i>76萬批 vs 100人</i></span>
-    </div></div></section>
-    <section class="sec"><div class="wrap">
-      <div class="sec-h rv"><h2>質詢軌跡</h2><p>公報逐字接地，GZ 編號可於立法院公報系統回查。</p></div>
-      <div class="tl">${DATA.interp.map(it=>`
-        <div class="tli rv">
-          <div class="date"><div class="d">${it.date}</div><div class="who">${esc(it.who)}</div></div>
-          <div class="body"><h3>${esc(it.title)}</h3><p>${esc(it.body)}</p><div class="reply">${esc(it.reply)}</div><span class="gz">${it.gz}</span></div>
-        </div>`).join('')}</div>
+  /* ------------------------------------------------ 重點質詢 */
+  async interp(){
+    const D = await load('interp'); const S=D.stats;
+    const q = qs();
+    const state = { topic:q.topic||'', com:'', year:'', target:'', text:q.q||'', n:30 };
+    const targetOf = t => { const m=String(t).match(/^(.*?(?:部|署|會|院|局|處|公司|基金會|中心))/); return (m&&m[1].length>=3)?m[1]:t; };
+    const tCount={}; D.cards.forEach(c=>new Set(c.target.map(targetOf)).forEach(t=>tCount[t]=(tCount[t]||0)+1));
+    const targets=Object.entries(tCount).sort((a,b)=>b[1]-a[1]).slice(0,14);
+    const topics=S.topics.slice(0,16);
+    const years=Object.entries(S.by_year).sort().reverse();
+    const coms=Object.entries(S.by_committee);
+    const filt = () => D.cards.filter(c =>
+      (!state.topic || c.topics.includes(state.topic) || c.title.includes(state.topic) || c.summary.includes(state.topic)) &&
+      (!state.com || c.committee===state.com) && (!state.year || c.date.startsWith(state.year)) &&
+      (!state.target || c.target.some(t=>targetOf(t)===state.target)) &&
+      (!state.text || norm([c.title,c.summary,c.demands.join(' '),c.faults.join(' '),c.target.join(' '),c.topics.join(' '),c.agenda].join(' ')).includes(norm(state.text))));
+    const card = c => `
+      <article class="x" data-gz="${esc(c.gz)}">
+        <button class="hd" aria-expanded="false"><div class="d">${c.date}<small>${esc(c.committee.replace('委員會','會'))}</small></div>
+          <div><h3>${esc(c.title)}</h3><div class="m">${c.target.slice(0,3).map(t=>`<span class="hi">${esc(t)}</span>`).join('')}${c.topics.slice(0,4).map(t=>`<span>${esc(t)}</span>`).join('')}</div></div>
+          <span class="pl">+</span></button>
+        <div class="bd"><div><div class="bdi">
+          <div class="full"><div class="lab">摘要</div><p class="sum">${esc(c.summary)}</p></div>
+          <div><div class="lab">要求</div><ol class="ls">${c.demands.map(x=>`<li>${esc(x)}</li>`).join('')||'<li>—</li>'}</ol></div>
+          <div><div class="lab">指正缺失</div><ol class="ls">${c.faults.map(x=>`<li>${esc(x)}</li>`).join('')||'<li>—</li>'}</ol></div>
+          ${c.reply?`<div><div class="lab">官員回應</div><div class="rep">${esc(c.reply)}</div></div>`:''}
+          ${c.quotes.length?`<div><div class="lab">原話</div><div class="qt">${c.quotes.map(x=>`<p>${esc(x)}</p>`).join('')}</div></div>`:''}
+          <div class="full ft"><span class="gz">${esc(c.gz)}</span><a href="${esc(c.pdf)}" target="_blank" rel="noopener">公報 PDF・第 ${esc(c.pages)} 頁 ↗</a><span>議程：${esc(c.agenda)}</span></div>
+        </div></div></div>
+      </article>`;
+    const html = `${hero('重點質詢・立法院公報逐字稿','把部長釘在數字上',
+      `第11屆迄今公報質詢<strong>${num(S.sessions)}場</strong>、逐字稿<strong>${num(Math.round(S.chars/10000))}萬字</strong>，全部拆成「摘要／要求／指正缺失」。每一張卡都附公報編號與頁碼，點開可回查原文。`,'質')}
+    ${stats([[S.sessions,'公報質詢場次<br>'+S.first+' 至 '+S.last,'場'],[S.demands,'對部會提出的具體要求','條'],[S.faults,'指正的缺失與失職','條'],[coms.length,'跨委員會質詢<br>'+coms.map(([k])=>k.replace('委員會','')).join('、'),'個']])}
+    <section class="sec slim"><div class="wrap">
+      <div class="pills rv" id="tp"><button class="pill sm ${!state.topic?'on':''}" data-t="">全部議題</button>${topics.map(([t,n])=>`<button class="pill sm ${state.topic===t?'on':''}" data-t="${esc(t)}">${esc(t)}<i>${n}</i></button>`).join('')}</div>
+    </div></section>
+    <section class="sec tight"><div class="wrap">
+      <div class="fbar" id="fb">
+        <select id="fTarget">${opt(targets,state.target,'全部部會')}</select>
+        <select id="fCom">${opt(coms,state.com,'全部委員會')}</select>
+        <select id="fYear">${opt(years,state.year,'全部年份')}</select>
+        <input id="fText" type="search" placeholder="搜尋標題、摘要、要求…" value="${esc(state.text)}">
+        <span class="cnt" id="fCnt"></span>
+      </div>
+      <div class="xl" id="list"></div>
+      <div class="more" id="more"></div>
     </div></section>
     <section class="inv big"><div class="wrap split">
       <div class="rv"><div class="n">7:5</div></div>
@@ -498,68 +585,179 @@ const pages = {
         <div class="t">中聯油脂毒油事件後，發動<b>「行政院長、衛福部長、食藥署長道歉下台」</b>臨時提案並要求點名表決，7比5通過。</div>
         <div class="s">贊成7：王育敏、陳菁徽、廖偉翔、邱慧洳、邱鎮軍、蘇清泉、涂權吉。</div></div>
     </div></section>` + nextLink('#/bills','法案推動');
+    return { html, mount(){
+      const list=document.getElementById('list'), more=document.getElementById('more'), cnt=document.getElementById('fCnt');
+      const draw = () => { const r=filt(); cnt.textContent=`${num(r.length)} / ${num(D.cards.length)} 場`; list.innerHTML=r.slice(0,state.n).map(card).join('') || '<div class="loading">沒有符合的質詢</div>';
+        more.innerHTML = r.length>state.n ? `<button class="btn line" id="moreBtn">再看 30 場（還有 ${num(r.length-state.n)} 場）</button>` : '';
+        const mb=document.getElementById('moreBtn'); mb && mb.addEventListener('click',()=>{state.n+=30;draw();});
+        if(q.gz){ const el=list.querySelector(`[data-gz="${q.gz}"]`); if(el){ el.classList.add('open'); el.scrollIntoView({block:'center'}); } }
+      };
+      document.getElementById('tp').addEventListener('click',e=>{ const b=e.target.closest('[data-t]'); if(!b) return; state.topic=b.dataset.t; state.n=30; document.querySelectorAll('#tp .pill').forEach(p=>p.classList.toggle('on',p===b)); draw(); });
+      const bind=(id,k)=>document.getElementById(id).addEventListener('input',e=>{state[k]=e.target.value;state.n=30;draw();});
+      bind('fTarget','target');bind('fCom','com');bind('fYear','year');bind('fText','text');
+      toggleX(list);
+      draw();
+    }};
   },
 
-  bills(){
-    const roleTxt = r => r==='lead' ? '<b class="lead">領銜主提</b>' : '<b>共同提案</b>';
-    return hero('法案推動・食品安全衛生管理法','24案裡，唯一直攻檢驗斷點的一案',
-      '第11屆食安法委員及黨團提案累計24案，廖偉翔參與<strong>10案</strong>。中聯油脂案暴露的「檢驗週期偏長、全靠行政公告」漏洞，由他領銜的§7/§47案直接入法。','法') +
-    stats([[10,'參與案數','案'],[2,'領銜主提','案'],[7,'共同提案','案'],[0,'第11屆完成逐條審查的食安法修正案——全部卡在委員會前','案']], true) +
-    `<section class="sec"><div class="wrap">
-      <div class="sec-h rv"><h2>三條主軸</h2><p>從消費者知情權，到邊境標準，再到檢驗制度。</p></div>
+  /* ------------------------------------------------ 法案推動 */
+  async bills(){
+    const D = await load('bills'); const S=D.stats;
+    const q = qs();
+    const state = { role:q.role||'lead', law:q.law||'', status:'', text:q.q||'', n:40 };
+    const all = { lead:D.lead, co:D.co, sign:D.sign };
+    const laws = Object.entries(S.by_law).sort((a,b)=>b[1]-a[1]);
+    const statuses = Object.entries(S.by_status).sort((a,b)=>b[1]-a[1]);
+    const filt = () => all[state.role].filter(b => (!state.law || b.law===state.law) && (!state.status || b.status===state.status) &&
+      (!state.text || norm([b.name,b.law,b.reason||'',b.id].join(' ')).includes(norm(state.text))));
+    const roleTxt = r => r==='lead' ? '<b class="role lead">領銜提案</b>' : r==='co' ? '<b class="role">共同提案</b>' : '<b class="role">連署</b>';
+    const card = b => `
+      <article class="x">
+        <button class="hd" aria-expanded="false"><div class="d">${b.date||'—'}<small>${esc(b.session||'')}</small></div>
+          <div><h3>${esc(b.name)}</h3><div class="m">${roleTxt(b.role)}<span class="hi">${esc(b.law)}</span><span>${esc(b.status||'—')}</span>${b.latest?`<span>最新 ${esc(b.latest)}</span>`:''}</div></div>
+          <span class="pl">+</span></button>
+        <div class="bd"><div><div class="bdi">
+          ${b.reason?`<div class="full"><div class="lab">案由</div><p class="sum">${esc(b.reason)}</p></div>`:''}
+          ${b.note?`<div class="full"><div class="lab">說明</div><div class="note">${esc(b.note)}</div></div>`:''}
+          ${b.flow&&b.flow.length?`<div class="full"><div class="lab">審議進度</div><ol class="flow">${b.flow.map((f,i)=>`<li class="${i===b.flow.length-1?'last':''}"><b>${esc(f.date||'')}${f.venue?'・'+esc(f.venue):''}</b>${esc(f.status)}</li>`).join('')}</ol></div>`:''}
+          ${b.proposers?`<div class="full"><div class="lab">提案人</div><p class="note">${esc(b.proposers)}${b.nsign?`　（連署 ${b.nsign} 人）`:''}</p></div>`:''}
+          <div class="full ft"><span class="gz">${esc(b.id)}</span>${b.url?`<a href="${esc(b.url)}" target="_blank" rel="noopener">立法院議案系統 ↗</a>`:''}</div>
+        </div></div></div>
+      </article>`;
+    const html = `${hero('法案推動・第11屆議案','把漏洞寫進法律',
+      `第11屆迄今參與議案<strong>${num(S.lead+S.co+S.sign)}案</strong>：領銜提案${S.lead}案、共同提案${S.co}案、連署${S.sign}案，涉及<strong>${S.laws}部法律</strong>。每一案都可連回立法院議案系統。`,'法')}
+    ${stats([[S.lead,'領銜提案','案'],[S.co,'共同提案','案'],[S.sign,'連署','案'],[S.laws,'涉及法律','部'],[S.passed,'已三讀（含參與案）','案']], true)}
+    <section class="sec"><div class="wrap">
+      <div class="sec-h rv"><h2>焦點：食品安全衛生管理法</h2><p>從消費者知情權，到邊境標準，再到檢驗制度——中聯油脂案暴露的「檢驗週期偏長、全靠行政公告」漏洞，由他領銜的§7/§47案直接入法。</p></div>
       <div class="lanes rv" data-d="1">
-        <div class="lane"><div class="k">標示透明線・7案</div><h3>消費者有權知道</h3><p>瘦肉精標示、原料原產地、嬰幼兒食品警語。</p>
-          <ul><li>§24/25 瘦肉精標示義務（主提）</li><li>§22 警語圖樣、§15 不得檢出</li><li>§22 原料原產地（連署）</li><li>§22/28 嬰幼兒食品警語</li></ul></div>
-        <div class="lane"><div class="k">邊境與標準線・1案</div><h3>不因談判退讓</h3><p>來源國標準較寬鬆者，即適用我國標準。</p>
+        <div class="lane"><div class="k">標示透明線</div><h3>消費者有權知道</h3><p>瘦肉精標示、原料原產地、嬰幼兒食品警語。</p>
+          <ul><li>§24/25 瘦肉精標示義務（領銜）</li><li>§22 警語圖樣、§15 不得檢出</li><li>§22 原料原產地（連署）</li><li>§22/28 嬰幼兒食品警語</li></ul></div>
+        <div class="lane"><div class="k">邊境與標準線</div><h3>不因談判退讓</h3><p>來源國標準較寬鬆者，即適用我國標準。</p>
           <ul><li>§31-1 邊境標準比照我國</li><li>呼應2025-04質詢：「關稅談判不得犧牲食安」</li></ul></div>
         <div class="lane hi"><div class="k">檢驗制度線・中聯案後</div><h3>把漏洞寫進法律</h3><p>季／月法定檢驗底線＋檢驗端強制通報免責。</p>
           <ul><li>§7 高風險業者每季、高風險品項每月</li><li>§47 檢驗機構通報免責</li><li>2026-08-04 排入院會</li></ul></div>
       </div>
     </div></section>
     <section class="sec tight"><div class="wrap">
-      <div class="sec-h rv"><h2>提案全圖</h2><p>依議案日期排列；進度為2026-07-30研究報告所載最新狀態。</p></div>
-      <div class="rows rv" data-d="1">${DATA.bills.map(b=>`
-        <div class="row"><div class="d">${b.date}</div><div class="art">${esc(b.art)}</div>
-          <div><h3>${esc(b.title)}</h3><p>${esc(b.desc)}</p></div>
-          <div class="st">${roleTxt(b.role)}<span>${esc(b.status)}</span></div></div>`).join('')}</div>
+      <div class="sec-h rv"><h2>依法律看</h2><p>點一部法律，下方清單只留該法的提案。</p></div>
+      <div class="lawgrid rv" data-d="1" id="lg">${laws.slice(0,24).map(([l,n])=>`<button data-law="${esc(l)}" class="${state.law===l?'on':''}"><span>${esc(l)}</span><i>${n}</i></button>`).join('')}</div>
     </div></section>
     <section class="sec"><div class="wrap">
-      <div class="sec-h rv"><h2>三軌並進</h2><p>行政院版、國民黨團版、委員提案——委員版的路線已被黨團旗艦版收編。</p></div>
-      <div class="steps rv" data-d="1">
-        <div class="step"><div class="k">2026-07-23</div><h3>行政院版</h3><p>衛福部擬具、政務委員陳時中審查，第4013次院會通過，動17條；夾帶網路業者管制專章。</p></div>
-        <div class="step"><div class="k">2026-07-24</div><h3>國民黨團版</h3><p>院總第20號、委員提案第11022804號，動10條，直對中聯案制度缺口；§22原產地、§30邊境逐批查驗同方向。</p></div>
-        <div class="step"><div class="k">2026-07-08</div><h3>委員提案17案</h3><p>衛環會第18次會議併案審查，僅詢答、未逐條，決議另擇期繼續審查。</p></div>
-        <div class="step"><div class="k">2026-08-04</div><h3>廖偉翔 §7/§47</h3><p>第二波新案潮中唯一直攻檢驗制度者；§7成為下階段併案審查的必然主戰場。</p></div>
+      <div class="sec-h rv"><h2>提案全圖</h2><p>依提案日期新到舊；進度為立法院議案系統最新狀態。</p></div>
+      <div class="fbar" id="fb">
+        <div class="tabs" id="rt"><button data-r="lead" class="${state.role==='lead'?'on':''}">領銜 ${S.lead}</button><button data-r="co" class="${state.role==='co'?'on':''}">共同提案 ${S.co}</button><button data-r="sign" class="${state.role==='sign'?'on':''}">連署 ${S.sign}</button></div>
+        <select id="fLaw">${opt(laws,state.law,'全部法律')}</select>
+        <select id="fStatus">${opt(statuses,state.status,'全部進度')}</select>
+        <input id="fText" type="search" placeholder="搜尋案名、案由…" value="${esc(state.text)}">
+        <span class="cnt" id="fCnt"></span>
+      </div>
+      <div class="xl" id="list"></div>
+      <div class="more" id="more"></div>
+    </div></section>` + nextLink('#/local','地方建設');
+    return { html, mount(){
+      const list=document.getElementById('list'), more=document.getElementById('more'), cnt=document.getElementById('fCnt');
+      const draw=()=>{ const r=filt(); cnt.textContent=`${num(r.length)} / ${num(all[state.role].length)} 案`; list.innerHTML=r.slice(0,state.n).map(card).join('')||'<div class="loading">沒有符合的議案</div>';
+        more.innerHTML=r.length>state.n?`<button class="btn line" id="moreBtn">再看 40 案（還有 ${num(r.length-state.n)} 案）</button>`:''; const mb=document.getElementById('moreBtn'); mb&&mb.addEventListener('click',()=>{state.n+=40;draw();});
+        document.querySelectorAll('#lg button').forEach(b=>b.classList.toggle('on',b.dataset.law===state.law)); document.getElementById('fLaw').value=state.law; };
+      document.getElementById('rt').addEventListener('click',e=>{const b=e.target.closest('[data-r]'); if(!b) return; state.role=b.dataset.r; state.n=40; document.querySelectorAll('#rt button').forEach(x=>x.classList.toggle('on',x===b)); draw();});
+      document.getElementById('lg').addEventListener('click',e=>{const b=e.target.closest('[data-law]'); if(!b) return; state.law=state.law===b.dataset.law?'':b.dataset.law; state.n=40; draw(); document.getElementById('fb').scrollIntoView({behavior:'smooth',block:'start'});});
+      const bind=(id,k)=>document.getElementById(id).addEventListener('input',e=>{state[k]=e.target.value;state.n=40;draw();});
+      bind('fLaw','law');bind('fStatus','status');bind('fText','text');
+      toggleX(list);
+      draw();
+    }};
+  },
+
+  /* ------------------------------------------------ 地方建設 */
+  async local(){
+    const D = await load('local'); const S=D.stats;
+    const q = qs();
+    const state = { dist:q.dist||'', li:q.li||'', cat:q.cat||'', year:'', multi:false, text:q.q||'', n:36 };
+    const cats = Object.entries(S.by_cat);
+    const years = Object.keys(S.by_year).sort().reverse();
+    const liOf = d => S.by_li.filter(([li])=>D.lizhang[d] && D.lizhang[d][li]);
+    const filt = () => D.sites.filter(s => (!state.dist || s.dist===state.dist) && (!state.li || s.li===state.li) && (!state.cat || s.cat===state.cat) &&
+      (!state.year || s.events.some(e=>e.date.startsWith(state.year))) && (!state.multi || s.n>1) &&
+      (!state.text || norm([s.title,s.li,s.location,s.thanks.join(' '),s.events.map(e=>e.title+' '+e.concl.join(' ')).join(' ')].join(' ')).includes(norm(state.text))));
+    const thanks = s => s.thanks.length ? `感謝 ${s.thanks.map(n=>`<b>${esc(n)}</b>`).join('、')} 里長協助反映與陳情` : (s.lizhang ? `${esc(s.li)}里長：${esc(s.lizhang)}` : '');
+    const cover = s => { const e=[...s.events].reverse().find(e=>e.photos.length); const cp=e&&e.photos[Math.floor(e.photos.length/2)]; return e ? `<div class="cover"><img loading="lazy" decoding="async" src="${esc(cp)}" alt="${esc(s.title)} 會勘照片"><span class="pc">📷 ${num(s.photos)}</span></div>` : ''; };
+    const site = (s,i) => `
+      <article class="site rv" data-id="${s.id}" data-d="${(i%3)+1}">
+        ${cover(s)}
+        <button class="top" aria-expanded="false">
+          <div class="tags"><span class="li">${esc(s.dist||'')}${esc(s.li||'')}</span><span>${esc(s.cat)}</span>${s.n>1?`<span>追蹤 ${s.n} 次</span>`:''}${s.progress?`<span>${esc(s.progress)}</span>`:''}</div>
+          <h3>${esc(s.title)}</h3>
+          ${s.location?`<div class="thx">📍 ${esc(s.location)}</div>`:''}
+          <div class="thx">${thanks(s)}</div>
+          <div class="meta"><span>${s.n>1?`${s.first} → ${s.last}`:s.last}</span>${s.hosts.length?`<span>${esc(s.hosts.join('、'))}主持</span>`:''}<span><b>點開看現場</b></span></div>
+        </button>
+        <div class="det"></div>
+      </article>`;
+    const detail = s => `<div class="tl2">${s.events.map(e=>`
+      <div class="ev"><div class="d">${e.date}${e.host?`<small>${esc(e.host)}主持</small>`:''}${e.src?`<small>${esc(e.src)}</small>`:''}${e.postponed?'<small>延期／取消</small>':''}</div>
+        <div class="t">${esc(e.core)}</div>
+        ${e.concl.map(c=>`<div class="c"><b>現場結論</b>${esc(c.replace(/^結論[:：]?\s*/,''))}</div>`).join('')}
+        ${e.notes.map(n=>`<div class="nt">${esc(n)}</div>`).join('')}
+        ${e.photos.length?`<div class="ph">${e.photos.slice(0,8).map((p,j)=>`<button data-p="${esc(p)}" data-cap="${e.date}・${esc(e.core)}"><img loading="lazy" decoding="async" src="${esc(p)}" alt="${e.date} 會勘照片 ${j+1}"></button>`).join('')}${e.photos.length>8?`<button class="m" data-all="${e.id}">＋${e.photos.length-8} 張</button>`:''}</div>`:''}
+      </div>`).join('')}</div>`;
+    const html = `${hero('地方建設・台中西屯、南屯','一條路、一條管線地做',
+      `${S.first.slice(0,4)}年${+S.first.slice(5,7)}月起，服務處會勘紀錄<strong>${num(S.events)}場</strong>、<strong>${S.li_total}個里</strong>、現場照片<strong>${num(S.photos)}張</strong>。每一場都有日期與地點，${S.with_concl}場留有現場結論；同一地點反覆追蹤的案子做成時間軸。`,'屯')}
+    ${stats([[S.events,'會勘場次<br>'+S.first+' 至 '+S.last,'場'],[S.sites,'建設案件（同址合併）','件'],[S.multi,'多次追蹤的案件<br>做成時間軸','件'],[S.photos,'現場照片','張']])}
+    <section class="sec slim"><div class="wrap">
+      <div class="steps rv">
+        <div class="step"><div class="k">陳情</div><h3>接到問題</h3><p>里長、里民、服務處案件——${S.thanks.length}位里長曾具名請託。</p></div>
+        <div class="step"><div class="k">會勘</div><h3>拉部門到現場</h3><p>建設局、水利局、自來水公司、學校、台電，一起站在現場看。</p></div>
+        <div class="step"><div class="k">結論</div><h3>當場定案</h3><p>${S.with_concl}場會勘留下書面結論，誰負責、下一步是什麼。</p></div>
+        <div class="step"><div class="k">追蹤</div><h3>回去再看</h3><p>${S.multi}件案子回場兩次以上，直到做完。</p></div>
       </div>
     </div></section>
     <section class="sec tight"><div class="wrap">
-      <div class="sec-h rv"><h2>其他法案</h2></div>
-      <div class="pills rv" data-d="1">${DATA.otherBills.map(o=>`<span class="pill">${esc(o.law)}<i>${esc(o.note)}</i></span>`).join('')}</div>
-    </div></section>` + nextLink('#/local','地方建設');
-  },
-
-  local(){
-    return hero('地方建設・台中西屯、南屯','一條路、一條管線地做',
-      '從里長陳情到工程完工，中間是<strong>一年的追蹤</strong>。這一頁只放已開工、已完工、已提案的項目。','屯') +
-    `<section class="sec tight"><div class="wrap">
-      <div class="steps rv">
-        <div class="step"><div class="k">陳情</div><h3>接到問題</h3><p>里長、里民、服務處案件。</p></div>
-        <div class="step"><div class="k">協調</div><h3>拉部門到現場</h3><p>市府建設局、自來水公司、議員聯手。</p></div>
-        <div class="step"><div class="k">追蹤</div><h3>盯進度</h3><p>忠勇路水管：陳情到完工一年。</p></div>
-        <div class="step"><div class="k">完工</div><h3>回報里民</h3><p>成果公開，日期可查。</p></div>
+      <div class="sec-h rv"><h2>依里看</h2><p>點一個里，下方只留該里的案件；數字是會勘場次。</p></div>
+      <div class="ligrid rv" data-d="1" id="lig">
+        <button class="hd"><b>西屯區</b></button>${liOf('西屯').map(([li,n])=>`<button data-li="${esc(li)}" data-dist="西屯" class="${state.li===li?'on':''}"><b>${esc(li)}</b><small>里長 ${esc(D.lizhang['西屯'][li])}</small><i>${n} 場</i></button>`).join('')}
+        <button class="hd"><b>南屯區</b></button>${liOf('南屯').map(([li,n])=>`<button data-li="${esc(li)}" data-dist="南屯" class="${state.li===li?'on':''}"><b>${esc(li)}</b><small>里長 ${esc(D.lizhang['南屯'][li])}</small><i>${n} 場</i></button>`).join('')}
       </div>
     </div></section>
     <section class="sec"><div class="wrap">
-      <div class="sec-h rv"><h2>成果與進行中</h2><p>依日期新到舊。</p></div>
-      <div class="cards">${DATA.local.map((c,i)=>`
-        <div class="card ${c.wide?'wide':''} rv" data-d="${(i%3)+1}"><div class="d">${c.date}</div><span class="tag">${esc(c.tag)}</span><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p><div class="src">出處：${esc(c.src)}</div></div>`).join('')}</div>
+      <div class="sec-h rv"><h2>建設案件</h2><p>依最近一次會勘新到舊。點開卡片看每一次到場的結論與照片。</p></div>
+      <div class="fbar" id="fb">
+        <div class="tabs" id="dt"><button data-dist="" class="${!state.dist?'on':''}">全部</button><button data-dist="西屯" class="${state.dist==='西屯'?'on':''}">西屯</button><button data-dist="南屯" class="${state.dist==='南屯'?'on':''}">南屯</button></div>
+        <select id="fCat">${opt(cats,state.cat,'全部類型')}</select>
+        <select id="fYear">${opt(years.map(y=>[y,S.by_year[y]]),state.year,'全部年份')}</select>
+        <label class="pill sm"><input type="checkbox" id="fMulti" style="margin-right:6px">只看多次追蹤</label>
+        <input id="fText" type="search" placeholder="搜尋路名、里、學校、結論…" value="${esc(state.text)}">
+        <span class="cnt" id="fCnt"></span>
+        <button class="clr" id="fClr">清除篩選</button>
+      </div>
+      <div class="sites" id="list" style="margin-top:22px"></div>
+      <div class="more" id="more"></div>
+      <p class="note" style="margin-top:20px">資料來源：黃馨慧議員與廖偉翔立委聯合服務處行程紀錄。主持人欄位依行程標註，未標註者為服務處團隊到場；照片為服務處現場拍攝；里長姓名依台中市西屯區、南屯區公所公告。</p>
     </div></section>
     <section class="inv big"><div class="wrap split">
-      <div class="rv"><div class="n">1<small style="font-size:.3em">年</small></div></div>
-      <div class="rv" data-d="1"><div class="eyebrow">忠勇路自來水管汰換</div>
-        <div class="t">接獲陳情到全線汰換完工，<b>整整一年的追蹤</b>。地方建設沒有捷徑，只有一次一次到場。</div>
-        <div class="s">2026-08-13 完工</div></div>
+      <div class="rv"><div class="n">${S.multi}<small style="font-size:.3em">件</small></div></div>
+      <div class="rv" data-d="1"><div class="eyebrow">回場兩次以上的案件</div>
+        <div class="t">地方建設沒有捷徑，只有<b>一次一次到場</b>。文山國小風雨球場從2023年會勘到2026年，潮洋公園停車場鋪面四次到場——每一次都留下日期與照片。</div>
+        <div class="s">同址合併規則：同一里、同一案名（去掉「第N次」「複勘」等字）或同一地址。</div></div>
     </div></section>` + nextLink('#/clarify','攻擊澄清');
+    return { html, mount(){
+      const list=document.getElementById('list'), more=document.getElementById('more'), cnt=document.getElementById('fCnt');
+      const byId={}; D.sites.forEach(s=>byId[s.id]=s);
+      const draw=()=>{ const r=filt(); cnt.textContent=`${num(r.length)} / ${num(D.sites.length)} 件`; list.innerHTML=r.slice(0,state.n).map(site).join('')||'<div class="loading" style="grid-column:1/-1">沒有符合的案件</div>';
+        more.innerHTML=r.length>state.n?`<button class="btn line" id="moreBtn">再看 36 件（還有 ${num(r.length-state.n)} 件）</button>`:''; const mb=document.getElementById('moreBtn'); mb&&mb.addEventListener('click',()=>{state.n+=36;draw();});
+        document.querySelectorAll('#lig [data-li]').forEach(b=>b.classList.toggle('on',b.dataset.li===state.li)); observe(); };
+      document.getElementById('lig').addEventListener('click',e=>{const b=e.target.closest('[data-li]'); if(!b) return; if(state.li===b.dataset.li){state.li='';} else {state.li=b.dataset.li; state.dist=b.dataset.dist;} state.n=36; document.querySelectorAll('#dt button').forEach(x=>x.classList.toggle('on',x.dataset.dist===state.dist)); draw(); document.getElementById('fb').scrollIntoView({behavior:'smooth',block:'start'});});
+      document.getElementById('dt').addEventListener('click',e=>{const b=e.target.closest('[data-dist]'); if(!b) return; state.dist=b.dataset.dist; state.li=''; state.n=36; document.querySelectorAll('#dt button').forEach(x=>x.classList.toggle('on',x===b)); draw();});
+      const bind=(id,k)=>document.getElementById(id).addEventListener('input',e=>{state[k]=e.target.type==='checkbox'?e.target.checked:e.target.value;state.n=36;draw();});
+      bind('fCat','cat');bind('fYear','year');bind('fText','text');bind('fMulti','multi');
+      document.getElementById('fClr').addEventListener('click',()=>{Object.assign(state,{dist:'',li:'',cat:'',year:'',multi:false,text:'',n:36}); document.getElementById('fCat').value='';document.getElementById('fYear').value='';document.getElementById('fText').value='';document.getElementById('fMulti').checked=false; document.querySelectorAll('#dt button').forEach(x=>x.classList.toggle('on',x.dataset.dist==='')); draw();});
+      list.addEventListener('click',e=>{
+        const pb=e.target.closest('[data-p]'); if(pb){ const all=[...pb.parentElement.querySelectorAll('[data-p]')]; openLb(all.map(b=>b.dataset.p), all.indexOf(pb), pb.dataset.cap); return; }
+        const ab=e.target.closest('[data-all]'); if(ab){ const s=byId[ab.closest('.site').dataset.id]; const ev=s.events.find(x=>String(x.id)===ab.dataset.all); openLb(ev.photos,8,`${ev.date}・${ev.core}`); return; }
+        const t=e.target.closest('.top'); if(!t) return; const art=t.parentElement; const s=byId[art.dataset.id]; const o=art.classList.toggle('open'); t.setAttribute('aria-expanded',o);
+        const det=art.querySelector('.det'); if(o && !det.innerHTML){ det.innerHTML=detail(s); } if(o) art.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+      draw();
+    }};
   },
 
   clarify(){
@@ -600,7 +798,7 @@ const footer = () => {
   return `<footer><div class="wrap">
     <div><div class="name">${esc(SITE.name)}</div><div class="meta">${esc(SITE.title)}・${esc(SITE.district)}・${esc(SITE.committee)}</div></div>
     <div class="soc">${soc}</div>
-    <div class="fine">資料截至 ${SITE.updated}・質詢內容以立法院公報為準，議案進度以立法院議事系統為準。</div>
+    <div class="fine">資料截至 ${SITE.updated}・質詢內容以立法院公報為準，議案進度以立法院議事系統為準，會勘紀錄以服務處行程為準。<br>質詢卡由逐字稿整理並經逐句核對，如與公報原文有出入，以公報為準。</div>
   </div></footer>`;
 };
 
@@ -611,15 +809,21 @@ const app = document.getElementById('app');
 const curtain = document.getElementById('curtain');
 const curtainText = document.getElementById('curtainText');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let current = null, busy = false;
+let current = null, busy = false, renderSeq = 0;
 
 function routeKey(){ const h=location.hash.replace(/^#\/?/,'').split('?')[0]; return pages[h]?h:'home'; }
 
-function render(key){
-  app.innerHTML = pages[key]() + footer();
+async function render(key){
+  const seq = ++renderSeq;
   document.title = key==='home' ? '廖偉翔官方網站' : `${TITLES[key]}｜廖偉翔官方網站`;
   document.querySelectorAll('#menu a').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===`#/${key}`));
+  let out;
+  try{ out = pages[key](); if(out && typeof out.then==='function'){ app.innerHTML = loading(); out = await out; } }
+  catch(e){ console.error(e); out = `<div class="wrap loading">資料載入失敗，請重新整理。</div>`; }
+  if(seq!==renderSeq) return;
+  app.innerHTML = (typeof out==='string' ? out : out.html) + footer();
   window.scrollTo({top:0,behavior:'instant'});
+  if(out && out.mount) out.mount();
   observe();
   current = key;
 }
@@ -639,7 +843,7 @@ document.addEventListener('click', e=>{
   const a = e.target.closest('a[data-nav]'); if(!a) return;
   const href = a.getAttribute('href'); if(!href.startsWith('#/')) return;
   e.preventDefault();
-  const k = href.replace('#/','')||'home';
+  const k = href.replace('#/','').split('?')[0]||'home';
   if(k===current){ window.scrollTo({top:0,behavior:'smooth'}); return; }
   history.pushState(null,'',href); go(pages[k]?k:'home');
 });
@@ -649,15 +853,27 @@ window.addEventListener('popstate', ()=>{ const k=routeKey(); if(k!==current) go
 let io;
 function observe(){
   io && io.disconnect();
-  io = new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); en.target.querySelectorAll('[data-count]').forEach(count); io.unobserve(en.target);} }); }, {threshold:.12, rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  io = new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); en.target.querySelectorAll('[data-count]').forEach(count); io.unobserve(en.target);} }); }, {threshold:.08, rootMargin:'0px 0px -4% 0px'});
+  document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el));
 }
 function count(el){
   if(el.dataset.done || reduce) return; el.dataset.done=1;
   const to = +el.dataset.count, t0 = performance.now(), dur = 900;
-  const tick = now => { const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=Math.round(to*e); if(p<1) requestAnimationFrame(tick); };
+  const tick = now => { const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=num(Math.round(to*e)); if(p<1) requestAnimationFrame(tick); };
   requestAnimationFrame(tick);
 }
+
+/* lightbox */
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCap=document.getElementById('lbCap');
+let lbList=[], lbI=0, lbCapTxt='';
+function showLb(){ lbImg.src=lbList[lbI]; lbCap.textContent=`${lbCapTxt}　${lbI+1} / ${lbList.length}`; }
+function openLb(list,i,cap){ lbList=list; lbI=Math.min(i,list.length-1); lbCapTxt=cap||''; lb.classList.add('on'); showLb(); document.body.style.overflow='hidden'; }
+function closeLb(){ lb.classList.remove('on'); lbImg.src=''; document.body.style.overflow=''; }
+document.getElementById('lbClose').addEventListener('click',closeLb);
+document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();lbI=(lbI-1+lbList.length)%lbList.length;showLb();});
+document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();lbI=(lbI+1)%lbList.length;showLb();});
+lb.addEventListener('click',e=>{ if(e.target===lb) closeLb(); });
+addEventListener('keydown',e=>{ if(!lb.classList.contains('on')) return; if(e.key==='Escape') closeLb(); if(e.key==='ArrowLeft') lbI=(lbI-1+lbList.length)%lbList.length; if(e.key==='ArrowRight') lbI=(lbI+1)%lbList.length; if(e.key.startsWith('Arrow')) showLb(); });
 
 /* nav solid on scroll */
 const nav = document.getElementById('nav');
