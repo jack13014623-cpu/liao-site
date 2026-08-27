@@ -17,6 +17,12 @@
   --ash-2:#e9e6e2;
   --graphite:#5c5753;
   --line:#e4e1dd;
+  --blue:#1A63C8;
+  --blue-2:#134E9E;
+  --navy:#112A4D;
+  --navy-2:#0B1B33;
+  --sky:#3CA1EE;
+  --wash:#E6F0FB;
   --fg:var(--ink);
   --bg:var(--paper);
   --card:var(--ash);
@@ -34,12 +40,14 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --fg:#f5f2ee; --bg:#141212; --card:#1f1c1b; --card-2:#2a2624; --muted:#a9a29c; --line:#2c2826;
-    --inv-bg:#f5f2ee; --inv-fg:#141212;
+        --inv-bg:#f5f2ee; --inv-fg:#141212;
+    --blue:#5B9BE6; --blue-2:#3F82D1; --navy:#0F213D; --navy-2:#0A1628; --sky:#7DBFF4; --wash:#182A45;
   }
 }
 :root[data-theme="dark"]{
   --fg:#f5f2ee; --bg:#141212; --card:#1f1c1b; --card-2:#2a2624; --muted:#a9a29c; --line:#2c2826;
   --inv-bg:#f5f2ee; --inv-fg:#141212;
+  --blue:#5B9BE6; --blue-2:#3F82D1; --navy:#0F213D; --navy-2:#0A1628; --sky:#7DBFF4; --wash:#182A45;
 }
 
 /* ---------- base ---------- */
@@ -478,6 +486,107 @@ footer .fine{grid-column:1/-1;font-family:var(--mono);font-size:.7rem;color:var(
   #gm .yr{top:auto;bottom:calc(52% + 50px);left:18px;font-size:2.2rem}
   #gm .nums b{font-size:1.15rem}
 }
+
+/* ── 藍色點綴（臺中藍 / 海軍藍 / 天空藍） ── */
+.eyebrow{color:var(--blue)}
+.brand small{color:var(--blue)}
+.menu a::after{background:var(--blue)}
+.btn.fill{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.fill:hover{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.line:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.hero h1 .w.hl i{color:var(--blue)}
+.hero .sub em{font-style:normal;color:var(--blue)}
+.hero .lede strong{background:linear-gradient(transparent 60%,var(--wash) 60%)}
+.stats .n small{color:var(--blue)}
+.stats.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.stats.dark>div{border-color:rgba(255,255,255,.16)}
+.stats.dark .l{color:rgba(255,255,255,.68)}
+.inv{background:var(--navy);color:#fff}
+.inv .eyebrow{color:var(--sky)}
+.inv .sec-h p{color:rgba(255,255,255,.72)}
+.ticker .it b{color:var(--blue)}
+.door .k{color:var(--blue)}
+.door::before{background:var(--navy)}
+.door:hover{color:#fff}
+.door:hover .k{color:var(--sky)}
+.pill:hover,.pill.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.x .hd .m span.hi{border-color:var(--blue);color:var(--blue)}
+.lane.hi{background:var(--blue);color:#fff}
+.step .k,.next .lab{color:var(--blue)}
+.next a:hover{color:var(--blue)}
+.loading i{background:var(--blue)}
+.gmc{background:radial-gradient(120% 90% at 0% 0%,#1b3f75 0%,var(--navy) 45%,var(--navy-2) 100%);color:#fff}
+.gmc .pv{color:var(--sky)}
+.gmc .tx .btn{border-color:#fff;color:#fff}
+.gmc .tx .btn.fill{background:var(--sky);border-color:var(--sky);color:var(--navy-2)}
+.gmc .tx .btn.fill:hover{background:#fff;border-color:#fff}
+.gmc .tx .lis button{border-color:rgba(255,255,255,.35);color:#fff}
+.gmc .tx .lis button:hover{background:var(--sky);color:var(--navy-2)}
+footer{background:var(--navy);color:#fff;border-top:0;margin-top:60px;padding:56px 0 44px}
+footer .meta{color:rgba(255,255,255,.7)}
+footer .fine{color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.16)}
+footer .soc a{border-color:rgba(255,255,255,.45)}
+footer .soc a:hover{background:var(--sky);border-color:var(--sky);color:var(--navy-2)}
+
+/* ── 照片：漸層羽化，不切格子 ── */
+.hero.hp{min-height:clamp(420px,58vh,640px);display:flex;flex-direction:column;justify-content:center}
+.hero.hp .ghost{display:none}
+.hero.hp:not(.hero-home) h1{font-size:clamp(2.4rem,6.6vw,5.6rem)}
+.stats .n{white-space:nowrap}
+.hero .wrap{position:relative;z-index:1}
+.hero .ph{position:absolute;top:0;right:0;bottom:0;width:min(60%,900px);z-index:0;pointer-events:none;overflow:hidden}
+.hero .ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--pos,55% 35%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 42%),linear-gradient(to bottom,transparent 0,#000 14%,#000 84%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 42%),linear-gradient(to bottom,transparent 0,#000 14%,#000 84%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-composite:intersect;
+  animation:kb 8s var(--ease) both}
+.hero .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0,color-mix(in srgb,var(--bg) 55%,transparent) 28%,transparent 62%),linear-gradient(0deg,color-mix(in srgb,var(--navy) 22%,transparent),transparent 45%)}
+.hero-home .ph{width:min(58%,900px)}
+.hero-home .ph img{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 56%),linear-gradient(to bottom,transparent 0,#000 12%,#000 86%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 56%),linear-gradient(to bottom,transparent 0,#000 12%,#000 86%,transparent 100%)}
+.hero-home .sub{max-width:24em}
+@keyframes kb{from{transform:scale(1.07)}to{transform:none}}
+@media (max-width:760px){
+  .hero .ph{position:relative;width:100%;height:56vw;min-height:210px;margin:-10px 0 -18px;order:-1}
+  .hero-home .ph{height:64vw;margin-top:-8px}
+  .hero .ph img{-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 60%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0,#000 60%,transparent 100%);-webkit-mask-composite:source-over;mask-composite:add;object-position:var(--pos-m,var(--pos,50% 30%))}
+  .hero .ph::after{background:linear-gradient(0deg,var(--bg) 0,transparent 55%)}
+  .hero.hp{min-height:0;padding-top:0}
+  .hero-home.hp{min-height:0;padding-top:0}
+}
+/* 全幅海軍藍照片帶：三張照片橫向互相溶接 */
+.strip{position:relative;background:var(--navy);color:#fff;overflow:hidden;isolation:isolate}
+.strip .ps{position:relative;height:clamp(360px,46vw,620px)}
+.strip .p{position:absolute;top:0;bottom:0;width:41%;left:calc(var(--i)*29.5%);overflow:hidden}
+.strip .p img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 40%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 22%,#000 78%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 70%,transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 22%,#000 78%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 70%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-composite:intersect;opacity:.92}
+.strip .p:first-child img{-webkit-mask-image:linear-gradient(to right,#000 0,#000 72%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 70%,transparent 100%);mask-image:linear-gradient(to right,#000 0,#000 72%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 70%,transparent 100%)}
+.strip .p:last-child img{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 28%,#000 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 70%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 28%,#000 100%),linear-gradient(to bottom,transparent 0,#000 12%,#000 70%,transparent 100%)}
+.strip .ps::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--navy) 0,color-mix(in srgb,var(--navy) 70%,transparent) 30%,transparent 65%)}
+.strip .tx{position:absolute;left:0;right:0;bottom:0;z-index:1;padding-bottom:clamp(28px,4vw,48px)}
+.strip .tx .eyebrow{color:var(--sky)}
+.strip .tx h2{font-size:clamp(1.7rem,3.6vw,2.8rem);margin:10px 0 12px;max-width:16em}
+.strip .tx p{max-width:34em;color:rgba(255,255,255,.78);font-size:.98rem}
+.strip .tx .btn{margin-top:18px;border-color:#fff;color:#fff}
+.strip .tx .btn.fill{background:var(--sky);border-color:var(--sky);color:var(--navy-2)}
+.strip .tx .btn.fill:hover{background:#fff;border-color:#fff}
+.strip .cap{position:absolute;right:clamp(18px,4vw,40px);top:18px;z-index:1;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:rgba(255,255,255,.55)}
+@media (max-width:760px){
+  .strip .ps{height:auto;min-height:0;padding-top:118vw}
+  .strip .p{width:100%;left:0;height:44vw;top:calc(var(--i)*37vw);bottom:auto}
+  .strip .p img,.strip .p:first-child img,.strip .p:last-child img{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 70%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 30%,#000 70%,transparent 100%);-webkit-mask-composite:source-over;mask-composite:add}
+  .strip .ps::after{background:linear-gradient(0deg,var(--navy) 0,color-mix(in srgb,var(--navy) 80%,transparent) 32%,transparent 60%)}
+  .strip .tx{position:relative;padding:8px 0 34px}
+}
+/* 大數字帶：照片藏在數字後面 */
+.big.hp{position:relative;overflow:hidden;isolation:isolate}
+.big.hp .bgph{position:absolute;inset:0 auto 0 0;width:52%;z-index:-1;pointer-events:none}
+.big.hp .bgph img{display:block;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 40%);opacity:.5;
+  -webkit-mask-image:linear-gradient(to right,#000 0,#000 40%,transparent 100%);mask-image:linear-gradient(to right,#000 0,#000 40%,transparent 100%)}
+.big.hp .bgph::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,color-mix(in srgb,var(--navy) 80%,transparent),color-mix(in srgb,var(--navy) 30%,transparent))}
+@media (max-width:760px){.big.hp .bgph{width:100%}.big.hp .bgph img{opacity:.3;-webkit-mask-image:none;mask-image:none}}
+@media (prefers-reduced-motion:reduce){.hero .ph img{animation:none}}
 </style>
 </head>
 <body>
@@ -720,9 +829,10 @@ const DATA = {
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const md = s => esc(s).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (m,t,h) => h.startsWith('#/') ? `<a href="${h}" data-nav>${t}</a>` : `<a href="${h}" target="_blank" rel="noopener">${t}</a>`);
 const num = n => Number(n).toLocaleString('zh-Hant-TW');
-const words = t => t.split('').map((ch,i)=>`<span class="w"><i style="animation-delay:${(i*0.035).toFixed(3)}s">${esc(ch)}</i></span>`).join('');
-const hero = (eyebrow, title, lede, ghost) => `
-  <section class="hero"><div class="wrap">
+const words = t => { let hl=false; return t.split('').map((ch,i)=>{ if(ch==='【'){hl=true;return '';} if(ch==='】'){hl=false;return '';} if(ch==='|'){return '<br>';} return `<span class="w${hl?' hl':''}"><i style="animation-delay:${(i*0.035).toFixed(3)}s">${esc(ch)}</i></span>`; }).join(''); };
+const photo = (src, pos, alt, m) => `<div class="ph" style="--pos:${pos||'55% 35%'}${m?`;--pos-m:${m}`:''}"><img src="img/${src}.jpg" srcset="img/${src}-s.jpg 800w, img/${src}.jpg 1600w" sizes="(max-width:760px) 100vw, 60vw" alt="${esc(alt||'')}" loading="eager" decoding="async"></div>`;
+const hero = (eyebrow, title, lede, ghost, ph) => `
+  <section class="hero${ph?' hp':''}">${ph||''}<div class="wrap">
     <div class="eyebrow rv">${esc(eyebrow)}</div>
     <h1>${words(title)}</h1>
     <p class="lede rv" data-d="2">${lede}</p>
@@ -746,18 +856,30 @@ const pages = {
     const H = await load('home');
     const tk = DATA.news.slice(0,8).map(n=>`<span class="it"><b>${n.date}</b>${esc(n.title)}</span>`).join('');
     return `
-    <section class="hero hero-home"><div class="wrap">
+    <section class="hero hero-home hp">${photo('site-point','40% 28%','廖偉翔在會勘現場指向上方，與市議員朱暖英一同查看','60% 20%')}<div class="wrap">
       <div class="eyebrow rv">${esc(SITE.title)}・${esc(SITE.district)}</div>
       <h1>${words(SITE.name)}</h1>
-      <div class="sub rv" data-d="1">把部長釘在數字上，把選區的路一條一條做出來。</div>
+      <div class="sub rv" data-d="1">把部長釘在<em>數字</em>上，把選區的路<em>一條一條</em>做出來。</div>
       <p class="lede rv" data-d="2">${esc(SITE.committee)}。食安、社福、台中建設——<strong>攻政策不攻個人，每一句話都有公報可查。</strong></p>
       <div class="cta rv" data-d="3">
         <a class="btn fill" href="#/interp" data-nav>看重點質詢 <span class="ar">→</span></a>
         <a class="btn line" href="#/local" data-nav>西屯、南屯做了什麼</a>
       </div>
-    </div><div class="ghost">廖</div></section>
+    </div></section>
     <div class="ticker rv"><div class="tk">${tk}${tk}</div></div>
     ${stats([[H.interp,'公報質詢場次<br>逐字稿全文接地，附公報頁碼','場'],[H.bills,'第11屆議案參與<br>領銜、共同提案、連署','案'],[H.local,'選區會勘紀錄<br>'+H.local_first+' 起，附現場照片','場'],[H.li,'有會勘紀錄的里<br>西屯、南屯','里']])}
+    <section class="strip rv"><div class="ps">
+      <div class="p" style="--i:0;--pos:68% 45%"><img src="img/elder-old-man.jpg" alt="廖偉翔蹲下握著長者的手" loading="lazy"></div>
+      <div class="p" style="--i:1;--pos:50% 40%"><img src="img/elder-hands.jpg" alt="廖偉翔與長者握手交談" loading="lazy"></div>
+      <div class="p" style="--i:2;--pos:55% 35%"><img src="img/elder-flower-give.jpg" alt="廖偉翔送花給長者" loading="lazy"></div>
+      <span class="cap">現場・SERVICE</span>
+      <div class="tx"><div class="wrap">
+        <div class="eyebrow">在現場</div>
+        <h2>選區的事，先到現場再說</h2>
+        <p>${num(H.local)} 場會勘、${H.li} 個里，${H.local_first} 起每一場都留下日期、結論與照片。</p>
+        <a class="btn fill" href="#/local" data-nav>看地方建設 <span class="ar">→</span></a>
+      </div></div>
+    </div></section>
     <section class="sec"><div class="wrap">
       <div class="sec-h rv"><h2>五個頁面，五條戰線</h2><p>每一頁都是一個完整故事：從問題、數字到結果。</p></div>
       <div class="doors rv" data-d="1">
@@ -802,8 +924,8 @@ const pages = {
           <div class="full ft"><span class="gz">${esc(c.gz)}</span><a href="${esc(c.pdf)}" target="_blank" rel="noopener">公報 PDF・第 ${esc(c.pages)} 頁 ↗</a><span>議程：${esc(c.agenda)}</span></div>
         </div></div></div>
       </article>`;
-    const html = `${hero('重點質詢・立法院公報逐字稿','把部長釘在數字上',
-      `第11屆迄今公報質詢<strong>${num(S.sessions)}場</strong>、逐字稿<strong>${num(Math.round(S.chars/10000))}萬字</strong>，全部拆成「摘要／要求／指正缺失」${S.followups?`，其中<strong>${S.followups}場</strong>附有查得到出處的後續進度`:''}。每一張卡都附公報編號與頁碼，點開可回查原文。`,'質')}
+    const html = `${hero('重點質詢・立法院公報逐字稿','把部長釘在【數字】上',
+      `第11屆迄今公報質詢<strong>${num(S.sessions)}場</strong>、逐字稿<strong>${num(Math.round(S.chars/10000))}萬字</strong>，全部拆成「摘要／要求／指正缺失」${S.followups?`，其中<strong>${S.followups}場</strong>附有查得到出處的後續進度`:''}。每一張卡都附公報編號與頁碼，點開可回查原文。`,'質',photo('interp-podium','30% 40%','廖偉翔在立法院質詢台上，以簡報說明長照給付標準','30% 35%'))}
     ${stats([[S.sessions,'公報質詢場次<br>'+S.first+' 至 '+S.last,'場'],[S.demands,'對部會提出的具體要求','條'],[S.faults,'指正的缺失與失職','條'],[coms.length,'跨委員會質詢<br>'+coms.map(([k])=>k.replace('委員會','')).join('、'),'個']])}
     <section class="sec slim"><div class="wrap">
       <div class="pills rv" id="tp"><button class="pill sm ${!state.topic?'on':''}" data-t="">全部議題</button>${topics.map(([t,n])=>`<button class="pill sm ${state.topic===t?'on':''}" data-t="${esc(t)}">${esc(t)}<i>${n}</i></button>`).join('')}</div>
@@ -864,8 +986,8 @@ const pages = {
           <div class="full ft"><span class="gz">${esc(b.id)}</span>${b.url?`<a href="${esc(b.url)}" target="_blank" rel="noopener">立法院議案系統 ↗</a>`:''}</div>
         </div></div></div>
       </article>`;
-    const html = `${hero('法案推動・第11屆議案','把漏洞寫進法律',
-      `第11屆迄今參與議案<strong>${num(S.lead+S.co+S.sign)}案</strong>：領銜提案${S.lead}案、共同提案${S.co}案、連署${S.sign}案，涉及<strong>${S.laws}部法律</strong>。每一案都可連回立法院議案系統。`,'法')}
+    const html = `${hero('法案推動・第11屆議案','把漏洞寫進【法律】',
+      `第11屆迄今參與議案<strong>${num(S.lead+S.co+S.sign)}案</strong>：領銜提案${S.lead}案、共同提案${S.co}案、連署${S.sign}案，涉及<strong>${S.laws}部法律</strong>。每一案都可連回立法院議案系統。`,'法',photo('interp-chair','45% 30%','廖偉翔在立法院委員會主席席位','50% 25%'))}
     ${stats([[S.lead,'領銜提案','案'],[S.co,'共同提案','案'],[S.sign,'連署','案'],[S.laws,'涉及法律','部'],[S.passed,'已三讀（含參與案）','案']], true)}
     <section class="sec"><div class="wrap">
       <div class="sec-h rv"><h2>焦點：食品安全衛生管理法</h2><p>從消費者知情權，到邊境標準，再到檢驗制度——中聯油脂案暴露的「檢驗週期偏長、全靠行政公告」漏洞，由他領銜的§7/§47案直接入法。</p></div>
@@ -940,8 +1062,8 @@ const pages = {
         ${e.notes.map(n=>`<div class="nt">${esc(n)}</div>`).join('')}
         ${e.photos.length?`<div class="ph">${e.photos.slice(0,8).map((p,j)=>`<button data-p="${esc(p)}" data-cap="${e.date}・${esc(e.core)}"><img loading="lazy" decoding="async" src="${esc(p)}" alt="${e.date} 會勘照片 ${j+1}"></button>`).join('')}${e.photos.length>8?`<button class="m" data-all="${e.id}">＋${e.photos.length-8} 張</button>`:''}</div>`:''}
       </div>`).join('')}</div>`;
-    const html = `${hero('地方建設・台中西屯、南屯','一條路、一條管線地做',
-      `${S.first.slice(0,4)}年${+S.first.slice(5,7)}月起，服務處會勘紀錄<strong>${num(S.events)}場</strong>、<strong>${S.li_total}個里</strong>、現場照片<strong>${num(S.photos)}張</strong>。每一場都有日期與地點，${S.with_concl}場留有現場結論；同一地點反覆追蹤的案子做成時間軸。`,'屯')}
+    const html = `${hero('地方建設・台中西屯、南屯','一條路、|一條管線地【做】',
+      `${S.first.slice(0,4)}年${+S.first.slice(5,7)}月起，服務處會勘紀錄<strong>${num(S.events)}場</strong>、<strong>${S.li_total}個里</strong>、現場照片<strong>${num(S.photos)}張</strong>。每一場都有日期與地點，${S.with_concl}場留有現場結論；同一地點反覆追蹤的案子做成時間軸。`,'屯',photo('site-sign','30% 35%','廖偉翔在路口會勘現場與里民討論','60% 30%'))}
     ${stats([[S.events,'會勘場次<br>'+S.first+' 至 '+S.last,'場'],[S.sites,'建設案件（同址合併）','件'],[S.multi,'多次追蹤的案件<br>做成時間軸','件'],[S.photos,'現場照片','張']])}
     <section class="sec slim"><div class="wrap">
       <div class="gmc rv" id="gmCard" role="button" tabindex="0" aria-label="打開政績地圖">
@@ -962,6 +1084,17 @@ const pages = {
         <div class="step"><div class="k">結論</div><h3>當場定案</h3><p>${S.with_concl}場會勘留下書面結論，誰負責、下一步是什麼。</p></div>
         <div class="step"><div class="k">追蹤</div><h3>回去再看</h3><p>${S.multi}件案子回場兩次以上，直到做完。</p></div>
       </div>
+    </div></section>
+    <section class="strip rv"><div class="ps">
+      <div class="p" style="--i:0;--pos:50% 30%"><img src="img/site-doc.jpg" alt="廖偉翔與市府人員在現場查看文件" loading="lazy"></div>
+      <div class="p" style="--i:1;--pos:92% 40%"><img src="img/grid-plan.jpg" alt="會勘現場翻閱強化電網韌性計畫資料" loading="lazy"></div>
+      <div class="p" style="--i:2;--pos:60% 25%"><img src="img/tower.jpg" alt="會勘現場的高壓電塔" loading="lazy"></div>
+      <span class="cap">會勘・ON SITE</span>
+      <div class="tx"><div class="wrap">
+        <div class="eyebrow">會勘現場</div>
+        <h2>圖面攤開來，對著現場看</h2>
+        <p>每一場會勘都有日期、地點與現場照片；${S.with_concl} 場留有當場的結論。下方案件卡可以看到每一次到場的紀錄。</p>
+      </div></div>
     </div></section>
     <section class="sec tight"><div class="wrap">
       <div class="sec-h rv"><h2>依里看</h2><p>點一個里，下方只留該里的案件；數字是會勘場次。</p></div>
@@ -985,7 +1118,7 @@ const pages = {
       <div class="more" id="more"></div>
       <p class="note" style="margin-top:20px">資料來源：黃馨慧議員與廖偉翔立委聯合服務處行程紀錄。主持人欄位依行程標註，未標註者為服務處團隊到場；照片為服務處現場拍攝；里長姓名依台中市西屯區、南屯區公所公告。</p>
     </div></section>
-    <section class="inv big"><div class="wrap split">
+    <section class="inv big hp"><div class="bgph" style="--pos:50% 35%"><img src="img/lizhang-mic.jpg" alt="" loading="lazy"></div><div class="wrap split">
       <div class="rv"><div class="n">${S.multi}<small style="font-size:.3em">件</small></div></div>
       <div class="rv" data-d="1"><div class="eyebrow">回場兩次以上的案件</div>
         <div class="t">地方建設沒有捷徑，只有<b>一次一次到場</b>。文山國小風雨球場從2023年會勘到2026年，潮洋公園停車場鋪面四次到場——每一次都留下日期與照片。</div>
@@ -1025,7 +1158,7 @@ const pages = {
     const recent = live.filter(c=>c.group!=='recall');
     const recall = live.filter(c=>c.group==='recall');
     const cecLinks = [{l:'中選會｜罷免案公告（含理由書、答辯書）',h:'https://web.cec.gov.tw/central/article/60304'},{l:'中選會｜公告 PDF',h:'https://web.cec.gov.tw/api/file/ed2caa4b-3667-4e91-878f-2b209975cae3.pdf'},{l:'中央社｜理由與答辯書全文',h:'https://www.cna.com.tw/news/aipl/202507035020.aspx'},{l:'中央社｜7/26 開票結果',h:'https://www.cna.com.tw/news/aipl/202507260141.aspx'}];
-    return hero('攻擊澄清','面對攻擊，用數字回應','左邊是他們說的，右邊是查得到的事實。<strong>攻政策不攻個人</strong>，回應也只談制度與數字。線索列可直接點進新聞、法案與地方建設紀錄。','澄') +
+    return hero('攻擊澄清','面對攻擊，用【數字】回應','左邊是他們說的，右邊是查得到的事實。<strong>攻政策不攻個人</strong>，回應也只談制度與數字。線索列可直接點進新聞、法案與地方建設紀錄。','澄') +
     `<section class="sec tight"><div class="wrap">${recent.map(card).join('')}</div></section>
     <section class="sec"><div class="wrap">
       <div class="sec-h rv"><h2>2025 罷免案公報<br>他們的理由 × 我們的答辯</h2><p>2025-07-26 投票，不同意 106,534 票、同意 83,812 票，罷免不通過。以下逐點對照中選會公告的罷免理由書與答辯書；「他們說」附原始出處，「事實是」附法案號、會勘紀錄與新聞。</p></div>
@@ -1048,8 +1181,8 @@ const pages = {
     const byMonth = {};
     DATA.news.forEach(n=>{ const m=n.date.slice(0,7); (byMonth[m]=byMonth[m]||[]).push(n); });
     const months = Object.keys(byMonth).sort().reverse();
-    return hero('最新消息','每一天，都在做事',
-      `資料更新至 <strong>${SITE.updated}</strong>。依日期新到舊，標題為媒體或立法院原始標題。`,'新') +
+    return hero('最新消息','每一天，都在【做事】',
+      `資料更新至 <strong>${SITE.updated}</strong>。依日期新到舊，標題為媒體或立法院原始標題。`,'新',photo('site-look','40% 30%','廖偉翔在會勘現場抬頭查看','45% 25%')) +
     `<section class="sec tight"><div class="wrap"><div class="news rv">${months.map(m=>`
       <div class="mh">${m.replace('-','・')}</div>${byMonth[m].map(n=>`
       <div class="ni"><div class="d">${n.date}</div><div><h3>${n.url?`<a class="h" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>`:esc(n.title)}</h3>${n.note?`<p>${esc(n.note)}</p>`:''}</div><div class="o">${esc(n.outlet)}</div></div>`).join('')}`).join('')}
